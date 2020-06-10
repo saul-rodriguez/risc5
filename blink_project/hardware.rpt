@@ -1,0 +1,101 @@
+
+icetime topological timing analysis report
+==========================================
+
+Info: max_span_hack is enabled: estimate is conservative.
+
+Report for critical path:
+-------------------------
+
+        lc40_4_29_7 (LogicCell40) [clk] -> lcout: 0.896 ns
+     0.896 ns net_15790 (blink_counter[0])
+        t29 (LocalMux) I -> O: 0.486 ns
+        inmux_5_29_23985_24012 (InMux) I -> O: 0.382 ns
+        lc40_5_29_0 (LogicCell40) in1 -> carryout: 0.382 ns
+     2.147 ns t2
+        lc40_5_29_1 (LogicCell40) carryin -> carryout: 0.186 ns
+     2.333 ns net_24016 (blink_counter_SB_CARRY_CI_CO[2])
+        lc40_5_29_2 (LogicCell40) carryin -> carryout: 0.186 ns
+     2.519 ns net_24022 (blink_counter_SB_CARRY_CI_CO[3])
+        lc40_5_29_3 (LogicCell40) carryin -> carryout: 0.186 ns
+     2.705 ns net_24028 (blink_counter_SB_CARRY_CI_CO[4])
+        lc40_5_29_4 (LogicCell40) carryin -> carryout: 0.186 ns
+     2.891 ns net_24034 (blink_counter_SB_CARRY_CI_CO[5])
+        lc40_5_29_5 (LogicCell40) carryin -> carryout: 0.186 ns
+     3.077 ns net_24040 (blink_counter_SB_CARRY_CI_CO[6])
+        lc40_5_29_6 (LogicCell40) carryin -> carryout: 0.186 ns
+     3.263 ns net_24046 (blink_counter_SB_CARRY_CI_CO[7])
+        lc40_5_29_7 (LogicCell40) carryin -> carryout: 0.186 ns
+     3.449 ns net_24052 (blink_counter_SB_CARRY_CI_CO[8])
+        t3 (ICE_CARRY_IN_MUX) carryinitin -> carryinitout: 0.289 ns
+        lc40_5_30_0 (LogicCell40) carryin -> carryout: 0.186 ns
+     3.925 ns net_24133 (blink_counter_SB_CARRY_CI_CO[9])
+        lc40_5_30_1 (LogicCell40) carryin -> carryout: 0.186 ns
+     4.111 ns net_24139 (blink_counter_SB_CARRY_CI_CO[10])
+        lc40_5_30_2 (LogicCell40) carryin -> carryout: 0.186 ns
+     4.297 ns net_24145 (blink_counter_SB_CARRY_CI_CO[11])
+        lc40_5_30_3 (LogicCell40) carryin -> carryout: 0.186 ns
+     4.483 ns net_24151 (blink_counter_SB_CARRY_CI_CO[12])
+        lc40_5_30_4 (LogicCell40) carryin -> carryout: 0.186 ns
+     4.669 ns net_24157 (blink_counter_SB_CARRY_CI_CO[13])
+        lc40_5_30_5 (LogicCell40) carryin -> carryout: 0.186 ns
+     4.855 ns net_24163 (blink_counter_SB_CARRY_CI_CO[14])
+        lc40_5_30_6 (LogicCell40) carryin -> carryout: 0.186 ns
+     5.041 ns net_24169 (blink_counter_SB_CARRY_CI_CO[15])
+        lc40_5_30_7 (LogicCell40) carryin -> carryout: 0.186 ns
+     5.227 ns net_24175 (blink_counter_SB_CARRY_CI_CO[16])
+        t4 (ICE_CARRY_IN_MUX) carryinitin -> carryinitout: 0.289 ns
+        lc40_5_31_0 (LogicCell40) carryin -> carryout: 0.186 ns
+     5.703 ns net_24256 (blink_counter_SB_CARRY_CI_CO[17])
+        lc40_5_31_1 (LogicCell40) carryin -> carryout: 0.186 ns
+     5.889 ns net_24262 (blink_counter_SB_CARRY_CI_CO[18])
+        lc40_5_31_2 (LogicCell40) carryin -> carryout: 0.186 ns
+     6.075 ns net_24268 (blink_counter_SB_CARRY_CI_CO[19])
+        lc40_5_31_3 (LogicCell40) carryin -> carryout: 0.186 ns
+     6.261 ns net_24274 (blink_counter_SB_CARRY_CI_CO[20])
+        lc40_5_31_4 (LogicCell40) carryin -> carryout: 0.186 ns
+     6.447 ns net_24280 (blink_counter_SB_CARRY_CI_CO[21])
+        lc40_5_31_5 (LogicCell40) carryin -> carryout: 0.186 ns
+     6.633 ns net_24286 (blink_counter_SB_CARRY_CI_CO[22])
+        lc40_5_31_6 (LogicCell40) carryin -> carryout: 0.186 ns
+     6.819 ns net_24292 (blink_counter_SB_CARRY_CI_CO[23])
+        lc40_5_31_7 (LogicCell40) carryin -> carryout: 0.186 ns
+     7.005 ns net_24298 (blink_counter_SB_CARRY_CI_CO[24])
+        t5 (ICE_CARRY_IN_MUX) carryinitin -> carryinitout: 0.289 ns
+        lc40_5_32_0 (LogicCell40) carryin -> carryout: 0.186 ns
+     7.481 ns net_24379 (blink_counter_SB_CARRY_CI_CO[25])
+        inmux_5_32_24379_24389 (InMux) I -> O: 0.382 ns
+     7.863 ns net_24389 (blink_counter_SB_CARRY_CI_CO[25])
+        lc40_5_32_1 (LogicCell40) in3 [setup]: 0.320 ns
+     8.184 ns net_20230 (blink_counter[25])
+
+Resolvable net names on path:
+     0.896 ns ..  1.764 ns blink_counter[0]
+     2.333 ns ..  2.333 ns blink_counter_SB_CARRY_CI_CO[2]
+     2.519 ns ..  2.519 ns blink_counter_SB_CARRY_CI_CO[3]
+     2.705 ns ..  2.705 ns blink_counter_SB_CARRY_CI_CO[4]
+     2.891 ns ..  2.891 ns blink_counter_SB_CARRY_CI_CO[5]
+     3.077 ns ..  3.077 ns blink_counter_SB_CARRY_CI_CO[6]
+     3.263 ns ..  3.263 ns blink_counter_SB_CARRY_CI_CO[7]
+     3.449 ns ..  3.739 ns blink_counter_SB_CARRY_CI_CO[8]
+     3.925 ns ..  3.925 ns blink_counter_SB_CARRY_CI_CO[9]
+     4.111 ns ..  4.111 ns blink_counter_SB_CARRY_CI_CO[10]
+     4.297 ns ..  4.297 ns blink_counter_SB_CARRY_CI_CO[11]
+     4.483 ns ..  4.483 ns blink_counter_SB_CARRY_CI_CO[12]
+     4.669 ns ..  4.669 ns blink_counter_SB_CARRY_CI_CO[13]
+     4.855 ns ..  4.855 ns blink_counter_SB_CARRY_CI_CO[14]
+     5.041 ns ..  5.041 ns blink_counter_SB_CARRY_CI_CO[15]
+     5.227 ns ..  5.517 ns blink_counter_SB_CARRY_CI_CO[16]
+     5.703 ns ..  5.703 ns blink_counter_SB_CARRY_CI_CO[17]
+     5.889 ns ..  5.889 ns blink_counter_SB_CARRY_CI_CO[18]
+     6.075 ns ..  6.075 ns blink_counter_SB_CARRY_CI_CO[19]
+     6.261 ns ..  6.261 ns blink_counter_SB_CARRY_CI_CO[20]
+     6.447 ns ..  6.447 ns blink_counter_SB_CARRY_CI_CO[21]
+     6.633 ns ..  6.633 ns blink_counter_SB_CARRY_CI_CO[22]
+     6.819 ns ..  6.819 ns blink_counter_SB_CARRY_CI_CO[23]
+     7.005 ns ..  7.295 ns blink_counter_SB_CARRY_CI_CO[24]
+     7.481 ns ..  7.863 ns blink_counter_SB_CARRY_CI_CO[25]
+                  lcout -> blink_counter[25]
+
+Total number of logic levels: 26
+Total path delay: 8.18 ns (122.20 MHz)
