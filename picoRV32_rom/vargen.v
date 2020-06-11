@@ -9,7 +9,27 @@
 
 `include "rom.v"
 `include "picorv32.v"
+`include "gio.v"
 
+
+/*					Memory MAP
+ *      START            END          BLOCK		NOTES
+ *	------------------------------------------------------------------------------
+ *   32'h0000_0000 ... 32'h0000_03FF  DATA		0 to 256x4=1024 bytes (1 kbyte)
+ *	 32'h0001_0000 ... 32'h000F_FFFF  PROGRAM	64436 (64kbytes) to 1048575 (1 Mbyte)  
+ *	 32'h0010_0000 ... 32'hFFFF_FFFF  MMUP		1048576 to ...
+ *
+ *   Mermory Mapped User Peripherals (MMUP)
+ *	 Name:		Address:		Description:
+ *  -------------------------------------------------
+ *	 PORTA		32'h0010_0000	8-bit Digital output		
+ * 		
+ */
+ 
+ `define PORTA	32'h0010_0000
+ `define PORTA_WIDTH 8
+ 
+ 
 module vargen (
 	input clk,
 	input resetn,
@@ -23,9 +43,9 @@ module vargen (
 	
 	input  irq_5,
 	input  irq_6,
-	input  irq_7
+	input  irq_7,
 
-	//input [7:0] porta,
+	output [`PORTA_WIDTH-1:0] porta_out
 	//output [7:0] portb,
 );
 
@@ -78,6 +98,7 @@ always @(posedge clk) begin
 	rom_ready <= mem_valid && !mem_ready && mem_addr >= 4*MEM_WORDS && mem_addr < 32'h0010_0000; //Only asserted if memory is above RAM and under 1M
 end
 
+//RISC V 
 picorv32 #(
 		.STACKADDR(STACKADDR),
 		.PROGADDR_RESET(PROGADDR_RESET),
@@ -100,8 +121,9 @@ picorv32 #(
 		.mem_rdata   (mem_rdata  ),
 		.irq         (irq        )
 	);
-	
-	picosoc_mem #(.WORDS(MEM_WORDS)) memory (
+
+// DATA MEMORY
+picosoc_mem #(.WORDS(MEM_WORDS)) memory (
 		.clk(clk),
 		.wen((mem_valid && !mem_ready && mem_addr < 4*MEM_WORDS) ? mem_wstrb : 4'b0),
 		.addr(mem_addr[23:2]),
@@ -109,13 +131,27 @@ picorv32 #(
 		.rdata(ram_rdata)
 	);
 	
-	rom256 pico_rom(
+// PROGRAM MEMORY
+rom256 pico_rom(
 			   .clk(clk),
 			   .wen(1'b0),
 			   .addr(mem_addr[9:2]),
 			   .wdata(32'h0000_0000),
 			   .rdata(rom_rdata)
 	);
+	
+outport #(.ADDR(`PORTA),
+		  .WIDTH(`PORTA_WIDTH)
+		  ) porta(
+			.addr(mem_addr), 
+			.wdata(mem_wdata[`PORTA_WIDTH-1:0]),	
+			.wen(mem_wstrb[0]), 
+			.resetn(resetn), 
+			.odata(porta_out)
+		  );
+		  
+	
+	
 
 
 endmodule
