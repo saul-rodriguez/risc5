@@ -10,3 +10,5 @@ icetime -d lp8k -mtr $1.rpt $1.asc
 #Generate binary
 icepack $1.asc $1.bin
 
+#upload binary
+#tinyprog -p top.bin 

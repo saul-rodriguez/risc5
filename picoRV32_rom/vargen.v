@@ -86,16 +86,19 @@ reg ram_ready;
 wire [31:0] rom_rdata;
 reg rom_ready; 
 
-//mem_ready is asserted when a peer has completed to place data on the mem_rdata bus. 
-assign mem_ready = ram_ready || rom_ready;
+reg porta_ready;
 
-//mem_rdata is implemented as a mux
+//mem_ready is asserted when a peer connected to the address bus (for read/write) has completed reading the address. 
+assign mem_ready = ram_ready || rom_ready || porta_ready;
+
+//mem_rdata contains the read data bus and it is implemented as a mux
 assign mem_rdata = ram_ready ? ram_rdata : rom_ready ? rom_rdata : 32'h0000_0000;
 
 //Only one NAME_ready signal can be asserted at a time!   
 always @(posedge clk) begin	
 	ram_ready <= mem_valid && !mem_ready && mem_addr < 4*MEM_WORDS; //Only asserted if address is below 4*MEMWORDS = 1kbyte	
 	rom_ready <= mem_valid && !mem_ready && mem_addr >= 4*MEM_WORDS && mem_addr < 32'h0010_0000; //Only asserted if memory is above RAM and under 1M
+	porta_ready <= mem_valid && !mem_ready && mem_addr == `PORTA;
 end
 
 //RISC V 

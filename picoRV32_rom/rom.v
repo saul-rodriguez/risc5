@@ -1,5 +1,6 @@
 //rom.v
-`define FIRMWARE "/home/saul/projects/tinyfpga/gcc_tests/assembler_tut/L1_ejer6.hex4"
+//`define FIRMWARE "/home/saul/projects/tinyfpga/gcc_tests/assembler_tut/L1_ejer6.hex4"
+`define FIRMWARE "/home/saul/projects/tinyfpga/gcc_tests/assembler_porta/porta.hex4"
 
 module rom256(input clk,
 			input wen,

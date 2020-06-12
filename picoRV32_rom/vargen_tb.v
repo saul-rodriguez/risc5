@@ -23,12 +23,15 @@ module vargen_tb;
 	//reg [7:0] porta,
 	//wire [7:0] portb,
 	
+	wire [7:0] porta_out;
+	
 	vargen myrisc(
 			.clk(clk),
 			.resetn(resetn),
 			.irq_5(irq_5),
 			.irq_6(irq_6),
-			.irq_7(irq_7)
+			.irq_7(irq_7),
+			.porta_out(porta_out)
 	);
 	
 /*	initial begin
@@ -52,7 +55,7 @@ module vargen_tb;
 		irq_7 = 1;
 		resetn = 0;
 		#15 resetn = 1;
-		#5000 $finish;
+		#10000 $finish;
 	end
 
 	

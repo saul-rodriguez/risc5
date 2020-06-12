@@ -1,0 +1,123 @@
+
+icetime topological timing analysis report
+==========================================
+
+Info: max_span_hack is enabled: estimate is conservative.
+
+Report for critical path:
+-------------------------
+
+        lc40_27_5_6 (LogicCell40) [clk] -> lcout: 0.896 ns
+     0.896 ns net_105260 (myrisc.cpu.reg_next_pc[1])
+        odrv_27_5_105260_97919 (Odrv4) I -> O: 0.548 ns
+        t22649 (Span4Mux_v4) I -> O: 0.548 ns
+        t22648 (Span4Mux_v4) I -> O: 0.548 ns
+        t22647 (Span4Mux_h4) I -> O: 0.465 ns
+        t22646 (Span4Mux_v4) I -> O: 0.548 ns
+        t22645 (Span4Mux_v4) I -> O: 0.548 ns
+        t22644 (LocalMux) I -> O: 0.486 ns
+        inmux_20_15_82762_82782 (InMux) I -> O: 0.382 ns
+        lc40_20_15_2 (LogicCell40) in1 -> lcout: 0.589 ns
+     5.558 ns net_78620 (myrisc.cpu.latched_store_SB_LUT4_I3_2_O[2])
+        odrv_20_15_78620_82583 (Odrv12) I -> O: 0.796 ns
+        t16767 (Sp12to4) I -> O: 0.662 ns
+        t16766 (Span4Mux_h4) I -> O: 0.465 ns
+        t16765 (Span4Mux_v4) I -> O: 0.548 ns
+        t16764 (LocalMux) I -> O: 0.486 ns
+        inmux_24_23_100028_100099 (InMux) I -> O: 0.382 ns
+        t3221 (CascadeMux) I -> O: 0.000 ns
+        lc40_24_23_6 (LogicCell40) in2 -> lcout: 0.558 ns
+     9.455 ns net_95916 (myrisc.cpu.mem_xfer_SB_LUT4_O_I1[1])
+        odrv_24_23_95916_87902 (Odrv4) I -> O: 0.548 ns
+        t20843 (Span4Mux_h4) I -> O: 0.465 ns
+        t20842 (LocalMux) I -> O: 0.486 ns
+        inmux_27_23_111610_111656 (InMux) I -> O: 0.382 ns
+        lc40_27_23_6 (LogicCell40) in1 -> lcout: 0.589 ns
+    11.925 ns net_107474 (myrisc.cpu.mem_xfer)
+        odrv_27_23_107474_110941 (Odrv12) I -> O: 0.796 ns
+        t23384 (Span12Mux_h12) I -> O: 0.796 ns
+        t23383 (Sp12to4) I -> O: 0.662 ns
+        t23396 (Span4Mux_v4) I -> O: 0.548 ns
+        t23422 (Span4Mux_h4) I -> O: 0.465 ns
+        t23421 (Span4Mux_v4) I -> O: 0.548 ns
+        t23458 (Span4Mux_v4) I -> O: 0.548 ns
+        t23457 (Span4Mux_v4) I -> O: 0.548 ns
+        t23456 (LocalMux) I -> O: 0.486 ns
+        inmux_18_20_75204_75269 (InMux) I -> O: 0.382 ns
+        lc40_18_20_6 (LogicCell40) in3 -> lcout: 0.465 ns
+    18.169 ns net_71086 (myrisc.cpu.mem_xfer_SB_LUT4_O_I1_SB_LUT4_I3_O_SB_LUT4_I2_1_O[1])
+        odrv_18_20_71086_71235 (Odrv4) I -> O: 0.548 ns
+        t13168 (Span4Mux_v4) I -> O: 0.548 ns
+        t13167 (LocalMux) I -> O: 0.486 ns
+        inmux_18_17_74844_74868 (InMux) I -> O: 0.382 ns
+        lc40_18_17_1 (LogicCell40) in1 -> lcout: 0.589 ns
+    20.722 ns net_70712 (myrisc.cpu.mem_rdata_latched[1])
+        odrv_18_17_70712_74695 (Odrv4) I -> O: 0.548 ns
+        t13066 (Span4Mux_h4) I -> O: 0.465 ns
+        t13065 (Span4Mux_v4) I -> O: 0.548 ns
+        t13069 (Span4Mux_v4) I -> O: 0.548 ns
+        t13074 (Span4Mux_v4) I -> O: 0.548 ns
+        t13073 (Span4Mux_v4) I -> O: 0.548 ns
+        t13072 (IoSpan4Mux) I -> O: 0.475 ns
+        t13071 (Span4Mux_h4) I -> O: 0.465 ns
+        t13070 (LocalMux) I -> O: 0.486 ns
+        inmux_17_4_69169_69188 (InMux) I -> O: 0.382 ns
+        t1922 (CascadeMux) I -> O: 0.000 ns
+        lc40_17_4_0 (LogicCell40) in2 -> lcout: 0.558 ns
+    26.294 ns net_65035 (myrisc.cpu.irq_state_SB_DFFESR_Q_E_SB_LUT4_O_I2_SB_LUT4_I2_O_SB_LUT4_O_1_I1_SB_LUT4_I2_O_SB_LUT4_I3_O[1])
+        odrv_17_4_65035_64940 (Odrv4) I -> O: 0.548 ns
+        t11355 (Span4Mux_v4) I -> O: 0.548 ns
+        t11354 (Span4Mux_h4) I -> O: 0.465 ns
+        t11353 (LocalMux) I -> O: 0.486 ns
+        inmux_16_9_65714_65739 (InMux) I -> O: 0.382 ns
+        lc40_16_9_2 (LogicCell40) in3 -> lcout: 0.465 ns
+    29.188 ns net_61576 (myrisc.cpu.decoded_imm_uj_SB_DFFE_Q_28_D_SB_LUT4_O_I2_SB_LUT4_I2_1_O[1])
+        odrv_16_9_61576_64646 (Odrv12) I -> O: 0.796 ns
+        t10284 (Span12Mux_h12) I -> O: 0.796 ns
+        t10283 (Sp12to4) I -> O: 0.662 ns
+        t10282 (Span4Mux_h4) I -> O: 0.465 ns
+        t10281 (LocalMux) I -> O: 0.486 ns
+        inmux_16_11_65942_65983 (InMux) I -> O: 0.382 ns
+        lc40_16_11_2 (LogicCell40) in1 -> lcout: 0.589 ns
+    33.364 ns net_61822 (myrisc.cpu.decoded_rd_SB_DFFE_Q_4_D_SB_LUT4_O_I0_SB_LUT4_O_I1_SB_LUT4_I2_I3_SB_LUT4_I1_O_SB_LUT4_I2_O[1])
+        t10312 (LocalMux) I -> O: 0.486 ns
+        inmux_16_11_65947_65995 (InMux) I -> O: 0.382 ns
+        lc40_16_11_4 (LogicCell40) in1 -> lcout: 0.589 ns
+    34.822 ns net_61824 (myrisc.cpu.decoded_imm_uj_SB_DFFE_Q_30_D_SB_LUT4_O_I2_SB_LUT4_I0_O_SB_LUT4_I1_O[2])
+        odrv_16_11_61824_61971 (Odrv4) I -> O: 0.548 ns
+        t10339 (Span4Mux_h4) I -> O: 0.465 ns
+        t10338 (LocalMux) I -> O: 0.486 ns
+        inmux_19_14_78552_78583 (InMux) I -> O: 0.382 ns
+        t2358 (CascadeMux) I -> O: 0.000 ns
+        lc40_19_14_2 (LogicCell40) in2 -> lcout: 0.558 ns
+    37.261 ns net_74420 (myrisc.cpu.cpuregs.regs.0.0.0_RDATA_15_SB_DFFSR_Q_R_SB_LUT4_O_I1[2])
+        t14190 (LocalMux) I -> O: 0.486 ns
+        inmux_19_14_78546_78572 (InMux) I -> O: 0.382 ns
+        lc40_19_14_0 (LogicCell40) in3 -> lcout: 0.465 ns
+    38.595 ns net_74418 (myrisc.cpu.cpuregs.regs.0.0.0_RDATA_15_SB_DFFSR_Q_R)
+        odrv_19_14_74418_78273 (Odrv4) I -> O: 0.548 ns
+        t14232 (Span4Mux_h4) I -> O: 0.465 ns
+        t14231 (LocalMux) I -> O: 0.486 ns
+        inmux_19_14_78556_78617 (SRMux) I -> O: 0.682 ns
+    40.776 ns net_78617 (myrisc.cpu.cpuregs.regs.0.0.0_RDATA_15_SB_DFFSR_Q_R)
+        lc40_19_14_7 (LogicCell40) sr [setup]: 0.207 ns
+    40.983 ns net_74425 (myrisc.cpu.cpuregs.regs.0.0.0_RDATA_15[2])
+
+Resolvable net names on path:
+     0.896 ns ..  4.969 ns myrisc.cpu.reg_next_pc[1]
+     5.558 ns ..  8.897 ns myrisc.cpu.latched_store_SB_LUT4_I3_2_O[2]
+     9.455 ns .. 11.336 ns myrisc.cpu.mem_xfer_SB_LUT4_O_I1[1]
+    11.925 ns .. 17.704 ns myrisc.cpu.mem_xfer
+    18.169 ns .. 20.133 ns myrisc.cpu.mem_xfer_SB_LUT4_O_I1_SB_LUT4_I3_O_SB_LUT4_I2_1_O[1]
+    20.722 ns .. 25.736 ns myrisc.cpu.mem_rdata_latched[1]
+    26.294 ns .. 28.723 ns myrisc.cpu.irq_state_SB_DFFESR_Q_E_SB_LUT4_O_I2_SB_LUT4_I2_O_SB_LUT4_O_1_I1_SB_LUT4_I2_O_SB_LUT4_I3_O[1]
+    29.188 ns .. 32.775 ns myrisc.cpu.decoded_imm_uj_SB_DFFE_Q_28_D_SB_LUT4_O_I2_SB_LUT4_I2_1_O[1]
+    33.364 ns .. 34.233 ns myrisc.cpu.decoded_rd_SB_DFFE_Q_4_D_SB_LUT4_O_I0_SB_LUT4_O_I1_SB_LUT4_I2_I3_SB_LUT4_I1_O_SB_LUT4_I2_O[1]
+    34.822 ns .. 36.703 ns myrisc.cpu.decoded_imm_uj_SB_DFFE_Q_30_D_SB_LUT4_O_I2_SB_LUT4_I0_O_SB_LUT4_I1_O[2]
+    37.261 ns .. 38.130 ns myrisc.cpu.cpuregs.regs.0.0.0_RDATA_15_SB_DFFSR_Q_R_SB_LUT4_O_I1[2]
+    38.595 ns .. 40.776 ns myrisc.cpu.cpuregs.regs.0.0.0_RDATA_15_SB_DFFSR_Q_R
+                  lcout -> myrisc.cpu.cpuregs.regs.0.0.0_RDATA_15[2]
+
+Total number of logic levels: 12
+Total path delay: 40.98 ns (24.40 MHz)
+

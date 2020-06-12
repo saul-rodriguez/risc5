@@ -10,7 +10,7 @@ module outport(
 	input resetn, 
 	output reg [WIDTH-1:0] odata 
 );
-	parameter ADDR = 8'b0000_0000; //This parameter must be initialized during instantiation!
+	parameter ADDR = 32'h0000_0000; //This parameter must be initialized during instantiation!
 	parameter WIDTH = 8;		
 
     always @(*) begin
