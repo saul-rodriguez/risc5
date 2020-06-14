@@ -52,7 +52,8 @@ module top (
 			.irq_5(1'b1),
 			.irq_6(1'b1),
 			.irq_7(1'b1),
-			.porta_out(leds)
+			.porta_out(leds),
+			.portb_in(switches)
 	);
 		
     
