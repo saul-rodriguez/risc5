@@ -49,9 +49,9 @@ module top (
 	vargen myrisc(
 			.clk(CLK),
 			.resetn(resetn),
-			.irq_5(1'b1),
-			.irq_6(1'b1),
-			.irq_7(1'b1),
+			.irq_5(pushbuttons[1]),
+			.irq_6(pushbuttons[2]),
+			.irq_7(pushbuttons[3]),
 			.porta_out(leds),
 			.portb_in(switches)
 	);

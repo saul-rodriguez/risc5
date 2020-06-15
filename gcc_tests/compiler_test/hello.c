@@ -1,11 +1,17 @@
 //gcc hello world RISC5
 
+int myfunc(int a, int b) {
+	return (a+b);
+}
+
 void main()
 {
-	unsigned int var;
+	unsigned int a,b,c;
 	
-	var = 10;
-	while(1) {
-		var = var*2;			
-	}
+	a = 5;
+	b = 7;
+
+	c = myfunc(a,b);
+
+
 }
