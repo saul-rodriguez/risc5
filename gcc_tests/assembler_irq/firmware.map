@@ -1,0 +1,62 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+FLASH            0x0000000000000000 0x0000000000100000 xr
+RAM              0x0000000000000000 0x0000000000000400 xrw
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+
+.text           0x0000000000000000       0x80
+                0x0000000000000000                . = ALIGN (0x4)
+ *(.text)
+ .text          0x0000000000000000       0x80 /tmp/ccrzemrt.o
+ *(.text*)
+ *(.rodata)
+ *(.rodata*)
+ *(.srodata)
+ *(.srodata*)
+ *(.eh_frame)
+ *(.eh_frame*)
+                0x0000000000000080                . = ALIGN (0x4)
+                0x0000000000000080                _etext = .
+                0x0000000000000080                _sidata = _etext
+
+.data           0x0000000000000000        0x0 load address 0x0000000000000080
+                0x0000000000000000                . = ALIGN (0x4)
+                0x0000000000000000                _sdata = .
+                0x0000000000000000                _ram_start = .
+ *(.data)
+ .data          0x0000000000000000        0x0 /tmp/ccrzemrt.o
+ *(.data*)
+ *(.sdata)
+ *(.sdata*)
+ *(.init_array)
+ *(.init_array*)
+                0x0000000000000000                . = ALIGN (0x4)
+                0x0000000000000000                _edata = .
+
+.bss            0x0000000000000000        0x0 load address 0x0000000000000080
+                0x0000000000000000                . = ALIGN (0x4)
+                0x0000000000000000                _sbss = .
+ *(.bss)
+ .bss           0x0000000000000000        0x0 /tmp/ccrzemrt.o
+ *(.bss*)
+ *(.sbss)
+ *(.sbss*)
+ *(COMMON)
+                0x0000000000000000                . = ALIGN (0x4)
+                0x0000000000000000                _ebss = .
+
+.heap           0x0000000000000000        0x0
+                0x0000000000000000                . = ALIGN (0x4)
+                0x0000000000000000                _heap_start = .
+LOAD /tmp/ccrzemrt.o
+OUTPUT(test_irq.elf elf32-littleriscv)
+
+Cross Reference Table
+
+Symbol                                            File
+No symbols

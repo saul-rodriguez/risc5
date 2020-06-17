@@ -53,12 +53,19 @@ module vargen_tb;
 		end
 
 		clk = 0;
-		irq_5 = 1;
-		irq_6 = 1;
-		irq_7 = 1;
+		irq_5 = 0;
+		irq_6 = 0;
+		irq_7 = 0;
 		resetn = 0;
 		portb_in = 8'haf;
 		#15 resetn = 1;
+		
+		#500 irq_5 = 1;
+		#40 irq_5 = 0;
+		#2000 irq_6 = 1;
+		#40 irq_6 = 0;
+		#2000 irq_7 = 1;
+		#40 irq_7 = 0;
 		#10000 $finish;
 	end
 

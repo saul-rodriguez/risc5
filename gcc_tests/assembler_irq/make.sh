@@ -1,4 +1,5 @@
-riscv32-unknown-elf-as -march=rv32imc  -o $1.o $1.asm
+#riscv32-unknown-elf-as -march=rv32imc  -o $1.o $1.asm
+riscv32-unknown-elf-as -march=rv32imc  -o $1.o $1.S
 
 riscv32-unknown-elf-ld -Ttext=$2 -o $1.elf $1.o
 
