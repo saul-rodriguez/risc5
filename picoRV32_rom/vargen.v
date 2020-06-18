@@ -132,7 +132,7 @@ picorv32 #(
 picosoc_mem #(.WORDS(MEM_WORDS)) memory (
 		.clk(clk),
 		.wen((mem_valid && !mem_ready && mem_addr < 4*MEM_WORDS) ? mem_wstrb : 4'b0),
-		.addr(mem_addr[23:2]),
+		.addr(mem_addr[23:2]), //address is always aligned to 4 bytes
 		.wdata(mem_wdata),
 		.rdata(ram_rdata)
 	);
@@ -141,7 +141,7 @@ picosoc_mem #(.WORDS(MEM_WORDS)) memory (
 rom256 pico_rom(
 			   .clk(clk),
 			   .wen(1'b0),
-			   .addr(mem_addr[9:2]),
+			   .addr(mem_addr[9:2]), //address is always aligned to 4 bytes
 			   .wdata(32'h0000_0000),
 			   .rdata(rom_rdata)
 	);

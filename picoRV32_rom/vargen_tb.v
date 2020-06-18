@@ -60,11 +60,11 @@ module vargen_tb;
 		portb_in = 8'haf;
 		#15 resetn = 1;
 		
-		#500 irq_5 = 1;
+		//#500 irq_5 = 1;
 		#40 irq_5 = 0;
-		#2000 irq_6 = 1;
+		//#2000 irq_6 = 1;
 		#40 irq_6 = 0;
-		#2000 irq_7 = 1;
+		//#2000 irq_7 = 1;
 		#40 irq_7 = 0;
 		#10000 $finish;
 	end

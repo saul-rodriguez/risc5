@@ -2,7 +2,8 @@
 //`define FIRMWARE "/home/saul/projects/tinyfpga/gcc_tests/assembler_tut/L1_ejer6.hex4"
 //`define FIRMWARE "/home/saul/projects/tinyfpga/gcc_tests/assembler_porta/porta.hex4"
 //`define FIRMWARE "/home/saul/projects/tinyfpga/gcc_tests/assembler_portb/portb.hex4"
-`define FIRMWARE "/home/saul/projects/tinyfpga/gcc_tests/assembler_irq/test_irq.hex4"
+//`define FIRMWARE "/home/saul/projects/tinyfpga/gcc_tests/assembler_irq/test_irq.hex4"
+`define FIRMWARE "/home/saul/projects/tinyfpga/gcc_tests/c_test/test_porta.hex4"
 
 module rom256(input clk,
 			input wen,
