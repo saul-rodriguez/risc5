@@ -24,7 +24,8 @@
  *  -------------------------------------------------
  *	 PORTA		32'h0010_0000	8-bit Digital output	
  *	 PORTB		32'h0010_0004	8-bit Digital input	
- * 		
+ * 	 UART_TX	32'h0010_0008	TX Data serial port (8-bit)	
+ *	 UART_RX	32'h0010_000c	RX Data serial port (8-bit)
  */
  
  `define PORTA	32'h0010_0000
@@ -32,6 +33,8 @@
  
  `define PORTB	32'h0010_0004
  `define PORTB_WIDTH 8
+ 
+ `define UART_TX 32'h0010_0008
  
  
 module vargen (
@@ -64,6 +67,7 @@ always @* begin
 		irq[7] = irq_7;
 end
 
+//PICORV32 signals
 wire mem_valid;
 wire mem_instr;
 wire mem_ready;
@@ -72,24 +76,32 @@ wire [31:0] mem_wdata;
 wire [3:0] mem_wstrb;
 wire [31:0] mem_rdata;
 
-
+//DATA MEMORY signals
 wire [31:0] ram_rdata;
 reg ram_ready;
 
+//PROGRAM MEMORY signals
 wire [31:0] rom_rdata;
 reg rom_ready; 
 
+//PORTA signals
 wire porta_ready;
 
+//PORTB signals
 wire [`PORTB_WIDTH-1:0] portb_data;
 wire portb_ready;
 wire [31:0] portb_data32;
 assign portb_data32 = {{(31-`PORTB_WIDTH){1'b0}},portb_data};
 
+//UART signals
+//wire uart_tx_int_flag;
+//wire start_tx;
+
+
 //mem_ready is asserted when a peer that is connected to the address bus (for read/write) has completed reading the address. 
 assign mem_ready = ram_ready || rom_ready || porta_ready || portb_ready;
 
-//mem_rdata contains the read data bus and it is implemented as a mux 
+//mem_rdata is the read data bus and it is implemented as a mux 
 assign mem_rdata = ram_ready ? ram_rdata : rom_ready ? rom_rdata : portb_ready ? portb_data32 : 32'h0000_0000;
 
 /* Only one <name>_ready signal can be asserted at a time!   
