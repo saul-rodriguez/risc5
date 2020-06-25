@@ -6,7 +6,8 @@
 `define CLK_FREQ 16000000
 `define BRATE 9600
 `define END_SIM 36000
-`define RX_UART_ADD 32'hcafe_babe
+`define RX_UART 32'hcafe_babe
+`define TX_UART 32'hcaca_bebe
 
 module uart_tb();
 
@@ -19,59 +20,47 @@ reg [31:0] addr;
 reg wen;
 reg [7:0] wdata; //data to be transmited	
 reg mem_valid;
-reg mem_ready;
+reg wstrobe;
 
-wire uart_tx_ready, //Acknowledge that address has been read
-wire tx_uart,
-wire uart_tx_int_flag
+//reg mem_ready;
+wire mem_ready;
 
-UART_TX_PICO tx(
+wire uart_tx_ready; //Acknowledge that address has been read
+wire tx_uart;
+wire uart_tx_int_flag;
+
+wire [7:0] data_out;
+wire uart_rx_int_flag;
+wire uart_rx_ready;
+
+assign mem_ready = uart_tx_ready || uart_rx_ready;
+
+UART_TX_PICO #(.ADDR(`TX_UART)) tx(
 	.rstn(rstn),
 	.clk(clk),
-	
+	.clk_per_bit(clk_per_bit),
+	.addr(addr),
+	.wen(wstrobe),
+	.wdata(wdata),
+	.mem_valid(mem_valid),
+	.mem_ready(mem_ready),
+	.uart_tx_ready(uart_tx_ready),
+	.tx_uart(tx_uart),
+	.uart_tx_int_flag(uart_tx_int_flag)
 );
-/*
 
-reg       i_Rst_L;
-reg       clk;
-reg       i_TX_DV;
-reg [7:0] i_TX_Byte; 
-reg [11:0] i_Clk_per_bit;
-wire  o_TX_Active;
-wire  o_TX_Serial;
-wire  o_TX_Done;
-
-reg [31:0] address;
-reg ren;
-wire int_rx;
-
-wire o_Rx_DV;
-wire [7:0] port_out;
-
-
-UART_TX tx( 
-	  .i_Rst_L(i_Rst_L),
-      .i_Clock(clk),
-      .i_TX_DV(i_TX_DV),
-	  .i_TX_Byte(i_TX_Byte),
-	  .i_Clk_per_bit(i_Clk_per_bit),
-	  .o_TX_Active_L(o_TX_Active),
-	  .o_TX_Serial(o_TX_Serial),
-	  .o_TX_Done(o_TX_Done)
-   );
-*/
-
-   
-   
-UART_RX_PICO #(.ADDR(`RX_UART_ADD)) rx_mod(
-	.rstn(i_Rst_L),
-	.rx(o_TX_Serial),
+UART_RX_PICO #(.ADDR(`RX_UART)) rx(
+	.rstn(rstn),
+	.rx_uart(tx_uart),
 	.clk(clk),
-	.clk_per_bit(i_Clk_per_bit),
-	.port_out(port_out),	
-	.address(address),		
-	.ren(ren),
-	.int_rx(int_rx)
+	.clk_per_bit(clk_per_bit),	
+	.addr(addr),		
+	.ren(!wstrobe),	
+	.mem_valid(mem_valid),
+	.mem_ready(mem_ready),
+	.data_out(data_out),
+	.uart_rx_int_flag(uart_rx_int_flag), // 
+	.uart_rx_ready(uart_rx_ready) //Acknowledge that address has been read
 );
 
 
@@ -80,31 +69,55 @@ always #(tck/2) clk = ~clk;
 
 initial begin
 	$dumpfile("dump.vcd");
-	$dumpvars(0,tx,rx_mod);
+	$dumpvars(0,tx,rx);
 	
 	clk = 0;
-	i_Rst_L = 1;
-	i_TX_DV = 0;
-	i_TX_Byte = 8'haf;
-	i_Clk_per_bit = N;
-	address = `RX_UART_ADD;
-	ren = 0;
+	rstn = 1;
+	wdata = 0;
+	clk_per_bit = N;
+	addr = 0;
+	wstrobe = 0;
 		
-	#tck i_Rst_L = 0;
-	#tck i_Rst_L = 1;
+	#tck     rstn = 0;
+	#(2*tck) rstn = 1;	
 	
-	#(5*tck) i_TX_DV = 1;
-	#(5*tck) i_TX_DV = 0;
+	#(3*tck) wdata = 8'haf;
+	TXbyte;
 	
-	#(35000*tck) ren = 1;
-	#tck ren = 0;
+	RXbyte;
 	
-	#(1000*tck) i_TX_Byte = 8'h53;
-	#(5*tck) i_TX_DV = 1;
-	#(5*tck) i_TX_DV = 0;
+	#(3*tck) wdata = 8'hee;
+	TXbyte;
+	
+	RXbyte;
+			 
 	
 	#(`END_SIM*tck) $finish;
 end
+
+task TXbyte;
+	begin
+		//#(3*tck) //wdata = 8'haf;
+				 addr = `TX_UART;
+				 mem_valid = 1;
+				 wstrobe = 1;
+		#(2*tck) wdata = 0;
+				 addr = 0;
+				 mem_valid = 0;
+				 wstrobe = 0;
+	end
+endtask
+
+task RXbyte;
+	begin
+		#((`END_SIM/2)*tck) addr = `RX_UART;
+							mem_valid = 1;
+							wstrobe = 0;
+		#(2*tck) addr = 0;
+				 mem_valid = 0;
+				 wstrobe = 0;		
+	end
+endtask
 
 
 endmodule 

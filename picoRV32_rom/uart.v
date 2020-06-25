@@ -300,12 +300,12 @@ module UART_RX_PICO (
 	input rx_uart,
 	input clk,
 	input [11:0] clk_per_bit,
-	output [7:0] data_out,
 	input [31:0] addr,		
 	input ren,
-	output uart_rx_int_flag, // 
 	input mem_valid,
 	input mem_ready,
+	output [7:0] data_out,
+	output uart_rx_int_flag, // 
 	output reg uart_rx_ready //Acknowledge that address has been read
 );
 // ADDR must be passed during instantiation
@@ -327,7 +327,7 @@ wire rx_ready;
 UART_RX uart_receiver(
 	  .i_Rst_L(rstn),
 	  .i_Clock(clk),
-	  .i_RX_Serial_asyn(rx),
+	  .i_RX_Serial_asyn(rx_uart),
 	  .i_Clk_per_bit(clk_per_bit),
       .o_RX_DV(rx_ready),
       .o_RX_Byte(data_out)
@@ -338,7 +338,7 @@ always @(posedge clk) begin
 		int_reset <= 0;			
 		uart_rx_int_flag <= 0;
 	end else begin
-		if (addr == ADDR) begin
+		if (mem_valid && (addr == ADDR)) begin
 			if (ren) begin // The data has been read, the RX interrupt flg can be cleared
 				int_reset <= 1;
 			end
