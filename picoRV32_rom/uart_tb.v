@@ -33,6 +33,14 @@ wire [7:0] data_out;
 wire uart_rx_int_flag;
 wire uart_rx_ready;
 
+/*
+wire [7:0] test;
+wire [3:0] a;
+
+assign a = 4'b1010;
+assign test = {{(7-4){1'b1}},{a}};
+*/
+
 assign mem_ready = uart_tx_ready || uart_rx_ready;
 
 UART_TX_PICO #(.ADDR(`TX_UART)) tx(
