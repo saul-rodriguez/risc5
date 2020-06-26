@@ -9,11 +9,11 @@ RAM              0x0000000000000000 0x0000000000000400 xrw
 Linker script and memory map
 
 
-.text           0x0000000000000000      0x21c
+.text           0x0000000000000000      0x1f4
                 0x0000000000000000                . = ALIGN (0x4)
  *(.text)
- .text          0x0000000000000000      0x156 /tmp/ccFWSdM0.o
- .text          0x0000000000000156       0xc4 /tmp/cclfhub1.o
+ .text          0x0000000000000000      0x156 /tmp/ccHwRb8T.o
+ .text          0x0000000000000156       0x9c /tmp/ccUN7hro.o
                 0x0000000000000156                irq
                 0x00000000000001a4                main
  *(.text*)
@@ -23,21 +23,21 @@ Linker script and memory map
  *(.srodata*)
  *(.eh_frame)
  *(.eh_frame*)
-                0x000000000000021c                . = ALIGN (0x4)
- *fill*         0x000000000000021a        0x2 
-                0x000000000000021c                _etext = .
-                0x000000000000021c                _sidata = _etext
+                0x00000000000001f4                . = ALIGN (0x4)
+ *fill*         0x00000000000001f2        0x2 
+                0x00000000000001f4                _etext = .
+                0x00000000000001f4                _sidata = _etext
 
-.rela.dyn       0x000000000000021c        0x0
- .rela.text     0x000000000000021c        0x0 /tmp/ccFWSdM0.o
+.rela.dyn       0x00000000000001f4        0x0
+ .rela.text     0x00000000000001f4        0x0 /tmp/ccHwRb8T.o
 
-.data           0x0000000000000000        0x0 load address 0x000000000000021c
+.data           0x0000000000000000        0x0 load address 0x00000000000001f4
                 0x0000000000000000                . = ALIGN (0x4)
                 0x0000000000000000                _sdata = .
                 0x0000000000000000                _ram_start = .
  *(.data)
- .data          0x0000000000000000        0x0 /tmp/ccFWSdM0.o
- .data          0x0000000000000000        0x0 /tmp/cclfhub1.o
+ .data          0x0000000000000000        0x0 /tmp/ccHwRb8T.o
+ .data          0x0000000000000000        0x0 /tmp/ccUN7hro.o
  *(.data*)
  *(.sdata)
  *(.sdata*)
@@ -46,12 +46,12 @@ Linker script and memory map
                 0x0000000000000000                . = ALIGN (0x4)
                 0x0000000000000000                _edata = .
 
-.bss            0x0000000000000000        0x0 load address 0x000000000000021c
+.bss            0x0000000000000000        0x0 load address 0x00000000000001f4
                 0x0000000000000000                . = ALIGN (0x4)
                 0x0000000000000000                _sbss = .
  *(.bss)
- .bss           0x0000000000000000        0x0 /tmp/ccFWSdM0.o
- .bss           0x0000000000000000        0x0 /tmp/cclfhub1.o
+ .bss           0x0000000000000000        0x0 /tmp/ccHwRb8T.o
+ .bss           0x0000000000000000        0x0 /tmp/ccUN7hro.o
  *(.bss*)
  *(.sbss)
  *(.sbss*)
@@ -62,23 +62,23 @@ Linker script and memory map
 .heap           0x0000000000000000        0x0
                 0x0000000000000000                . = ALIGN (0x4)
                 0x0000000000000000                _heap_start = .
-LOAD /tmp/ccFWSdM0.o
-LOAD /tmp/cclfhub1.o
+LOAD /tmp/ccHwRb8T.o
+LOAD /tmp/ccUN7hro.o
 OUTPUT(test_serial.elf elf32-littleriscv)
 
 .comment        0x0000000000000000       0x11
- .comment       0x0000000000000000       0x11 /tmp/cclfhub1.o
+ .comment       0x0000000000000000       0x11 /tmp/ccUN7hro.o
                                          0x12 (size before relaxing)
 
 Cross Reference Table
 
 Symbol                                            File
-_ebss                                             /tmp/ccFWSdM0.o
-_edata                                            /tmp/ccFWSdM0.o
-_sbss                                             /tmp/ccFWSdM0.o
-_sdata                                            /tmp/ccFWSdM0.o
-_sidata                                           /tmp/ccFWSdM0.o
-irq                                               /tmp/cclfhub1.o
-                                                  /tmp/ccFWSdM0.o
-main                                              /tmp/cclfhub1.o
-                                                  /tmp/ccFWSdM0.o
+_ebss                                             /tmp/ccHwRb8T.o
+_edata                                            /tmp/ccHwRb8T.o
+_sbss                                             /tmp/ccHwRb8T.o
+_sdata                                            /tmp/ccHwRb8T.o
+_sidata                                           /tmp/ccHwRb8T.o
+irq                                               /tmp/ccUN7hro.o
+                                                  /tmp/ccHwRb8T.o
+main                                              /tmp/ccUN7hro.o
+                                                  /tmp/ccHwRb8T.o

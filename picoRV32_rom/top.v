@@ -20,7 +20,9 @@ module top (
 	input PIN_17,
 	input PIN_18,
 	input PIN_19,
-	input PIN_20,    
+	input PIN_20,  
+	input PIN_21,
+	output PIN_22,  
 	input CLK,
     output USBPU  // USB pull-up resistor
 );
@@ -35,6 +37,12 @@ module top (
 	
 	wire [3:0] pushbuttons;
 	assign pushbuttons = {PIN_17,PIN_18,PIN_19,PIN_20};
+	
+	wire rx_uart;
+	assign rx_uart = PIN_21;
+	
+	wire tx_uart;
+	assign tx_uart = PIN_22;
 	
 	//resetn		
 	reg resetn_meta;
@@ -53,7 +61,9 @@ module top (
 			.irq_6(pushbuttons[2]),
 			.irq_7(pushbuttons[3]),
 			.porta_out(leds),
-			.portb_in(switches)
+			.portb_in(switches),
+			.rx_uart(rx_uart),
+			.tx_uart(tx_uart)
 	);
 		
     

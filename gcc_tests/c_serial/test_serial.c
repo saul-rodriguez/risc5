@@ -52,7 +52,7 @@ void main()
 	reg_uart_conf = UART_CONF;
 	
 	aux = 0xab;
-		
+		/*
 	while(1) {
 		flag = (unsigned char)(reg_intflags & UART_TX_IF);
 		if (flag) {
@@ -63,6 +63,18 @@ void main()
 		if (flag) {
 			rec = reg_uart_rx;
 			reg_porta = rec;
+		}
+		
+	}*/
+	
+	while(1) {
+		if (reg_intflags & UART_RX_IF) {
+			rec = reg_uart_rx;
+			
+			while(!(reg_intflags & UART_TX_IF)) {
+			};
+			
+			reg_uart_tx = rec;
 		}
 		
 	}
