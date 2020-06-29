@@ -1,0 +1,36 @@
+//delay.h
+
+#ifndef DELAY_H
+#define DELAY_H
+
+
+/* delay_cycles 
+ The following timing is obtained when compiling with -O3 option:
+ 18 clk_cycles total overhead 
+ 11 clk_cycles per loop itertion 
+*/
+
+void delay_cycles_11(unsigned int numLoop) 
+{
+					 
+	asm volatile("1: 		beq %[anumLoop],zero,2f\n"
+				 "			addi %[anumLoop],%[anumLoop],-1\n"
+				 "	     	j 1b\n"
+				 "2:\n"
+				 : [anumLoop] "+r" (numLoop));
+
+}
+
+#define CYCLES_PER_LOOP 11
+
+#define _delay_us(time_us) {\
+						delay_cycles_11((time_us*CLK_FREQ)/1000000/CYCLES_PER_LOOP); \
+					}
+
+#define _delay_ms(time_ms) {\
+						delay_cycles_11((time_ms*CLK_FREQ)/1000/CYCLES_PER_LOOP); \
+					}
+
+
+
+#endif

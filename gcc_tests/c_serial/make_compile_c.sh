@@ -1,5 +1,5 @@
-/opt/riscv32i/bin/riscv32-unknown-elf-gcc -march=rv32imc -nostartfiles -Wl,-Bstatic,-T,sections.lds,--strip-debug,-Map=firmware.map,--cref \
-  -ffreestanding -nostdlib -o $1.elf start.S $1.c
+/opt/riscv32i/bin/riscv32-unknown-elf-gcc -march=rv32imc -O3 -nostartfiles -Wl,-Bstatic,-T,sections.lds,--strip-debug,-Map=firmware.map,--cref \
+  -ffreestanding -nostdlib -o $1.elf start.S ../common/vargen.c ../common/eusart1.c $1.c 
 
 #riscv32-unknown-elf-as -march=rv32imc  -o $1.o $1.asm
 

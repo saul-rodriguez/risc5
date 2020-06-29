@@ -1,31 +1,9 @@
 //test_irq.c
 
-#include <stdint.h>
-#include <stdbool.h>
+#include "../common/vargen.h"
+#include "../common/eusart1.h"
 
 //extern uint32_t sram;
-
-//Memory mapped peripherals definitions
-#define reg_porta     (*(volatile uint32_t*) 0x00100000) // 8 bit digital output
-#define reg_portb     (*(volatile uint32_t*) 0x00100004) // 8 bit digital input
-#define reg_uart_tx   (*(volatile uint32_t*) 0x00100008) // 8bit tx uart
-#define reg_uart_rx   (*(volatile uint32_t*) 0x0010000c) // 8bit rx uart
-#define reg_uart_conf (*(volatile uint32_t*) 0x00100010) // 8 bit interrupt enable configuration
-#define reg_intcon    (*(volatile uint32_t*) 0x00100014) // 8 bit interrupt enable configuration
-#define reg_intflags  (*(volatile uint32_t*) 0x00100018) // 8 bit interrupt flags
-
-
-#define IRQ_5 0x00000020
-#define IRQ_6 0x00000040
-#define IRQ_7 0x00000080
-
-#define UART_RX_IF 0x01
-#define UART_TX_IF 0x02
-
-#define CLK_FREQ 16000000
-#define BRATE 9600
-
-#define UART_CONF (CLK_FREQ/BRATE)
 
 void irq(uint32_t irqs)
 {
@@ -46,12 +24,32 @@ void irq(uint32_t irqs)
 
 void main() 
 {
-	unsigned char flag;	
+	unsigned char flag;
 	unsigned char aux,rec;
 	
-	reg_uart_conf = UART_CONF;
+	EUSART1_Initialize();
 	
-	aux = 0xab;
+	/*
+	reg_intcon_bits->RXIE = 1;
+	reg_intcon_bits->TXIE = 1;
+	reg_intcon_bits->TMR0IE = 1;
+	
+	reg_porta = reg_intcon_bits->RXIE;
+	*/
+	
+	//volatile INTCON_bits_s *beta;
+	
+	//alfa.INTCON_reg = (uint32_t*)(INTCON);
+	//alfa.INTCON_bits->RXIF = 1;
+	
+	//beta = (INTCON_bits_s*)(0x00100014);
+	//beta->RXIF = 0;
+		
+	//reg_porta = 0xab;
+	
+	//reg_uart_conf = UART_CONF_VAL;
+	
+	//aux = 0xab;
 		/*
 	while(1) {
 		flag = (unsigned char)(reg_intflags & UART_TX_IF);
@@ -66,7 +64,16 @@ void main()
 		}
 		
 	}*/
+		
 	
+	
+	
+	while(1) {
+		//*(alfa)->RXIF = 1;
+		//*(alfa)->RXIF = 0;		
+	}
+	
+	/*
 	while(1) {
 		if (reg_intflags & UART_RX_IF) {
 			rec = reg_uart_rx;
@@ -78,5 +85,7 @@ void main()
 		}
 		
 	}
+	*/
+	
 }
 

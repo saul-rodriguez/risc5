@@ -7,44 +7,13 @@
 
 `define PICORV32_REGS picosoc_regs
 
-`include "rom.v"
+`include "vargen_inc.v"
+
 `include "picorv32.v"
+`include "rom.v"
 `include "gio.v"
 `include "uart.v"
 
-/*					Memory MAP
- *      START            END          BLOCK		NOTES
- *	------------------------------------------------------------------------------
- *   32'h0000_0000 ... 32'h0000_03FF  DATA		0 to 256x4=1024 bytes (1 kbyte)
- *	 32'h0001_0000 ... 32'h000F_FFFF  PROGRAM	64436 (64kbytes) to 1048575 (1 Mbyte)  
- *	 32'h0010_0000 ... 32'hFFFF_FFFF  MMUP		1048576 to 2^32 -1
- *
- *   Mermory Mapped User Peripherals (MMUP) & Configuration registers
- *	 Name:		Address:		Description:
- *  -------------------------------------------------
- *	 PORTA		32'h0010_0000	8-bit Digital output	
- *	 PORTB		32'h0010_0004	8-bit Digital input	
- * 	 UART_TX	32'h0010_0008	TX Data serial port (8-bit)	
- *	 UART_RX	32'h0010_000c	RX Data serial port (8-bit)
- *   UART_CONF	32'h0010_0010	UART Configuration register (16-bit)
- *   INTCON		32'h0010_0014   Interrupts configuration register 
- *   INTFLAGS	32'h0010_0018   User interrupts flags register 
- 
- */
- 
- `define PORTA	32'h0010_0000
- `define PORTA_WIDTH 8
- 
- `define PORTB	32'h0010_0004
- `define PORTB_WIDTH 8
- 
- `define UART_TX   32'h0010_0008
- `define UART_RX   32'h0010_000c
- `define UART_CONF 32'h0010_0010
- 
- `define INTCON	   32'h0010_0014
- `define INTFLAGS  32'h0010_0018
-    
 module vargen (
 	input clk,
 	input resetn,
@@ -62,7 +31,9 @@ parameter [31:0] STACKADDR = (4*MEM_WORDS);       // end of memory at 1kbyte
 parameter [31:0] PROGADDR_RESET = 32'h 0001_0000; // Starts at 64k from initialized blockRAM
 parameter [31:0] PROGADDR_IRQ = 32'h 0001_0010; // 
 
+/************/
 /* PICORV32 */
+/************/
 
 //Interrupts
 reg [31:0] irq;
@@ -71,8 +42,8 @@ wire irq_uart = 0;
 
 always @* begin
 		irq = 0;
-		irq[3] = irq_stall;
-		irq[4] = irq_uart;
+		irq[3] = uart_tx_int_flag_pico;
+		irq[4] = uart_rx_int_flag_pico;
 		irq[5] = irq_5;
 		irq[6] = irq_6;
 		irq[7] = irq_7;
@@ -97,6 +68,7 @@ assign mem_rdata = ram_ready ? ram_rdata :
 				   rom_ready ? rom_rdata : 
 				   portb_ready ? portb_data32 :
 				   uart_rx_ready ? uart_rx_data32 : 
+				   intcon_ready ? intcon_data32 :
 				   intflags_ready? intflags_data32 : 32'h0000_0000;
 
 /* Only one <name>_ready signal can be asserted at a time!   
@@ -109,7 +81,7 @@ always @(posedge clk) begin
 	//porta_ready <= mem_valid && !mem_ready && mem_addr == `PORTA; //Example for local creation of a <name>_ready signal (not recommended, read above)
 end
 
-//RISC V 
+//RISC V picorv32 
 picorv32 #(
 		.STACKADDR(STACKADDR),
 		.PROGADDR_RESET(PROGADDR_RESET),
@@ -133,8 +105,10 @@ picorv32 #(
 		.irq         (irq        )
 	);
 
-
+/***************/
 /* DATA MEMORY */
+/***************/
+
 wire [31:0] ram_rdata;
 reg ram_ready;
 
@@ -145,8 +119,11 @@ picosoc_mem #(.WORDS(MEM_WORDS)) memory (
 		.wdata(mem_wdata),
 		.rdata(ram_rdata)
 	);
-	
+
+/******************/	
 /* PROGRAM MEMORY */
+/******************/
+
 wire [31:0] rom_rdata;
 reg rom_ready; 
 
@@ -158,8 +135,9 @@ rom256 pico_rom(
 			   .rdata(rom_rdata)
 	);
 
-
-/* PORTA */
+/************/
+/* PORTA (W)*/
+/************/
 wire porta_ready;
 
 ioport #(.ADDR(`PORTA),
@@ -176,8 +154,10 @@ ioport #(.ADDR(`PORTA),
 			.odata(porta_out)
 		  );
 
+/************/
+/* PORTB (R)*/
+/************/
 
-/* PORTB */
 wire [`PORTB_WIDTH-1:0] portb_data;
 wire portb_ready;
 wire [31:0] portb_data32;
@@ -196,15 +176,19 @@ ioport #(.ADDR(`PORTB),
 			.mem_port_ready(portb_ready),
 			.odata(portb_data)
 		  );
-		  
-/* INTCON REGISTER (W)*/
 
-// Interrupt bits order in IntCon and inflags
+/************************/		  
+/* INTCON REGISTER (R/W)*/
+/************************/
+
+//          Interrupt bits order in INTCON and INTFLAG
 //  B7      B6      B5      B4       B3      B2      B1      B0
 //  -      -         -       -        -     TMR0   TX_UART RX_UART 
 
 wire intcon_ready;
 wire [7:0] intcon;
+wire [31:0] intcon_data32;
+assign intcon_data32 = {{(24){1'b0}},intcon};
 
 ioport #(.ADDR(`INTCON),
 		 .WIDTH(8)
@@ -220,7 +204,9 @@ ioport #(.ADDR(`INTCON),
 			.odata(intcon)
 		  );
 
-/* INTFLAGS REGISTER (L)*/
+/************************/
+/* INTFLAGS REGISTER (R)*/
+/************************/
 
 wire [7:0] intflags;
 wire intflags_ready;
@@ -248,12 +234,14 @@ ioport #(.ADDR(`INTFLAGS),
 			.odata(intflags)
 		  );
 
+/********/
 /* UART */
+/********/
 
 //UART Configuration register
 
-wire uart_conf_ready;
 wire [11:0] uart_conf;
+wire uart_conf_ready;
 
 ioport #(.ADDR(`UART_CONF),
 		  .WIDTH(12)
@@ -269,6 +257,7 @@ ioport #(.ADDR(`UART_CONF),
 			.odata(uart_conf)
 		  );
 
+//UART TX wrapper
 wire tx_uart;	  
 wire uart_tx_ready;
 wire uart_tx_int_flag;
@@ -290,6 +279,8 @@ UART_TX_PICO #(.ADDR(`UART_TX)) tx(
 	.uart_tx_int_flag(uart_tx_int_flag)
 );
 
+
+//UART RX wrapper
 wire rx_uart;
 wire [7:0] uart_rx_data;
 wire uart_rx_ready;
@@ -317,6 +308,7 @@ UART_RX_PICO #(.ADDR(`UART_RX)) rx(
 
 
 endmodule //END module vargen
+
 
 
 //Registers module

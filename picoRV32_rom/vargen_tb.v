@@ -10,27 +10,19 @@ module vargen_tb;
 
 	reg clk;
 	reg resetn;
-	
-	//reg        iomem_valid,
-	//reg         iomem_ready,
-	//output [ 3:0] iomem_wstrb,
-	//output [31:0] iomem_addr,
-	//output [31:0] iomem_wdata,
-	//input  [31:0] iomem_rdata,
-	
+		
 	reg  irq_5;
 	reg  irq_6;
 	reg  irq_7;
-
 		
 	wire [7:0] porta_out;	
 	reg [7:0] portb_in;
 	
-	wire tx_uart;
-	
+	wire tx_uart;	
 	wire rx_uart;
 	
-	assign rx_uart = tx_uart;
+	//uncomment only for loopback test!
+	assign rx_uart = tx_uart; 
 	
 	vargen myrisc(
 			.clk(clk),
@@ -86,14 +78,14 @@ always #(tck/2) clk = ~clk;
 */	
 	
 	
-	task test_serial;
+	task test_serial; //connect rx_uart to tx_uart for loopback test
 		begin
 			portb_in = 8'h00;
 		end
 	endtask
 	
 	
-	task test_irq;
+	task test_irq; 
 		begin
 			portb_in = 8'haf;
 			#500 irq_5 = 1;

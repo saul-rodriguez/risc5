@@ -1,4 +1,17 @@
 
+Allocating common symbols
+Common symbol       size              file
+
+eusart1RxCount      0x1               /tmp/ccOruqGq.o
+eusart1RxBuffer     0x8               /tmp/ccOruqGq.o
+EUSART1_RxDefaultInterruptHandler
+                    0x4               /tmp/ccOruqGq.o
+eusart1TxBufferRemaining
+                    0x1               /tmp/ccOruqGq.o
+EUSART1_TxDefaultInterruptHandler
+                    0x4               /tmp/ccOruqGq.o
+eusart1TxBuffer     0x8               /tmp/ccOruqGq.o
+
 Memory Configuration
 
 Name             Origin             Length             Attributes
@@ -9,76 +22,128 @@ RAM              0x0000000000000000 0x0000000000000400 xrw
 Linker script and memory map
 
 
-.text           0x0000000000000000      0x1f4
+.text           0x0000000000000000      0x2f8
                 0x0000000000000000                . = ALIGN (0x4)
  *(.text)
- .text          0x0000000000000000      0x156 /tmp/ccHwRb8T.o
- .text          0x0000000000000156       0x9c /tmp/ccUN7hro.o
-                0x0000000000000156                irq
-                0x00000000000001a4                main
+ .text          0x0000000000000000      0x156 /tmp/ccZRHX9z.o
+ .text          0x0000000000000156        0x0 /tmp/ccvp9Sm0.o
+ .text          0x0000000000000156      0x166 /tmp/ccOruqGq.o
+                0x0000000000000156                EUSART1_Receive_ISR
+                0x000000000000019c                EUSART1_Transmit_ISR
+                0x00000000000001fa                EUSART1_Initialize
+                0x000000000000025c                EUSART1_is_tx_ready
+                0x000000000000026a                EUSART1_RxDataHandler
+                0x00000000000002b0                EUSART1_SetTxInterruptHandler
+                0x00000000000002b6                EUSART1_SetRxInterruptHandler
+ .text          0x00000000000002bc       0x32 /tmp/ccCTcQ2Q.o
+                0x00000000000002bc                irq
  *(.text*)
+ .text.startup  0x00000000000002ee        0x8 /tmp/ccCTcQ2Q.o
+                0x00000000000002ee                main
  *(.rodata)
  *(.rodata*)
  *(.srodata)
  *(.srodata*)
  *(.eh_frame)
  *(.eh_frame*)
-                0x00000000000001f4                . = ALIGN (0x4)
- *fill*         0x00000000000001f2        0x2 
-                0x00000000000001f4                _etext = .
-                0x00000000000001f4                _sidata = _etext
+                0x00000000000002f8                . = ALIGN (0x4)
+ *fill*         0x00000000000002f6        0x2 
+                0x00000000000002f8                _etext = .
+                0x00000000000002f8                _sidata = _etext
 
-.rela.dyn       0x00000000000001f4        0x0
- .rela.text     0x00000000000001f4        0x0 /tmp/ccHwRb8T.o
+.rela.dyn       0x00000000000002f8        0x0
+ .rela.text     0x00000000000002f8        0x0 /tmp/ccZRHX9z.o
 
-.data           0x0000000000000000        0x0 load address 0x00000000000001f4
+.data           0x0000000000000000        0x4 load address 0x00000000000002f8
                 0x0000000000000000                . = ALIGN (0x4)
                 0x0000000000000000                _sdata = .
                 0x0000000000000000                _ram_start = .
  *(.data)
- .data          0x0000000000000000        0x0 /tmp/ccHwRb8T.o
- .data          0x0000000000000000        0x0 /tmp/ccUN7hro.o
+ .data          0x0000000000000000        0x0 /tmp/ccZRHX9z.o
+ .data          0x0000000000000000        0x0 /tmp/ccvp9Sm0.o
+ .data          0x0000000000000000        0x0 /tmp/ccOruqGq.o
+ .data          0x0000000000000000        0x0 /tmp/ccCTcQ2Q.o
  *(.data*)
  *(.sdata)
+ .sdata         0x0000000000000000        0x4 /tmp/ccvp9Sm0.o
+                0x0000000000000000                reg_intcon_bits
  *(.sdata*)
  *(.init_array)
  *(.init_array*)
-                0x0000000000000000                . = ALIGN (0x4)
-                0x0000000000000000                _edata = .
+                0x0000000000000004                . = ALIGN (0x4)
+                0x0000000000000004                _edata = .
 
-.bss            0x0000000000000000        0x0 load address 0x00000000000001f4
-                0x0000000000000000                . = ALIGN (0x4)
-                0x0000000000000000                _sbss = .
+.bss            0x0000000000000004       0x24 load address 0x00000000000002fc
+                0x0000000000000004                . = ALIGN (0x4)
+                0x0000000000000004                _sbss = .
  *(.bss)
- .bss           0x0000000000000000        0x0 /tmp/ccHwRb8T.o
- .bss           0x0000000000000000        0x0 /tmp/ccUN7hro.o
+ .bss           0x0000000000000004        0x0 /tmp/ccZRHX9z.o
+ .bss           0x0000000000000004        0x0 /tmp/ccvp9Sm0.o
+ .bss           0x0000000000000004        0x0 /tmp/ccOruqGq.o
+ .bss           0x0000000000000004        0x0 /tmp/ccCTcQ2Q.o
  *(.bss*)
  *(.sbss)
+ .sbss          0x0000000000000004        0x4 /tmp/ccOruqGq.o
+                0x0000000000000004                eusart1RxTail
+                0x0000000000000005                eusart1RxHead
+                0x0000000000000006                eusart1TxTail
+                0x0000000000000007                eusart1TxHead
  *(.sbss*)
  *(COMMON)
-                0x0000000000000000                . = ALIGN (0x4)
-                0x0000000000000000                _ebss = .
+ COMMON         0x0000000000000008       0x20 /tmp/ccOruqGq.o
+                0x0000000000000008                eusart1RxCount
+                0x000000000000000c                eusart1RxBuffer
+                0x0000000000000014                EUSART1_RxDefaultInterruptHandler
+                0x0000000000000018                eusart1TxBufferRemaining
+                0x000000000000001c                EUSART1_TxDefaultInterruptHandler
+                0x0000000000000020                eusart1TxBuffer
+                0x0000000000000028                . = ALIGN (0x4)
+                0x0000000000000028                _ebss = .
 
-.heap           0x0000000000000000        0x0
-                0x0000000000000000                . = ALIGN (0x4)
-                0x0000000000000000                _heap_start = .
-LOAD /tmp/ccHwRb8T.o
-LOAD /tmp/ccUN7hro.o
+.heap           0x0000000000000028        0x0
+                0x0000000000000028                . = ALIGN (0x4)
+                0x0000000000000028                _heap_start = .
+LOAD /tmp/ccZRHX9z.o
+LOAD /tmp/ccvp9Sm0.o
+LOAD /tmp/ccOruqGq.o
+LOAD /tmp/ccCTcQ2Q.o
 OUTPUT(test_serial.elf elf32-littleriscv)
 
 .comment        0x0000000000000000       0x11
- .comment       0x0000000000000000       0x11 /tmp/ccUN7hro.o
+ .comment       0x0000000000000000       0x11 /tmp/ccvp9Sm0.o
                                          0x12 (size before relaxing)
+ .comment       0x0000000000000011       0x12 /tmp/ccOruqGq.o
+ .comment       0x0000000000000011       0x12 /tmp/ccCTcQ2Q.o
 
 Cross Reference Table
 
 Symbol                                            File
-_ebss                                             /tmp/ccHwRb8T.o
-_edata                                            /tmp/ccHwRb8T.o
-_sbss                                             /tmp/ccHwRb8T.o
-_sdata                                            /tmp/ccHwRb8T.o
-_sidata                                           /tmp/ccHwRb8T.o
-irq                                               /tmp/ccUN7hro.o
-                                                  /tmp/ccHwRb8T.o
-main                                              /tmp/ccUN7hro.o
-                                                  /tmp/ccHwRb8T.o
+EUSART1_Initialize                                /tmp/ccOruqGq.o
+                                                  /tmp/ccCTcQ2Q.o
+EUSART1_Receive_ISR                               /tmp/ccOruqGq.o
+EUSART1_RxDataHandler                             /tmp/ccOruqGq.o
+EUSART1_RxDefaultInterruptHandler                 /tmp/ccOruqGq.o
+EUSART1_SetRxInterruptHandler                     /tmp/ccOruqGq.o
+EUSART1_SetTxInterruptHandler                     /tmp/ccOruqGq.o
+EUSART1_Transmit_ISR                              /tmp/ccOruqGq.o
+EUSART1_TxDefaultInterruptHandler                 /tmp/ccOruqGq.o
+EUSART1_is_tx_ready                               /tmp/ccOruqGq.o
+_ebss                                             /tmp/ccZRHX9z.o
+_edata                                            /tmp/ccZRHX9z.o
+_sbss                                             /tmp/ccZRHX9z.o
+_sdata                                            /tmp/ccZRHX9z.o
+_sidata                                           /tmp/ccZRHX9z.o
+eusart1RxBuffer                                   /tmp/ccOruqGq.o
+eusart1RxCount                                    /tmp/ccOruqGq.o
+eusart1RxHead                                     /tmp/ccOruqGq.o
+eusart1RxTail                                     /tmp/ccOruqGq.o
+eusart1TxBuffer                                   /tmp/ccOruqGq.o
+eusart1TxBufferRemaining                          /tmp/ccOruqGq.o
+eusart1TxHead                                     /tmp/ccOruqGq.o
+eusart1TxTail                                     /tmp/ccOruqGq.o
+irq                                               /tmp/ccCTcQ2Q.o
+                                                  /tmp/ccZRHX9z.o
+main                                              /tmp/ccCTcQ2Q.o
+                                                  /tmp/ccZRHX9z.o
+reg_intcon_bits                                   /tmp/ccvp9Sm0.o
+                                                  /tmp/ccOruqGq.o
