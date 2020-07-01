@@ -127,10 +127,10 @@ picosoc_mem #(.WORDS(MEM_WORDS)) memory (
 wire [31:0] rom_rdata;
 reg rom_ready; 
 
-rom256 pico_rom(
+rom512 pico_rom(
 			   .clk(clk),
 			   .wen(1'b0),
-			   .addr(mem_addr[9:2]), //address is always aligned to 4 bytes
+			   .addr(mem_addr[10:2]), //address is always aligned to 4 bytes
 			   .wdata(32'h0000_0000),
 			   .rdata(rom_rdata)
 	);

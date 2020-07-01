@@ -9,6 +9,13 @@
 	#error "UART_CONF must be defined before eusart1.h is read"
 #endif
 
+extern volatile uint8_t eusart1TxBufferRemaining;
+extern volatile uint8_t eusart1RxCount;
+
+//extern void (*EUSART1_TxDefaultInterruptHandler)(void);
+//extern void (*EUSART1_RxDefaultInterruptHandler)(void);
+
+
 void EUSART1_Initialize(void);
 
 bool EUSART1_is_tx_ready(void);
@@ -19,9 +26,8 @@ void EUSART1_Write(uint8_t txData);
 void EUSART1_Transmit_ISR(void);
 void EUSART1_Receive_ISR(void);
 void EUSART1_RxDataHandler(void);
-void EUSART1_SetTxInterruptHandler(void (* interruptHandler)(void));
-void EUSART1_SetRxInterruptHandler(void (* interruptHandler)(void));
-
+//void EUSART1_SetTxInterruptHandler(void (* interruptHandler)(void));
+//void EUSART1_SetRxInterruptHandler(void (* interruptHandler)(void));
 
 
 

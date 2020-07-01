@@ -1,0 +1,560 @@
+   1              		.file	"eusart1.c"
+   2              		.option nopic
+   3              	# GNU C17 (GCC) version 8.2.0 (riscv32-unknown-elf)
+   4              	#	compiled by GNU C version 7.5.0, GMP version 6.1.2, MPFR version 4.0.1, MPC version 1.1.0, isl ve
+   5              	# GGC heuristics: --param ggc-min-expand=30 --param ggc-min-heapsize=4096
+   6              	# options passed:  ../common/eusart1.c -march=rv32imc -mabi=ilp32 -g -O0
+   7              	# -Wall -fverbose-asm
+   8              	# options enabled:  -faggressive-loop-optimizations -fauto-inc-dec
+   9              	# -fchkp-check-incomplete-type -fchkp-check-read -fchkp-check-write
+  10              	# -fchkp-instrument-calls -fchkp-narrow-bounds -fchkp-optimize
+  11              	# -fchkp-store-bounds -fchkp-use-static-bounds
+  12              	# -fchkp-use-static-const-bounds -fchkp-use-wrappers -fcommon
+  13              	# -fdelete-null-pointer-checks -fdwarf2-cfi-asm -fearly-inlining
+  14              	# -feliminate-unused-debug-types -ffp-int-builtin-inexact -ffunction-cse
+  15              	# -fgcse-lm -fgnu-runtime -fgnu-unique -fident -finline-atomics
+  16              	# -fira-hoist-pressure -fira-share-save-slots -fira-share-spill-slots
+  17              	# -fivopts -fkeep-static-consts -fleading-underscore -flifetime-dse
+  18              	# -flto-odr-type-merging -fmath-errno -fmerge-debug-strings -fpeephole
+  19              	# -fplt -fprefetch-loop-arrays -freg-struct-return
+  20              	# -fsched-critical-path-heuristic -fsched-dep-count-heuristic
+  21              	# -fsched-group-heuristic -fsched-interblock -fsched-last-insn-heuristic
+  22              	# -fsched-rank-heuristic -fsched-spec -fsched-spec-insn-heuristic
+  23              	# -fsched-stalled-insns-dep -fschedule-fusion -fsemantic-interposition
+  24              	# -fshow-column -fshrink-wrap-separate -fsigned-zeros
+  25              	# -fsplit-ivs-in-unroller -fssa-backprop -fstdarg-opt
+  26              	# -fstrict-volatile-bitfields -fsync-libcalls -ftrapping-math
+  27              	# -ftree-forwprop -ftree-loop-if-convert -ftree-loop-im -ftree-loop-ivcanon
+  28              	# -ftree-loop-optimize -ftree-parallelize-loops= -ftree-phiprop
+  29              	# -ftree-reassoc -ftree-scev-cprop -funit-at-a-time -fverbose-asm
+  30              	# -fzero-initialized-in-bss -mdiv -mexplicit-relocs -mplt -mstrict-align
+  31              	
+  32              		.text
+  33              	.Ltext0:
+  34              		.cfi_sections	.debug_frame
+  35              		.globl	eusart1TxHead
+  36              		.section	.sbss,"aw",@nobits
+  39              	eusart1TxHead:
+  40 0000 00       		.zero	1
+  41              		.globl	eusart1TxTail
+  44              	eusart1TxTail:
+  45 0001 00       		.zero	1
+  46              		.comm	eusart1TxBuffer,8,4
+  47              		.comm	eusart1TxBufferRemaining,1,1
+  48              		.globl	eusart1RxHead
+  51              	eusart1RxHead:
+  52 0002 00       		.zero	1
+  53              		.globl	eusart1RxTail
+  56              	eusart1RxTail:
+  57 0003 00       		.zero	1
+  58              		.comm	eusart1RxBuffer,8,4
+  59              		.comm	eusart1RxCount,1,1
+  60              		.comm	EUSART1_TxDefaultInterruptHandler,4,4
+  61              		.comm	EUSART1_RxDefaultInterruptHandler,4,4
+  62              		.text
+  63              		.align	1
+  64              		.globl	EUSART1_Initialize
+  66              	EUSART1_Initialize:
+  67              	.LFB0:
+  68              		.file 1 "../common/eusart1.c"
+   1:../common/eusart1.c **** //eusart1.c
+   2:../common/eusart1.c **** #include "eusart1.h"
+   3:../common/eusart1.c **** 
+   4:../common/eusart1.c **** 
+   5:../common/eusart1.c **** /**
+   6:../common/eusart1.c ****   Section: Macro Declarations
+   7:../common/eusart1.c **** */
+   8:../common/eusart1.c **** 
+   9:../common/eusart1.c **** #define EUSART1_TX_BUFFER_SIZE 8
+  10:../common/eusart1.c **** #define EUSART1_RX_BUFFER_SIZE 8
+  11:../common/eusart1.c **** 
+  12:../common/eusart1.c **** 
+  13:../common/eusart1.c **** /**
+  14:../common/eusart1.c ****   Section: Global Variables
+  15:../common/eusart1.c **** */
+  16:../common/eusart1.c **** volatile uint8_t eusart1TxHead = 0;
+  17:../common/eusart1.c **** volatile uint8_t eusart1TxTail = 0;
+  18:../common/eusart1.c **** volatile uint8_t eusart1TxBuffer[EUSART1_TX_BUFFER_SIZE];
+  19:../common/eusart1.c **** volatile uint8_t eusart1TxBufferRemaining;
+  20:../common/eusart1.c **** 
+  21:../common/eusart1.c **** volatile uint8_t eusart1RxHead = 0;
+  22:../common/eusart1.c **** volatile uint8_t eusart1RxTail = 0;
+  23:../common/eusart1.c **** volatile uint8_t eusart1RxBuffer[EUSART1_RX_BUFFER_SIZE];
+  24:../common/eusart1.c **** //volatile eusart1_status_t eusart1RxStatusBuffer[EUSART1_RX_BUFFER_SIZE];
+  25:../common/eusart1.c **** volatile uint8_t eusart1RxCount;
+  26:../common/eusart1.c **** //volatile eusart1_status_t eusart1RxLastError;
+  27:../common/eusart1.c **** 
+  28:../common/eusart1.c **** void (*EUSART1_TxDefaultInterruptHandler)(void);
+  29:../common/eusart1.c **** void (*EUSART1_RxDefaultInterruptHandler)(void);
+  30:../common/eusart1.c **** 
+  31:../common/eusart1.c **** void EUSART1_Initialize(void)
+  32:../common/eusart1.c **** {
+  69              		.loc 1 32 1
+  70              		.cfi_startproc
+  71 0000 130101FF 		addi	sp,sp,-16	#,,
+  72              		.cfi_def_cfa_offset 16
+  73 0004 23261100 		sw	ra,12(sp)	#,
+  74 0008 23248100 		sw	s0,8(sp)	#,
+  75              		.cfi_offset 1, -4
+  76              		.cfi_offset 8, -8
+  77 000c 13040101 		addi	s0,sp,16	#,,
+  78              		.cfi_def_cfa 8, 0
+  79              	# ../common/eusart1.c:34: 	reg_intcon_bits->RXIE = 0;	
+  33:../common/eusart1.c **** 	// disable interrupts before changing states
+  34:../common/eusart1.c **** 	reg_intcon_bits->RXIE = 0;	
+  80              		.loc 1 34 17
+  81 0010 B7070000 		lui	a5,%hi(reg_intcon_bits)	# tmp76,
+  82 0014 83A70700 		lw	a5,%lo(reg_intcon_bits)(a5)		# reg_intcon_bits.0_1, reg_intcon_bits
+  83              	# ../common/eusart1.c:34: 	reg_intcon_bits->RXIE = 0;	
+  84              		.loc 1 34 24
+  85 0018 03C70700 		lbu	a4,0(a5)	# tmp78, reg_intcon_bits.0_1->RXIE
+  86 001c 1377E7FF 		andi	a4,a4,-2	#, tmp79, tmp78
+  87 0020 2380E700 		sb	a4,0(a5)	# tmp80, reg_intcon_bits.0_1->RXIE
+  88              	# ../common/eusart1.c:35: 	EUSART1_SetRxInterruptHandler(EUSART1_Receive_ISR);
+  35:../common/eusart1.c **** 	EUSART1_SetRxInterruptHandler(EUSART1_Receive_ISR);
+  89              		.loc 1 35 2
+  90 0024 B7070000 		lui	a5,%hi(EUSART1_Receive_ISR)	# tmp81,
+  91 0028 13850700 		addi	a0,a5,%lo(EUSART1_Receive_ISR)	#, tmp81,
+  92 002c 97000000 		call	EUSART1_SetRxInterruptHandler		#
+  92      E7800000 
+  93              	# ../common/eusart1.c:36: 	reg_intcon_bits->TXIE = 0;	
+  36:../common/eusart1.c **** 	reg_intcon_bits->TXIE = 0;	
+  94              		.loc 1 36 17
+  95 0034 B7070000 		lui	a5,%hi(reg_intcon_bits)	# tmp82,
+  96 0038 83A70700 		lw	a5,%lo(reg_intcon_bits)(a5)		# reg_intcon_bits.1_2, reg_intcon_bits
+  97              	# ../common/eusart1.c:36: 	reg_intcon_bits->TXIE = 0;	
+  98              		.loc 1 36 24
+  99 003c 03C70700 		lbu	a4,0(a5)	# tmp84, reg_intcon_bits.1_2->TXIE
+ 100 0040 1377D7FF 		andi	a4,a4,-3	#, tmp85, tmp84
+ 101 0044 2380E700 		sb	a4,0(a5)	# tmp86, reg_intcon_bits.1_2->TXIE
+ 102              	# ../common/eusart1.c:37: 	EUSART1_SetTxInterruptHandler(EUSART1_Transmit_ISR);
+  37:../common/eusart1.c **** 	EUSART1_SetTxInterruptHandler(EUSART1_Transmit_ISR);
+ 103              		.loc 1 37 2
+ 104 0048 B7070000 		lui	a5,%hi(EUSART1_Transmit_ISR)	# tmp87,
+ 105 004c 13850700 		addi	a0,a5,%lo(EUSART1_Transmit_ISR)	#, tmp87,
+ 106 0050 97000000 		call	EUSART1_SetTxInterruptHandler		#
+ 106      E7800000 
+ 107              	# ../common/eusart1.c:40: 	reg_uart_conf = UART_CONF_VAL;	
+  38:../common/eusart1.c **** 	
+  39:../common/eusart1.c **** 	//configure baud rate counter
+  40:../common/eusart1.c **** 	reg_uart_conf = UART_CONF_VAL;	
+ 108              		.loc 1 40 2
+ 109 0058 B7071000 		li	a5,1048576		# tmp88,
+ 110 005c 93870701 		addi	a5,a5,16	#, _3, tmp88
+ 111              	# ../common/eusart1.c:40: 	reg_uart_conf = UART_CONF_VAL;	
+ 112              		.loc 1 40 16
+ 113 0060 13072068 		li	a4,1666		# tmp89,
+ 114 0064 23A0E700 		sw	a4,0(a5)	# tmp89, *_3
+ 115              	# ../common/eusart1.c:43:     eusart1TxHead = 0;
+  41:../common/eusart1.c **** 	
+  42:../common/eusart1.c **** 	// initializing the driver state
+  43:../common/eusart1.c ****     eusart1TxHead = 0;
+ 116              		.loc 1 43 19
+ 117 0068 B7070000 		lui	a5,%hi(eusart1TxHead)	# tmp90,
+ 118 006c 23800700 		sb	zero,%lo(eusart1TxHead)(a5)	#, eusart1TxHead
+ 119              	# ../common/eusart1.c:44:     eusart1TxTail = 0;
+  44:../common/eusart1.c ****     eusart1TxTail = 0;
+ 120              		.loc 1 44 19
+ 121 0070 B7070000 		lui	a5,%hi(eusart1TxTail)	# tmp91,
+ 122 0074 23800700 		sb	zero,%lo(eusart1TxTail)(a5)	#, eusart1TxTail
+ 123              	# ../common/eusart1.c:45:     eusart1TxBufferRemaining = sizeof(eusart1TxBuffer);
+  45:../common/eusart1.c ****     eusart1TxBufferRemaining = sizeof(eusart1TxBuffer);
+ 124              		.loc 1 45 30
+ 125 0078 B7070000 		lui	a5,%hi(eusart1TxBufferRemaining)	# tmp92,
+ 126 007c 13078000 		li	a4,8		# tmp93,
+ 127 0080 2380E700 		sb	a4,%lo(eusart1TxBufferRemaining)(a5)	# tmp93, eusart1TxBufferRemaining
+ 128              	# ../common/eusart1.c:47:     eusart1RxHead = 0;
+  46:../common/eusart1.c **** 
+  47:../common/eusart1.c ****     eusart1RxHead = 0;
+ 129              		.loc 1 47 19
+ 130 0084 B7070000 		lui	a5,%hi(eusart1RxHead)	# tmp94,
+ 131 0088 23800700 		sb	zero,%lo(eusart1RxHead)(a5)	#, eusart1RxHead
+ 132              	# ../common/eusart1.c:48:     eusart1RxTail = 0;
+  48:../common/eusart1.c ****     eusart1RxTail = 0;
+ 133              		.loc 1 48 19
+ 134 008c B7070000 		lui	a5,%hi(eusart1RxTail)	# tmp95,
+ 135 0090 23800700 		sb	zero,%lo(eusart1RxTail)(a5)	#, eusart1RxTail
+ 136              	# ../common/eusart1.c:49:     eusart1RxCount = 0;
+  49:../common/eusart1.c ****     eusart1RxCount = 0;
+ 137              		.loc 1 49 20
+ 138 0094 B7070000 		lui	a5,%hi(eusart1RxCount)	# tmp96,
+ 139 0098 23800700 		sb	zero,%lo(eusart1RxCount)(a5)	#, eusart1RxCount
+ 140              	# ../common/eusart1.c:52: 	reg_intcon_bits->RXIE = 1;	
+  50:../common/eusart1.c **** 	
+  51:../common/eusart1.c **** 	//Enable RX interrupt
+  52:../common/eusart1.c **** 	reg_intcon_bits->RXIE = 1;	
+ 141              		.loc 1 52 17
+ 142 009c B7070000 		lui	a5,%hi(reg_intcon_bits)	# tmp97,
+ 143 00a0 83A70700 		lw	a5,%lo(reg_intcon_bits)(a5)		# reg_intcon_bits.2_4, reg_intcon_bits
+ 144              	# ../common/eusart1.c:52: 	reg_intcon_bits->RXIE = 1;	
+ 145              		.loc 1 52 24
+ 146 00a4 03C70700 		lbu	a4,0(a5)	# tmp99, reg_intcon_bits.2_4->RXIE
+ 147 00a8 13671700 		ori	a4,a4,1	#, tmp100, tmp99
+ 148 00ac 2380E700 		sb	a4,0(a5)	# tmp101, reg_intcon_bits.2_4->RXIE
+ 149              	# ../common/eusart1.c:53: }
+  53:../common/eusart1.c **** }
+ 150              		.loc 1 53 1
+ 151 00b0 13000000 		nop	
+ 152 00b4 8320C100 		lw	ra,12(sp)		#,
+ 153              		.cfi_restore 1
+ 154 00b8 03248100 		lw	s0,8(sp)		#,
+ 155              		.cfi_restore 8
+ 156 00bc 13010101 		addi	sp,sp,16	#,,
+ 157              		.cfi_def_cfa_register 2
+ 158 00c0 67800000 		jr	ra		#
+ 159              		.cfi_endproc
+ 160              	.LFE0:
+ 162              		.align	1
+ 163              		.globl	EUSART1_is_tx_ready
+ 165              	EUSART1_is_tx_ready:
+ 166              	.LFB1:
+  54:../common/eusart1.c **** 
+  55:../common/eusart1.c **** bool EUSART1_is_tx_ready(void)
+  56:../common/eusart1.c **** {
+ 167              		.loc 1 56 1
+ 168              		.cfi_startproc
+ 169 00c4 130101FF 		addi	sp,sp,-16	#,,
+ 170              		.cfi_def_cfa_offset 16
+ 171 00c8 23268100 		sw	s0,12(sp)	#,
+ 172              		.cfi_offset 8, -4
+ 173 00cc 13040101 		addi	s0,sp,16	#,,
+ 174              		.cfi_def_cfa 8, 0
+ 175              	# ../common/eusart1.c:57:     return (eusart1TxBufferRemaining ? true : false);
+  57:../common/eusart1.c ****     return (eusart1TxBufferRemaining ? true : false);
+ 176              		.loc 1 57 45
+ 177 00d0 B7070000 		lui	a5,%hi(eusart1TxBufferRemaining)	# tmp75,
+ 178 00d4 83C70700 		lbu	a5,%lo(eusart1TxBufferRemaining)(a5)	# tmp77, eusart1TxBufferRemaining
+ 179 00d8 93F7F70F 		andi	a5,a5,0xff	# eusart1TxBufferRemaining.3_1, tmp77
+ 180 00dc B337F000 		snez	a5,a5	# tmp79, eusart1TxBufferRemaining.3_1
+ 181 00e0 93F7F70F 		andi	a5,a5,0xff	# _3, tmp78
+ 182              	# ../common/eusart1.c:58: }
+  58:../common/eusart1.c **** }
+ 183              		.loc 1 58 1
+ 184 00e4 13850700 		mv	a0,a5	#, <retval>
+ 185 00e8 0324C100 		lw	s0,12(sp)		#,
+ 186              		.cfi_restore 8
+ 187 00ec 13010101 		addi	sp,sp,16	#,,
+ 188              		.cfi_def_cfa_register 2
+ 189 00f0 67800000 		jr	ra		#
+ 190              		.cfi_endproc
+ 191              	.LFE1:
+ 193              		.align	1
+ 194              		.globl	EUSART1_Transmit_ISR
+ 196              	EUSART1_Transmit_ISR:
+ 197              	.LFB2:
+  59:../common/eusart1.c **** 
+  60:../common/eusart1.c **** void EUSART1_Transmit_ISR(void)
+  61:../common/eusart1.c **** {
+ 198              		.loc 1 61 1
+ 199              		.cfi_startproc
+ 200 00f4 130101FF 		addi	sp,sp,-16	#,,
+ 201              		.cfi_def_cfa_offset 16
+ 202 00f8 23268100 		sw	s0,12(sp)	#,
+ 203              		.cfi_offset 8, -4
+ 204 00fc 13040101 		addi	s0,sp,16	#,,
+ 205              		.cfi_def_cfa 8, 0
+ 206              	# ../common/eusart1.c:64:     if(sizeof(eusart1TxBuffer) > eusart1TxBufferRemaining)
+  62:../common/eusart1.c **** 
+  63:../common/eusart1.c ****     // add your EUSART1 interrupt custom code
+  64:../common/eusart1.c ****     if(sizeof(eusart1TxBuffer) > eusart1TxBufferRemaining)
+ 207              		.loc 1 64 32
+ 208 0100 B7070000 		lui	a5,%hi(eusart1TxBufferRemaining)	# tmp83,
+ 209 0104 83C70700 		lbu	a5,%lo(eusart1TxBufferRemaining)(a5)	# tmp85, eusart1TxBufferRemaining
+ 210 0108 13F7F70F 		andi	a4,a5,0xff	# eusart1TxBufferRemaining.4_1, tmp85
+ 211              	# ../common/eusart1.c:64:     if(sizeof(eusart1TxBuffer) > eusart1TxBufferRemaining)
+ 212              		.loc 1 64 7
+ 213 010c 93077000 		li	a5,7		# tmp86,
+ 214 0110 63E0E708 		bgtu	a4,a5,.L5	#, eusart1TxBufferRemaining.4_1, tmp86,
+ 215              	# ../common/eusart1.c:67:         reg_uart_tx = eusart1TxBuffer[eusart1TxTail++];
+  65:../common/eusart1.c ****     {
+  66:../common/eusart1.c ****         //TX1REG = eusart1TxBuffer[eusart1TxTail++];
+  67:../common/eusart1.c ****         reg_uart_tx = eusart1TxBuffer[eusart1TxTail++];
+ 216              		.loc 1 67 52
+ 217 0114 B7070000 		lui	a5,%hi(eusart1TxTail)	# tmp87,
+ 218 0118 83C70700 		lbu	a5,%lo(eusart1TxTail)(a5)	# tmp89, eusart1TxTail
+ 219 011c 93F7F70F 		andi	a5,a5,0xff	# eusart1TxTail.5_2, tmp89
+ 220 0120 13871700 		addi	a4,a5,1	#, tmp90, eusart1TxTail.5_2
+ 221 0124 9376F70F 		andi	a3,a4,0xff	# _4, tmp90
+ 222 0128 37070000 		lui	a4,%hi(eusart1TxTail)	# tmp91,
+ 223 012c 2300D700 		sb	a3,%lo(eusart1TxTail)(a4)	# _4, eusart1TxTail
+ 224 0130 13870700 		mv	a4,a5	# _5, eusart1TxTail.5_2
+ 225              	# ../common/eusart1.c:67:         reg_uart_tx = eusart1TxBuffer[eusart1TxTail++];
+ 226              		.loc 1 67 38
+ 227 0134 B7070000 		lui	a5,%hi(eusart1TxBuffer)	# tmp92,
+ 228 0138 93870700 		addi	a5,a5,%lo(eusart1TxBuffer)	# tmp94, tmp92,
+ 229 013c B307F700 		add	a5,a4,a5	# tmp94, tmp93, _5
+ 230 0140 83C70700 		lbu	a5,0(a5)	# tmp95, eusart1TxBuffer
+ 231 0144 13F7F70F 		andi	a4,a5,0xff	# _6, tmp95
+ 232              	# ../common/eusart1.c:67:         reg_uart_tx = eusart1TxBuffer[eusart1TxTail++];
+ 233              		.loc 1 67 9
+ 234 0148 B7071000 		li	a5,1048576		# tmp96,
+ 235 014c 93878700 		addi	a5,a5,8	#, _7, tmp96
+ 236              	# ../common/eusart1.c:67:         reg_uart_tx = eusart1TxBuffer[eusart1TxTail++];
+ 237              		.loc 1 67 21
+ 238 0150 23A0E700 		sw	a4,0(a5)	# _8, *_7
+ 239              	# ../common/eusart1.c:68:         if(sizeof(eusart1TxBuffer) <= eusart1TxTail)
+  68:../common/eusart1.c ****         if(sizeof(eusart1TxBuffer) <= eusart1TxTail)
+ 240              		.loc 1 68 36
+ 241 0154 B7070000 		lui	a5,%hi(eusart1TxTail)	# tmp97,
+ 242 0158 83C70700 		lbu	a5,%lo(eusart1TxTail)(a5)	# tmp99, eusart1TxTail
+ 243 015c 13F7F70F 		andi	a4,a5,0xff	# eusart1TxTail.7_9, tmp99
+ 244              	# ../common/eusart1.c:68:         if(sizeof(eusart1TxBuffer) <= eusart1TxTail)
+ 245              		.loc 1 68 11
+ 246 0160 93077000 		li	a5,7		# tmp100,
+ 247 0164 63F6E700 		bleu	a4,a5,.L6	#, eusart1TxTail.7_9, tmp100,
+ 248              	# ../common/eusart1.c:70:             eusart1TxTail = 0;
+  69:../common/eusart1.c ****         {
+  70:../common/eusart1.c ****             eusart1TxTail = 0;
+ 249              		.loc 1 70 27
+ 250 0168 B7070000 		lui	a5,%hi(eusart1TxTail)	# tmp101,
+ 251 016c 23800700 		sb	zero,%lo(eusart1TxTail)(a5)	#, eusart1TxTail
+ 252              	.L6:
+ 253              	# ../common/eusart1.c:72:         eusart1TxBufferRemaining++;
+  71:../common/eusart1.c ****         }
+  72:../common/eusart1.c ****         eusart1TxBufferRemaining++;
+ 254              		.loc 1 72 33
+ 255 0170 B7070000 		lui	a5,%hi(eusart1TxBufferRemaining)	# tmp102,
+ 256 0174 83C70700 		lbu	a5,%lo(eusart1TxBufferRemaining)(a5)	# tmp104, eusart1TxBufferRemaining
+ 257 0178 93F7F70F 		andi	a5,a5,0xff	# eusart1TxBufferRemaining.8_10, tmp104
+ 258 017c 93871700 		addi	a5,a5,1	#, tmp105, eusart1TxBufferRemaining.8_10
+ 259 0180 13F7F70F 		andi	a4,a5,0xff	# _12, tmp105
+ 260 0184 B7070000 		lui	a5,%hi(eusart1TxBufferRemaining)	# tmp106,
+ 261 0188 2380E700 		sb	a4,%lo(eusart1TxBufferRemaining)(a5)	# _12, eusart1TxBufferRemaining
+ 262              	# ../common/eusart1.c:79: }
+  73:../common/eusart1.c ****     }
+  74:../common/eusart1.c ****     else
+  75:../common/eusart1.c ****     {
+  76:../common/eusart1.c ****         //PIE3bits.TX1IE = 0;
+  77:../common/eusart1.c ****         reg_intcon_bits->TXIE = 0;
+  78:../common/eusart1.c ****     }
+  79:../common/eusart1.c **** }
+ 263              		.loc 1 79 1
+ 264 018c 6F008001 		j	.L8		#
+ 265              	.L5:
+ 266              	# ../common/eusart1.c:77:         reg_intcon_bits->TXIE = 0;
+  77:../common/eusart1.c ****     }
+ 267              		.loc 1 77 24
+ 268 0190 B7070000 		lui	a5,%hi(reg_intcon_bits)	# tmp107,
+ 269 0194 83A70700 		lw	a5,%lo(reg_intcon_bits)(a5)		# reg_intcon_bits.10_13, reg_intcon_bits
+ 270              	# ../common/eusart1.c:77:         reg_intcon_bits->TXIE = 0;
+  77:../common/eusart1.c ****     }
+ 271              		.loc 1 77 31
+ 272 0198 03C70700 		lbu	a4,0(a5)	# tmp109, reg_intcon_bits.10_13->TXIE
+ 273 019c 1377D7FF 		andi	a4,a4,-3	#, tmp110, tmp109
+ 274 01a0 2380E700 		sb	a4,0(a5)	# tmp111, reg_intcon_bits.10_13->TXIE
+ 275              	.L8:
+ 276              	# ../common/eusart1.c:79: }
+ 277              		.loc 1 79 1
+ 278 01a4 13000000 		nop	
+ 279 01a8 0324C100 		lw	s0,12(sp)		#,
+ 280              		.cfi_restore 8
+ 281 01ac 13010101 		addi	sp,sp,16	#,,
+ 282              		.cfi_def_cfa_register 2
+ 283 01b0 67800000 		jr	ra		#
+ 284              		.cfi_endproc
+ 285              	.LFE2:
+ 287              		.align	1
+ 288              		.globl	EUSART1_Receive_ISR
+ 290              	EUSART1_Receive_ISR:
+ 291              	.LFB3:
+  80:../common/eusart1.c **** 
+  81:../common/eusart1.c **** void EUSART1_Receive_ISR(void)
+  82:../common/eusart1.c **** {
+ 292              		.loc 1 82 1
+ 293              		.cfi_startproc
+ 294 01b4 130101FF 		addi	sp,sp,-16	#,,
+ 295              		.cfi_def_cfa_offset 16
+ 296 01b8 23261100 		sw	ra,12(sp)	#,
+ 297 01bc 23248100 		sw	s0,8(sp)	#,
+ 298              		.cfi_offset 1, -4
+ 299              		.cfi_offset 8, -8
+ 300 01c0 13040101 		addi	s0,sp,16	#,,
+ 301              		.cfi_def_cfa 8, 0
+ 302              	# ../common/eusart1.c:104:       EUSART1_RxDataHandler();
+  83:../common/eusart1.c ****     
+  84:../common/eusart1.c ****     //eusart1RxStatusBuffer[eusart1RxHead].status = 0;
+  85:../common/eusart1.c **** 
+  86:../common/eusart1.c **** 	/*
+  87:../common/eusart1.c ****     if(RC1STAbits.FERR){
+  88:../common/eusart1.c ****         eusart1RxStatusBuffer[eusart1RxHead].ferr = 1;
+  89:../common/eusart1.c ****         EUSART1_FramingErrorHandler();
+  90:../common/eusart1.c ****     }
+  91:../common/eusart1.c **** 
+  92:../common/eusart1.c ****     if(RC1STAbits.OERR){
+  93:../common/eusart1.c ****         eusart1RxStatusBuffer[eusart1RxHead].oerr = 1;
+  94:../common/eusart1.c ****         EUSART1_OverrunErrorHandler();
+  95:../common/eusart1.c ****     }
+  96:../common/eusart1.c ****     
+  97:../common/eusart1.c ****     
+  98:../common/eusart1.c ****     if(eusart1RxStatusBuffer[eusart1RxHead].status){
+  99:../common/eusart1.c ****         EUSART1_ErrorHandler();
+ 100:../common/eusart1.c ****     } else {
+ 101:../common/eusart1.c ****         EUSART1_RxDataHandler();
+ 102:../common/eusart1.c ****     }
+ 103:../common/eusart1.c ****     */
+ 104:../common/eusart1.c ****       EUSART1_RxDataHandler();
+ 303              		.loc 1 104 7
+ 304 01c4 97000000 		call	EUSART1_RxDataHandler		#
+ 304      E7800000 
+ 305              	# ../common/eusart1.c:107: }
+ 105:../common/eusart1.c ****     
+ 106:../common/eusart1.c ****     // or set custom function using EUSART1_SetRxInterruptHandler()
+ 107:../common/eusart1.c **** }
+ 306              		.loc 1 107 1
+ 307 01cc 13000000 		nop	
+ 308 01d0 8320C100 		lw	ra,12(sp)		#,
+ 309              		.cfi_restore 1
+ 310 01d4 03248100 		lw	s0,8(sp)		#,
+ 311              		.cfi_restore 8
+ 312 01d8 13010101 		addi	sp,sp,16	#,,
+ 313              		.cfi_def_cfa_register 2
+ 314 01dc 67800000 		jr	ra		#
+ 315              		.cfi_endproc
+ 316              	.LFE3:
+ 318              		.align	1
+ 319              		.globl	EUSART1_RxDataHandler
+ 321              	EUSART1_RxDataHandler:
+ 322              	.LFB4:
+ 108:../common/eusart1.c **** 
+ 109:../common/eusart1.c **** void EUSART1_RxDataHandler(void){
+ 323              		.loc 1 109 33
+ 324              		.cfi_startproc
+ 325 01e0 130101FF 		addi	sp,sp,-16	#,,
+ 326              		.cfi_def_cfa_offset 16
+ 327 01e4 23268100 		sw	s0,12(sp)	#,
+ 328              		.cfi_offset 8, -4
+ 329 01e8 13040101 		addi	s0,sp,16	#,,
+ 330              		.cfi_def_cfa 8, 0
+ 331              	# ../common/eusart1.c:111:     eusart1RxBuffer[eusart1RxHead++] = reg_uart_rx;
+ 110:../common/eusart1.c ****     // use this default receive interrupt handler code
+ 111:../common/eusart1.c ****     eusart1RxBuffer[eusart1RxHead++] = reg_uart_rx;
+ 332              		.loc 1 111 40
+ 333 01ec B7071000 		li	a5,1048576		# tmp81,
+ 334 01f0 9387C700 		addi	a5,a5,12	#, _1, tmp81
+ 335 01f4 03A60700 		lw	a2,0(a5)		# _2, *_1
+ 336              	# ../common/eusart1.c:111:     eusart1RxBuffer[eusart1RxHead++] = reg_uart_rx;
+ 337              		.loc 1 111 34
+ 338 01f8 B7070000 		lui	a5,%hi(eusart1RxHead)	# tmp82,
+ 339 01fc 83C70700 		lbu	a5,%lo(eusart1RxHead)(a5)	# tmp84, eusart1RxHead
+ 340 0200 93F7F70F 		andi	a5,a5,0xff	# eusart1RxHead.11_3, tmp84
+ 341 0204 13871700 		addi	a4,a5,1	#, tmp85, eusart1RxHead.11_3
+ 342 0208 9376F70F 		andi	a3,a4,0xff	# _5, tmp85
+ 343 020c 37070000 		lui	a4,%hi(eusart1RxHead)	# tmp86,
+ 344 0210 2300D700 		sb	a3,%lo(eusart1RxHead)(a4)	# _5, eusart1RxHead
+ 345 0214 93860700 		mv	a3,a5	# _6, eusart1RxHead.11_3
+ 346              	# ../common/eusart1.c:111:     eusart1RxBuffer[eusart1RxHead++] = reg_uart_rx;
+ 347              		.loc 1 111 38
+ 348 0218 1377F60F 		andi	a4,a2,0xff	# _7, _2
+ 349 021c B7070000 		lui	a5,%hi(eusart1RxBuffer)	# tmp87,
+ 350 0220 93870700 		addi	a5,a5,%lo(eusart1RxBuffer)	# tmp89, tmp87,
+ 351 0224 B387F600 		add	a5,a3,a5	# tmp89, tmp88, _6
+ 352 0228 2380E700 		sb	a4,0(a5)	# _7, eusart1RxBuffer
+ 353              	# ../common/eusart1.c:112:     if(sizeof(eusart1RxBuffer) <= eusart1RxHead)
+ 112:../common/eusart1.c ****     if(sizeof(eusart1RxBuffer) <= eusart1RxHead)
+ 354              		.loc 1 112 32
+ 355 022c B7070000 		lui	a5,%hi(eusart1RxHead)	# tmp90,
+ 356 0230 83C70700 		lbu	a5,%lo(eusart1RxHead)(a5)	# tmp92, eusart1RxHead
+ 357 0234 13F7F70F 		andi	a4,a5,0xff	# eusart1RxHead.13_8, tmp92
+ 358              	# ../common/eusart1.c:112:     if(sizeof(eusart1RxBuffer) <= eusart1RxHead)
+ 359              		.loc 1 112 7
+ 360 0238 93077000 		li	a5,7		# tmp93,
+ 361 023c 63F6E700 		bleu	a4,a5,.L11	#, eusart1RxHead.13_8, tmp93,
+ 362              	# ../common/eusart1.c:114:         eusart1RxHead = 0;
+ 113:../common/eusart1.c ****     {
+ 114:../common/eusart1.c ****         eusart1RxHead = 0;
+ 363              		.loc 1 114 23
+ 364 0240 B7070000 		lui	a5,%hi(eusart1RxHead)	# tmp94,
+ 365 0244 23800700 		sb	zero,%lo(eusart1RxHead)(a5)	#, eusart1RxHead
+ 366              	.L11:
+ 367              	# ../common/eusart1.c:116:     eusart1RxCount++;
+ 115:../common/eusart1.c ****     }
+ 116:../common/eusart1.c ****     eusart1RxCount++;
+ 368              		.loc 1 116 19
+ 369 0248 B7070000 		lui	a5,%hi(eusart1RxCount)	# tmp95,
+ 370 024c 83C70700 		lbu	a5,%lo(eusart1RxCount)(a5)	# tmp97, eusart1RxCount
+ 371 0250 93F7F70F 		andi	a5,a5,0xff	# eusart1RxCount.14_9, tmp97
+ 372 0254 93871700 		addi	a5,a5,1	#, tmp98, eusart1RxCount.14_9
+ 373 0258 13F7F70F 		andi	a4,a5,0xff	# _11, tmp98
+ 374 025c B7070000 		lui	a5,%hi(eusart1RxCount)	# tmp99,
+ 375 0260 2380E700 		sb	a4,%lo(eusart1RxCount)(a5)	# _11, eusart1RxCount
+ 376              	# ../common/eusart1.c:117: }
+ 117:../common/eusart1.c **** }
+ 377              		.loc 1 117 1
+ 378 0264 13000000 		nop	
+ 379 0268 0324C100 		lw	s0,12(sp)		#,
+ 380              		.cfi_restore 8
+ 381 026c 13010101 		addi	sp,sp,16	#,,
+ 382              		.cfi_def_cfa_register 2
+ 383 0270 67800000 		jr	ra		#
+ 384              		.cfi_endproc
+ 385              	.LFE4:
+ 387              		.align	1
+ 388              		.globl	EUSART1_SetTxInterruptHandler
+ 390              	EUSART1_SetTxInterruptHandler:
+ 391              	.LFB5:
+ 118:../common/eusart1.c **** 
+ 119:../common/eusart1.c **** 
+ 120:../common/eusart1.c **** void EUSART1_SetTxInterruptHandler(void (* interruptHandler)(void)){
+ 392              		.loc 1 120 68
+ 393              		.cfi_startproc
+ 394 0274 130101FE 		addi	sp,sp,-32	#,,
+ 395              		.cfi_def_cfa_offset 32
+ 396 0278 232E8100 		sw	s0,28(sp)	#,
+ 397              		.cfi_offset 8, -4
+ 398 027c 13040102 		addi	s0,sp,32	#,,
+ 399              		.cfi_def_cfa 8, 0
+ 400 0280 2326A4FE 		sw	a0,-20(s0)	# interruptHandler, interruptHandler
+ 401              	# ../common/eusart1.c:121:     EUSART1_TxDefaultInterruptHandler = interruptHandler;
+ 121:../common/eusart1.c ****     EUSART1_TxDefaultInterruptHandler = interruptHandler;
+ 402              		.loc 1 121 39
+ 403 0284 B7070000 		lui	a5,%hi(EUSART1_TxDefaultInterruptHandler)	# tmp72,
+ 404 0288 0327C4FE 		lw	a4,-20(s0)		# tmp73, interruptHandler
+ 405 028c 23A0E700 		sw	a4,%lo(EUSART1_TxDefaultInterruptHandler)(a5)	# tmp73, EUSART1_TxDefaultInterruptHandler
+ 406              	# ../common/eusart1.c:122: }
+ 122:../common/eusart1.c **** }
+ 407              		.loc 1 122 1
+ 408 0290 13000000 		nop	
+ 409 0294 0324C101 		lw	s0,28(sp)		#,
+ 410              		.cfi_restore 8
+ 411 0298 13010102 		addi	sp,sp,32	#,,
+ 412              		.cfi_def_cfa_register 2
+ 413 029c 67800000 		jr	ra		#
+ 414              		.cfi_endproc
+ 415              	.LFE5:
+ 417              		.align	1
+ 418              		.globl	EUSART1_SetRxInterruptHandler
+ 420              	EUSART1_SetRxInterruptHandler:
+ 421              	.LFB6:
+ 123:../common/eusart1.c **** 
+ 124:../common/eusart1.c **** void EUSART1_SetRxInterruptHandler(void (* interruptHandler)(void)){
+ 422              		.loc 1 124 68
+ 423              		.cfi_startproc
+ 424 02a0 130101FE 		addi	sp,sp,-32	#,,
+ 425              		.cfi_def_cfa_offset 32
+ 426 02a4 232E8100 		sw	s0,28(sp)	#,
+ 427              		.cfi_offset 8, -4
+ 428 02a8 13040102 		addi	s0,sp,32	#,,
+ 429              		.cfi_def_cfa 8, 0
+ 430 02ac 2326A4FE 		sw	a0,-20(s0)	# interruptHandler, interruptHandler
+ 431              	# ../common/eusart1.c:125:     EUSART1_RxDefaultInterruptHandler = interruptHandler;
+ 125:../common/eusart1.c ****     EUSART1_RxDefaultInterruptHandler = interruptHandler;
+ 432              		.loc 1 125 39
+ 433 02b0 B7070000 		lui	a5,%hi(EUSART1_RxDefaultInterruptHandler)	# tmp72,
+ 434 02b4 0327C4FE 		lw	a4,-20(s0)		# tmp73, interruptHandler
+ 435 02b8 23A0E700 		sw	a4,%lo(EUSART1_RxDefaultInterruptHandler)(a5)	# tmp73, EUSART1_RxDefaultInterruptHandler
+ 436              	# ../common/eusart1.c:126: }
+ 126:../common/eusart1.c **** }
+ 437              		.loc 1 126 1
+ 438 02bc 13000000 		nop	
+ 439 02c0 0324C101 		lw	s0,28(sp)		#,
+ 440              		.cfi_restore 8
+ 441 02c4 13010102 		addi	sp,sp,32	#,,
+ 442              		.cfi_def_cfa_register 2
+ 443 02c8 67800000 		jr	ra		#
+ 444              		.cfi_endproc
+ 445              	.LFE6:
+ 447              	.Letext0:
+ 448              		.file 2 "/opt/riscv32i/riscv32-unknown-elf/include/machine/_default_types.h"
+ 449              		.file 3 "/opt/riscv32i/riscv32-unknown-elf/include/sys/_stdint.h"
+ 450              		.file 4 "../common/vargen.h"
+ 451              		.file 5 "../common/eusart1.h"

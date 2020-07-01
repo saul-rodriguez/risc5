@@ -42,19 +42,20 @@
 #define UART_CONF_VAL (CLK_FREQ/BRATE)
 
 typedef struct {
+		unsigned RXIF	:1;
+		unsigned TXIF	:1;
+		unsigned TMR0IF	:1;
+} INTFLAGS_bits_s;	
+
+extern volatile INTFLAGS_bits_s* reg_intflags_bits;
+
+typedef struct {
 		unsigned RXIE	:1;
 		unsigned TXIE	:1;
 		unsigned TMR0IE	:1;
 } INTCON_bits_s;	
 
 extern volatile INTCON_bits_s* reg_intcon_bits;
-/*
-typedef union {
-	INTCON_bits_s *INTCON_bits;
-	uint32_t *INTCON_reg; 
-} u_reg_intcon;
-*/
-
 
 
 

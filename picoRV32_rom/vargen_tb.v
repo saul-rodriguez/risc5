@@ -4,7 +4,7 @@
 
 `include "vargen.v"
 
-`define END_SIM 36000
+`define END_SIM 72000
 
 module vargen_tb;
 
@@ -63,8 +63,6 @@ module vargen_tb;
 		
 		test_serial;
 				
-		//#10000 $finish;
-		
 		#(`END_SIM*tck) $finish;
 	end
 
@@ -88,12 +86,12 @@ always #(tck/2) clk = ~clk;
 	task test_irq; 
 		begin
 			portb_in = 8'haf;
-			#500 irq_5 = 1;
-			#40 irq_5 = 0;
-			#10000 irq_6 = 1;
-			#40 irq_6 = 0;
-			#10000 irq_7 = 1;
-			#40 irq_7 = 0;	
+			#(500*tck) irq_5 = 1;
+			#(40*tck) irq_5 = 0;
+			#(10000*tck) irq_6 = 1;
+			#(10000*tck) irq_6 = 0;
+			#(10000*tck) irq_7 = 1;
+			#(40*tck) irq_7 = 0;	
 		end
 	endtask
 

@@ -28,3 +28,24 @@ module rom256(input clk,
         rdata <= mem[addr];
   end
 endmodule
+
+
+module rom512(input clk,
+			input wen,
+			input [8:0] addr,
+			input [31:0] wdata,
+			output reg [31:0] rdata);
+			
+  reg [31:0] mem [0:511];
+  
+ // initial mem[0] = 32'haabbccdd;
+  
+  initial begin
+		$readmemh(`FIRMWARE, mem);
+  end
+  
+  always @(posedge clk) begin
+        if (wen) mem[addr] <= wdata;
+        rdata <= mem[addr];
+  end
+endmodule

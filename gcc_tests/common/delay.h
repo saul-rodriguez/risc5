@@ -3,6 +3,8 @@
 #ifndef DELAY_H
 #define DELAY_H
 
+#include "vargen.h"
+
 // CLK_FREQ must be defined before delay.h is read
 
 #ifndef CLK_FREQ
@@ -16,16 +18,7 @@
  11 clk_cycles per loop itertion 
 */
 
-void delay_cycles_11(unsigned int numLoop) 
-{
-					 
-	asm volatile("1: 		beq %[anumLoop],zero,2f\n"
-				 "			addi %[anumLoop],%[anumLoop],-1\n"
-				 "	     	j 1b\n"
-				 "2:\n"
-				 : [anumLoop] "+r" (numLoop));
-
-}
+void delay_cycles_11(unsigned int numLoop); 
 
 #define CYCLES_PER_LOOP 11
 
