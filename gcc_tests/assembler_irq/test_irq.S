@@ -13,6 +13,12 @@ reset_vec:
 
 			.balign 16
 irq_vec:	
+			//
+			li t0, PORTA
+			li t1, 0xee
+			sw t1, 0(t0)
+			//
+
 			//picorv32_setq_insn(q2, ra)  //save return address
 			//picorv32_setq_insn(q3, sp)  //save stack			
 			
@@ -20,13 +26,23 @@ irq_vec:
 			
 			jal irq_handler
 			
+			//
+			li t0, PORTA
+			li t1, 0xff
+			sw t1, 0(t0)
+			//
 			picorv32_retirq_insn()
 		
 start:
 			#initialize interrupts
 			#picorv32_waitirq_insn(zero)
 			picorv32_maskirq_insn(zero, zero)
-			j start
+
+			li t0, PORTA
+			li t1, 0xaa
+			sw t1, 0(t0)
+
+loop:		j loop
 			
 irq_handler:
 			addi sp, sp, -16 //Reserve 4 words in the pile

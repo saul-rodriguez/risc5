@@ -3,9 +3,10 @@
 //`define FIRMWARE "/home/saul/projects/tinyfpga/gcc_tests/assembler_porta/porta.hex4"
 //`define FIRMWARE "/home/saul/projects/tinyfpga/gcc_tests/assembler_portb/portb.hex4"
 //`define FIRMWARE "/home/saul/projects/tinyfpga/gcc_tests/assembler_irq/test_irq.hex4"
+//`define FIRMWARE "/home/saul/projects/tinyfpga/gcc_tests/assembler_irq/test_irq_nr.hex4"
 //`define FIRMWARE "/home/saul/projects/tinyfpga/gcc_tests/c_test/test_porta.hex4"
-//`define FIRMWARE "/home/saul/projects/tinyfpga/gcc_tests/c_irq/test_irq.hex4"
-`define FIRMWARE "/home/saul/projects/tinyfpga/gcc_tests/c_serial/test_serial.hex4"
+`define FIRMWARE "/home/saul/projects/tinyfpga/gcc_tests/c_irq/test_irq.hex4"
+//`define FIRMWARE "/home/saul/projects/tinyfpga/gcc_tests/c_serial/test_serial.hex4"
 //`define FIRMWARE "/home/saul/projects/tinyfpga/gcc_tests/assembler_delay/delay.hex4"
 //`define FIRMWARE "/home/saul/projects/tinyfpga/gcc_tests/c_delay/c_delay.hex4"
 

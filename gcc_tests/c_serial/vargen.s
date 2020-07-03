@@ -1,46 +1,46 @@
 	.file	"vargen.c"
 	.option nopic
-	.section	.gnu.lto_.profile.9de8b63a2dc0c5e7,"",@progbits
+	.section	.gnu.lto_.profile.61f27bb5ef6b9f46,"",@progbits
 	.string	"x\234cg```\004b\006"
 	.string	""
 	.string	"M"
 	.ascii	"\t"
 	.text
-	.section	.gnu.lto_.icf.9de8b63a2dc0c5e7,"",@progbits
+	.section	.gnu.lto_.icf.61f27bb5ef6b9f46,"",@progbits
 	.string	"x\234cg``\340c@"
 	.string	"&\206y=\235{\371\030\0336_\276\312\304"
 	.string	""
 	.ascii	"(\250\005t"
 	.text
-	.section	.gnu.lto_.jmpfuncs.9de8b63a2dc0c5e7,"",@progbits
+	.section	.gnu.lto_.jmpfuncs.61f27bb5ef6b9f46,"",@progbits
 	.string	"x\234cg```b@\006"
 	.string	""
 	.string	"\254"
 	.ascii	"\n"
 	.text
-	.section	.gnu.lto_.inline.9de8b63a2dc0c5e7,"",@progbits
+	.section	.gnu.lto_.inline.61f27bb5ef6b9f46,"",@progbits
 	.string	"x\234cg```b@\006"
 	.string	""
 	.string	"\254"
 	.ascii	"\n"
 	.text
-	.section	.gnu.lto_.pureconst.9de8b63a2dc0c5e7,"",@progbits
+	.section	.gnu.lto_.pureconst.61f27bb5ef6b9f46,"",@progbits
 	.string	"x\234cg```\004b\006"
 	.string	""
 	.string	"M"
 	.ascii	"\t"
 	.text
-	.section	.gnu.lto_.symbol_nodes.9de8b63a2dc0c5e7,"",@progbits
+	.section	.gnu.lto_.symbol_nodes.61f27bb5ef6b9f46,"",@progbits
 	.string	"x\234cg``\020\002b\006VF\206F%\020\315\300\b\246\031"
 	.ascii	"\017m\001l"
 	.text
-	.section	.gnu.lto_.refs.9de8b63a2dc0c5e7,"",@progbits
+	.section	.gnu.lto_.refs.61f27bb5ef6b9f46,"",@progbits
 	.string	"x\234cg```\004b\006"
 	.string	""
 	.string	"M"
 	.ascii	"\t"
 	.text
-	.section	.gnu.lto_.decls.9de8b63a2dc0c5e7,"",@progbits
+	.section	.gnu.lto_.decls.61f27bb5ef6b9f46,"",@progbits
 	.ascii	"x\234uR]H\223Q\030>\257g\3149g\226\213\274h\027\273h\222\020"
 	.ascii	":\365\"\360&B\346\017\224\201\032\324\225\231\230\t9A%\350&\216"
 	.ascii	"\2460fY\243)fR\003S\003-(\272\021K\247\345\324\324\374-\335L"
@@ -68,7 +68,7 @@
 	.ascii	"\327\n\212+D-\370V\241\2205qY\223Dm\212B\232\264s\3312I\264L"
 	.ascii	"RXf\026\225\177\205N\200\375"
 	.text
-	.section	.gnu.lto_.symtab.9de8b63a2dc0c5e7,"",@progbits
+	.section	.gnu.lto_.symtab.61f27bb5ef6b9f46,"",@progbits
 	.string	"reg_intflags_bits"
 	.string	""
 	.string	""

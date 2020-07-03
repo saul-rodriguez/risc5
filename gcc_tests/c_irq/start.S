@@ -2,6 +2,11 @@
 
 #include "custom_ops.S"
 
+			.section .data
+			.balign 4
+
+flag_isr:	.byte	0  //this flag is used as workaround to avoid isr re-entry
+
 			.section .text
 			.global irq
 	
@@ -16,6 +21,23 @@ reset_vec:
 			.balign 16
 			
 irq_vec:	
+			/* check status of flag_isr */
+		
+			la t0, flag_isr
+			lw a0,0(t0)
+			beq a0,zero,1f   //if (flag_isr == 0) { jump 1: } else {
+	
+			//re-entering isr, clear flag and jump to exit
+			li a0, 00
+			la t0, flag_isr
+			sw a0,0(t0)
+			j 2f
+
+1:			/* set flag_isr */
+			li a0, 1
+			la t0, flag_isr
+			sw a0,0(t0)
+
 			/*Save registers*/
 			
 			//picorv32_setq_insn(q2, x1)	// q2 = ra
@@ -95,7 +117,7 @@ irq_vec:
 									
 			addi sp, sp, 128
 			
-			picorv32_retirq_insn()
+2:			picorv32_retirq_insn()
 
 start:
 		/* zero-initialize all registers */
@@ -155,6 +177,14 @@ loop_init_bss:
 			addi a0, a0, 4
 			blt a0, a1, loop_init_bss
 end_init_bss:
+			
+			//initialize flag_isr 
+			//NOTE: this has already been done in loop_init_data!
+			/*
+			li a0, 0
+			la t0, flag_isr
+			sw a0,0(t0)
+			*/	
 			
 			// call main
 			call main

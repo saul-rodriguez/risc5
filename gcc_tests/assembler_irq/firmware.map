@@ -9,10 +9,10 @@ RAM              0x0000000000000000 0x0000000000000400 xrw
 Linker script and memory map
 
 
-.text           0x0000000000000000       0x80
+.text           0x0000000000000000       0xd0
                 0x0000000000000000                . = ALIGN (0x4)
  *(.text)
- .text          0x0000000000000000       0x80 /tmp/ccrzemrt.o
+ .text          0x0000000000000000       0xd0 /tmp/cc4Oftmx.o
  *(.text*)
  *(.rodata)
  *(.rodata*)
@@ -20,41 +20,42 @@ Linker script and memory map
  *(.srodata*)
  *(.eh_frame)
  *(.eh_frame*)
-                0x0000000000000080                . = ALIGN (0x4)
-                0x0000000000000080                _etext = .
-                0x0000000000000080                _sidata = _etext
+                0x00000000000000d0                . = ALIGN (0x4)
+                0x00000000000000d0                _etext = .
+                0x00000000000000d0                _sidata = _etext
 
-.data           0x0000000000000000        0x0 load address 0x0000000000000080
+.data           0x0000000000000000        0x4 load address 0x00000000000000d0
                 0x0000000000000000                . = ALIGN (0x4)
                 0x0000000000000000                _sdata = .
                 0x0000000000000000                _ram_start = .
  *(.data)
- .data          0x0000000000000000        0x0 /tmp/ccrzemrt.o
+ .data          0x0000000000000000        0x1 /tmp/cc4Oftmx.o
  *(.data*)
  *(.sdata)
  *(.sdata*)
  *(.init_array)
  *(.init_array*)
-                0x0000000000000000                . = ALIGN (0x4)
-                0x0000000000000000                _edata = .
+                0x0000000000000004                . = ALIGN (0x4)
+ *fill*         0x0000000000000001        0x3 
+                0x0000000000000004                _edata = .
 
-.bss            0x0000000000000000        0x0 load address 0x0000000000000080
-                0x0000000000000000                . = ALIGN (0x4)
-                0x0000000000000000                _sbss = .
+.bss            0x0000000000000004        0x0 load address 0x00000000000000d4
+                0x0000000000000004                . = ALIGN (0x4)
+                0x0000000000000004                _sbss = .
  *(.bss)
- .bss           0x0000000000000000        0x0 /tmp/ccrzemrt.o
+ .bss           0x0000000000000004        0x0 /tmp/cc4Oftmx.o
  *(.bss*)
  *(.sbss)
  *(.sbss*)
  *(COMMON)
-                0x0000000000000000                . = ALIGN (0x4)
-                0x0000000000000000                _ebss = .
+                0x0000000000000004                . = ALIGN (0x4)
+                0x0000000000000004                _ebss = .
 
-.heap           0x0000000000000000        0x0
-                0x0000000000000000                . = ALIGN (0x4)
-                0x0000000000000000                _heap_start = .
-LOAD /tmp/ccrzemrt.o
-OUTPUT(test_irq.elf elf32-littleriscv)
+.heap           0x0000000000000004        0x0
+                0x0000000000000004                . = ALIGN (0x4)
+                0x0000000000000004                _heap_start = .
+LOAD /tmp/cc4Oftmx.o
+OUTPUT(test_irq_nr.elf elf32-littleriscv)
 
 Cross Reference Table
 

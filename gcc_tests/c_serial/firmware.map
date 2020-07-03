@@ -22,10 +22,10 @@ Linker script and memory map
                 0x0000000000000000                . = ALIGN (0x4)
  *(.text)
  .text          0x0000000000000000      0x156 start.o
- .text          0x0000000000000156       0xf2 /tmp/ccznutqB.ltrans0.ltrans.o
+ .text          0x0000000000000156       0xf2 /tmp/ccqfIsIH.ltrans0.ltrans.o
                 0x0000000000000156                irq
  *(.text*)
- .text.startup  0x0000000000000248      0x116 /tmp/ccznutqB.ltrans0.ltrans.o
+ .text.startup  0x0000000000000248      0x116 /tmp/ccqfIsIH.ltrans0.ltrans.o
                 0x0000000000000248                main
  *(.rodata)
  *(.rodata*)
@@ -47,7 +47,7 @@ Linker script and memory map
                 0x0000000000000000                _ram_start = .
  *(.data)
  .data          0x0000000000000000        0x0 start.o
- .data          0x0000000000000000        0x0 /tmp/ccznutqB.ltrans0.ltrans.o
+ .data          0x0000000000000000        0x0 /tmp/ccqfIsIH.ltrans0.ltrans.o
  *(.data*)
  *(.sdata)
  *(.sdata*)
@@ -61,10 +61,10 @@ Linker script and memory map
                 0x0000000000000000                _sbss = .
  *(.bss)
  .bss           0x0000000000000000        0x0 start.o
- .bss           0x0000000000000000        0x0 /tmp/ccznutqB.ltrans0.ltrans.o
+ .bss           0x0000000000000000        0x0 /tmp/ccqfIsIH.ltrans0.ltrans.o
  *(.bss*)
  *(.sbss)
- .sbss          0x0000000000000000       0x19 /tmp/ccznutqB.ltrans0.ltrans.o
+ .sbss          0x0000000000000000       0x19 /tmp/ccqfIsIH.ltrans0.ltrans.o
  *(.sbss*)
  *(COMMON)
                 0x000000000000001c                . = ALIGN (0x4)
@@ -75,11 +75,11 @@ Linker script and memory map
                 0x000000000000001c                . = ALIGN (0x4)
                 0x000000000000001c                _heap_start = .
 LOAD start.o
-LOAD /tmp/ccznutqB.ltrans0.ltrans.o
+LOAD /tmp/ccqfIsIH.ltrans0.ltrans.o
 OUTPUT(test_serial.elf elf32-littleriscv)
 
 .comment        0x0000000000000000       0x11
- .comment       0x0000000000000000       0x11 /tmp/ccznutqB.ltrans0.ltrans.o
+ .comment       0x0000000000000000       0x11 /tmp/ccqfIsIH.ltrans0.ltrans.o
                                          0x12 (size before relaxing)
 
 Cross Reference Table
@@ -112,10 +112,10 @@ eusart1TxBuffer                                   eusart1.o (symbol from plugin)
 eusart1TxBufferRemaining                          eusart1.o (symbol from plugin)
 eusart1TxHead                                     eusart1.o (symbol from plugin)
 eusart1TxTail                                     eusart1.o (symbol from plugin)
-irq                                               /tmp/ccznutqB.ltrans0.ltrans.o
+irq                                               /tmp/ccqfIsIH.ltrans0.ltrans.o
                                                   interrupt_manager.o (symbol from plugin)
                                                   start.o
-main                                              /tmp/ccznutqB.ltrans0.ltrans.o
+main                                              /tmp/ccqfIsIH.ltrans0.ltrans.o
                                                   test_serial.o (symbol from plugin)
                                                   start.o
 reg_intcon_bits                                   vargen.o (symbol from plugin)

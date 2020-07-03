@@ -1,34 +1,34 @@
 	.file	"test_serial.c"
 	.option nopic
-	.section	.gnu.lto_.profile.f251c80f4023518a,"",@progbits
+	.section	.gnu.lto_.profile.9a2ef3bcc5fafda0,"",@progbits
 	.string	"x\234cg```\004b\006"
 	.string	""
 	.string	"M"
 	.ascii	"\t"
 	.text
-	.section	.gnu.lto_.icf.f251c80f4023518a,"",@progbits
+	.section	.gnu.lto_.icf.9a2ef3bcc5fafda0,"",@progbits
 	.string	"x\234cg``\340`@"
 	.string	"F\206\277\033\346\26402"
 	.string	""
 	.ascii	"\016\304\002\337"
 	.text
-	.section	.gnu.lto_.jmpfuncs.f251c80f4023518a,"",@progbits
+	.section	.gnu.lto_.jmpfuncs.9a2ef3bcc5fafda0,"",@progbits
 	.string	"x\234cg``\020c@"
 	.string	"F f\002R\007\030\031\031\200\370?#X\024"
 	.ascii	"\035\216\002\246"
 	.text
-	.section	.gnu.lto_.inline.f251c80f4023518a,"",@progbits
+	.section	.gnu.lto_.inline.9a2ef3bcc5fafda0,"",@progbits
 	.string	"x\234cg``\260g@"
 	.string	"F\006\006\356\225\275\033\347\260\224220\2614"
 	.string	"\001K2\003\003\013C#\220U\307\304\300\004R\303\304\rT\3058\301\017L\003y AF.\260v"
 	.ascii	"\246\312\tY"
 	.text
-	.section	.gnu.lto_.pureconst.f251c80f4023518a,"",@progbits
+	.section	.gnu.lto_.pureconst.9a2ef3bcc5fafda0,"",@progbits
 	.string	"x\234cg```\001bF\206-,"
 	.string	"\001\360"
 	.ascii	"\305"
 	.text
-	.section	.gnu.lto_main.f251c80f4023518a,"",@progbits
+	.section	.gnu.lto_main.9a2ef3bcc5fafda0,"",@progbits
 	.ascii	"x\234m\221\317KTQ\024\307\317\367\235\373~"
 	.string	"8j%\324n\026\266q1\213\020r\341\262\376\222\b\233\205\320J\335{\337\370f*A&y\212\274\240\022\n\232M#\342\322\037]\263Z\265\031\203\202\240M\021\364\203`\242\b*p<g\336h =\270\334s\356\373\236\317\227\373\275!\021}\005\321Y\331\257\311BH\360\254\265\227\3028\362\300Z\2318b\230\336\231\361\374\371f\375\234\261\205\340W\253]2v \350\375\273\354\367\344\273\021h\326c\023\370\230e\246\243\317\034W\267x\221\361\375~\3657\337\344\214\tF\332\267\367:\257\006\265\005\206\245\375\331\372XA\251!<\353V\232\2505\234\311\330\243T\324[(b\023\305.\t\333(\021\211~\343\357\273\345\210\207\240\365\302\267\366\035\214<\264\266b\335\353\330O\254\213\2073f\354\200u\376b\021\243\371\264\212\337\257\037,\017\006\006O0\242te:\004$\211@\317\326\366}g\017:7\254{14\337_"
 	.ascii	"el$!US\225\351\363\222\007\353\250\306\236Vs\216\276`n\365\307"
@@ -40,18 +40,18 @@
 	.ascii	"\352\243\363\377\273Y\177\312\362\266x\256J\341d<\320u\004\205"
 	.ascii	"\262\237\232)O\317\\\231.OM^\275~a\202x\252<q\bn\035\252\370"
 	.text
-	.section	.gnu.lto_.symbol_nodes.f251c80f4023518a,"",@progbits
+	.section	.gnu.lto_.symbol_nodes.9a2ef3bcc5fafda0,"",@progbits
 	.string	"x\234cg``X\f\304\fL\f\365\f/\24701N8\307"
 	.string	"d1\354jX\310\310\300\300\310R\317\370\037\n\344\301R\f\f\r\r\016@\t\346z&\354\022L\365\314\330%\030\353Y\260J03\260\200\354Uaf`nlhh`ataf`\272\364\341\327\nF\306\026Ff\006F\bs\t#\003"
 	.ascii	"3\255?K"
 	.text
-	.section	.gnu.lto_.refs.f251c80f4023518a,"",@progbits
+	.section	.gnu.lto_.refs.9a2ef3bcc5fafda0,"",@progbits
 	.string	"x\234cg```\004b\006"
 	.string	""
 	.string	"M"
 	.ascii	"\t"
 	.text
-	.section	.gnu.lto_.decls.f251c80f4023518a,"",@progbits
+	.section	.gnu.lto_.decls.9a2ef3bcc5fafda0,"",@progbits
 	.string	"x\234\215SKL\023Q\024}w^\241e\322\202\251\250,\272 \321\215\013\020\342B\022Wj\214\272q\341'\0326\rb\023\232\b$\245\032q\343\003\371i\214E1\006!\321j\b~\026J\\\240\021?E\312G\240(\377RZ\201\020\004\026F\211\t\006c\304\373\336\314\224\031\330x3\247o\356\275\347\335s\357{\0353!$'\201\220\233\270\372\021\253h\022\256\203d\3150M:\020}\210\001\304(\"L6Z5\020b\303\325\216HE\344\"\034\210!\304$b\034\021E\214 b\210\020\342\013\242w\235NX\325\030P5\327\333M\n}?\237\006S\246 \006\224\020P\242"
 	.ascii	"\312/\256\034\302_\325\f\2248F%\236\026{@\343j\246E\210\244\326"
 	.ascii	"\220Dq\245\032\177@}@WWQV\004\327\304\225\"jg\252\240\232W\022"
@@ -88,7 +88,7 @@
 	.ascii	"\235\335\2549\356\022\247\347\242\323\203\241\322\004\347\376"
 	.ascii	"\342\342sv-s\244\310\355E\021\367%\327?\030g\237\036"
 	.text
-	.section	.gnu.lto_.symtab.f251c80f4023518a,"",@progbits
+	.section	.gnu.lto_.symtab.9a2ef3bcc5fafda0,"",@progbits
 	.string	"main"
 	.string	""
 	.string	""

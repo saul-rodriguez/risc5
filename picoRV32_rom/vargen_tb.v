@@ -59,9 +59,9 @@ module vargen_tb;
 		portb_in = 0;
 		#(5*tck) resetn = 1;
 		
-		//test_irq;
+		test_irq;
 		
-		test_serial;
+		//test_serial;
 				
 		#(`END_SIM*tck) $finish;
 	end

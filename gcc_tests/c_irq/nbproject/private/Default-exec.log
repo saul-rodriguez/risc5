@@ -1,0 +1,23 @@
+called: /opt/riscv32i/lib/gcc/riscv32-unknown-elf/8.2.0/../../../../riscv32-unknown-elf/bin/ld
+	/home/saul/projects/tinyfpga/gcc_tests/c_irq
+	/opt/riscv32i/lib/gcc/riscv32-unknown-elf/8.2.0/../../../../riscv32-unknown-elf/bin/ld
+	-plugin
+	/opt/riscv32i/libexec/gcc/riscv32-unknown-elf/8.2.0/liblto_plugin.so
+	-plugin-opt=/opt/riscv32i/libexec/gcc/riscv32-unknown-elf/8.2.0/lto-wrapper
+	-plugin-opt=-fresolution=/tmp/cckkpkhs.res
+	--sysroot=/opt/riscv32i/riscv32-unknown-elf
+	-melf32lriscv
+	-o
+	test_irq.elf
+	-L/opt/riscv32i/lib/gcc/riscv32-unknown-elf/8.2.0
+	-L/opt/riscv32i/lib/gcc/riscv32-unknown-elf/8.2.0/../../../../riscv32-unknown-elf/lib
+	-L/opt/riscv32i/riscv32-unknown-elf/lib
+	-Bstatic
+	-T
+	sections.lds
+	--strip-debug
+	-Map=firmware.map
+	--cref
+	start.o
+	test_irq.o
+
