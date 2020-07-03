@@ -9,10 +9,6 @@
     </data>
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/home/saul/projects/tinyfpga/gcc_tests/assembler_irq/sections.lds</file>
-            <file>file:/home/saul/projects/tinyfpga/gcc_tests/assembler_irq/test_irq_nr.S</file>
-            <file>file:/home/saul/projects/tinyfpga/gcc_tests/assembler_irq/test_irq.S</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

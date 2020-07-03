@@ -1,18 +1,31 @@
+# Makefile template for PICORV32 GCC projects
+# Author: Saul Rodriguez
+# Date:	2020-07-03
+#
+#  The following variables need to be set for each project:
+# 	NAME = project name used as output name
+#	SRCS = paths to the C files to be compiled
+# 	SRC_START = path to the assembler start script
+#	L_SECTIONS = path to sections.lds file
+
 #Compiler variables
 CC = /opt/riscv32i/bin/riscv32-unknown-elf-gcc
 OBJDUMP = /opt/riscv32i/bin/riscv32-unknown-elf-objdump
 OBJCOPY = /opt/riscv32i/bin/riscv32-unknown-elf-objcopy
 
-#compiler flags
+#compiler and linker flags
 CFLAGS = -march=rv32imc -O3 -Wall -flto
 
-#link flags
-LINK_FLAGS = -march=rv32imc -Wall -flto -nostartfiles -Wl,-Bstatic,-T,sections.lds,--strip-debug,-Map=firmware.map,--cref -ffreestanding -nostdlib
+LINK_FLAGS = -march=rv32imc -Wall -flto -nostartfiles -Wl,-Bstatic,-T,$(L_SECTIONS),--strip-debug,-Map=firmware.map,--cref -ffreestanding -nostdlib
+
+#output name
+NAME = test_irq
 
 #sources
-NAME = test_irq
-#NAME_ELF = $(addsuffix .elf, $(NAME))
-SRCS = test_irq.c
+SRCS = test_irq.c  
+SRC_START = ../common/start.S
+L_SECTIONS = ../common/sections.lds
+
 SRCS_NO_DIR = $(notdir $(SRCS))
 ASSEMS = $(SRCS_NO_DIR:.c=.s)
 OBJS = $(ASSEMS:.s=.o)
@@ -27,9 +40,9 @@ test:
 compile: $(NAME).elf
 	@echo Compiled elf file from sources
 
-#dump assembly code on the terminal
+#dump assembly code and symbols table on the terminal
 dump: $(NAME).elf	
-	$(OBJDUMP) -d $(NAME).elf 
+	$(OBJDUMP) -d -t $(NAME).elf 
 #Compile step
 $(ASSEMS) : $(SRCS)
 	$(CC) $(CFLAGS) -S $^
@@ -38,7 +51,7 @@ $(ASSEMS) : $(SRCS)
 $(OBJS) : $(ASSEMS) 
 	$(CC) $(CFLAGS) -c $^
 
-start.o : start.S
+start.o : $(SRC_START)
 	$(CC) $(CFLAGS) -c $^
 
 #link step

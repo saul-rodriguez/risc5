@@ -19,10 +19,10 @@ CFLAGS = -march=rv32imc -O3 -Wall -flto
 LINK_FLAGS = -march=rv32imc -Wall -flto -nostartfiles -Wl,-Bstatic,-T,$(L_SECTIONS),--strip-debug,-Map=firmware.map,--cref -ffreestanding -nostdlib
 
 #output name
-NAME = test_serial
+NAME = name_output
 
 #sources
-SRCS = ../common/vargen.c ../common/eusart1.c ../common/delay.c test_serial.c interrupt_manager.c 
+SRCS = file1.c file2.c file3.c  
 SRC_START = ../common/start.S
 L_SECTIONS = ../common/sections.lds
 

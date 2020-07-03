@@ -2,14 +2,12 @@
 <configurationDescriptor version="100">
   <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
     <df root="." name="0">
-      <in>custom_ops.S</in>
       <in>delay.s</in>
       <in>eusart1.s</in>
       <in>hardware.h</in>
       <in>interrupt_manager.c</in>
       <in>interrupt_manager.h</in>
       <in>interrupt_manager.s</in>
-      <in>start.S</in>
       <in>test_serial.c</in>
       <in>test_serial.s</in>
       <in>vargen.s</in>
