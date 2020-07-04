@@ -5,6 +5,21 @@
       <in>interrupt_manager.c</in>
       <in>test_serial.c</in>
     </df>
+    <logicalFolder name="common" displayName="common" projectFiles="true">
+      <itemPath>../common/Makefile</itemPath>
+      <itemPath>../common/custom_ops.S</itemPath>
+      <itemPath>../common/delay.c</itemPath>
+      <itemPath>../common/delay.h</itemPath>
+      <itemPath>../common/eusart.c</itemPath>
+      <itemPath>../common/eusart.h</itemPath>
+      <itemPath>../common/eusart1.c</itemPath>
+      <itemPath>../common/eusart1.h</itemPath>
+      <itemPath>../common/sections.lds</itemPath>
+      <itemPath>../common/start.S</itemPath>
+      <itemPath>../common/vargen.c</itemPath>
+      <itemPath>../common/vargen.h</itemPath>
+      <itemPath>../common/vargen.h.gch</itemPath>
+    </logicalFolder>
     <logicalFolder name="ExternalFiles"
                    displayName="Important Files"
                    projectFiles="false"
@@ -16,6 +31,7 @@
   <sourceFolderFilter>^(nbproject)$</sourceFolderFilter>
   <sourceRootList>
     <Elem>.</Elem>
+    <Elem>../common</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
@@ -39,6 +55,32 @@
           <preBuildCommand></preBuildCommand>
         </preBuild>
       </makefileType>
+      <item path="../common/Makefile" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../common/custom_ops.S" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="../common/delay.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="../common/delay.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../common/eusart.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="../common/eusart.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../common/eusart1.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="../common/eusart1.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../common/sections.lds" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../common/start.S" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="../common/vargen.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="../common/vargen.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="../common/vargen.h.gch" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="interrupt_manager.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="test_serial.c" ex="false" tool="0" flavor2="0">

@@ -10,8 +10,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/home/saul/projects/tinyfpga/gcc_tests/common/eusart1.c</file>
+            <file>file:/home/saul/projects/tinyfpga/gcc_tests/common/start.S</file>
+            <file>file:/home/saul/projects/tinyfpga/gcc_tests/common/eusart1.h</file>
             <file>file:/home/saul/projects/tinyfpga/gcc_tests/c_serial/Makefile</file>
+            <file>file:/home/saul/projects/tinyfpga/gcc_tests/c_serial/delay.s</file>
             <file>file:/home/saul/projects/tinyfpga/gcc_tests/c_serial/hardware.h</file>
+            <file>file:/home/saul/projects/tinyfpga/gcc_tests/c_serial/eusart1.s</file>
             <file>file:/home/saul/projects/tinyfpga/gcc_tests/c_serial/test_serial.c</file>
         </group>
     </open-files>

@@ -1,0 +1,32 @@
+#NAME is the name of the top_module which should be inside the file top_module.v
+
+SRC = top.v
+SRC_TB = vargen_tb.v
+NAME= $(basename $(SRC))
+
+sim: $(NAME)
+
+$(NAME): $(SRC_TB)
+	iverilog -o $(NAME) $(SRC_TB)
+	vvp $(NAME)
+
+plot: $(NAME) dump.vcd
+	gtkwave dump.vcd
+
+bin: $(SRC_TB)
+	@echo Synthetize	
+	yosys -p 'synth_ice40 -top $(NAME) -blif $(NAME).blif' $(SRC)
+	@echo Place and Route
+	arachne-pnr -d 8k -P cm81 -o $(NAME).asc -p pins.pcf $(NAME).blif
+	@echo bitfile
+	icepack $(NAME).asc $(NAME).bin
+
+time: 	$(NAME).asc
+	icetime -d lp8k -mtr $(NAME).rpt $(NAME).asc
+	
+
+upload: $(NAME).bin
+	tinyprog -p $(NAME).bin
+clean: 
+	rm -rf $(NAME) *.asc *.rpt *.blif *.bin *.vcd
+
