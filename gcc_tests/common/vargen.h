@@ -7,18 +7,26 @@
 #include <stdbool.h>
 
 //Memory mapped peripherals definitions
-#define PORTA	0x00100000
-//#define PORTA_WIDTH 8
- 
-#define PORTB	0x00100004
-//#define PORTB_WIDTH 8
- 
+
+//interrupt configuration register
+#define INTCON	  0x00100000
+
+//Interrupt flags
+#define INTFLAGS  0x00100004
+
+//uart registers
 #define UART_TX   0x00100008
 #define UART_RX   0x0010000c
 #define UART_CONF 0x00100010
+
+//input porta
+#define PORTA	0x00100014
+//#define PORTA_WIDTH 8
  
-#define INTCON	  0x00100014
-#define INTFLAGS  0x00100018
+//output porta
+#define PORTB	0x00100018
+//#define PORTB_WIDTH 8
+ 
 
 #define reg_porta     (*(volatile uint32_t*) PORTA) // 8 bit digital output
 #define reg_portb     (*(volatile uint32_t*) PORTB) // 8 bit digital input
@@ -28,18 +36,23 @@
 #define reg_intcon    (*(volatile uint32_t*) INTCON) // 8 bit interrupt enable configuration
 #define reg_intflags  (*(volatile uint32_t*) INTFLAGS) // 8 bit interrupt flags
 
-
+//External interrupts flags available in pircorv32 reg q0
+//q0 is passed as parameter irqs in void irq(uint32_t irqs);
 #define IRQ_5 0x00000020
 #define IRQ_6 0x00000040
 #define IRQ_7 0x00000080
 
+//uart interrupts available in reg_intcon
 #define UART_RX_IF 0x01
 #define UART_TX_IF 0x02
 
+//default configuration for the uart
 #define CLK_FREQ 16000000
 #define BRATE 9600
 
 #define UART_CONF_VAL (CLK_FREQ/BRATE)
+
+//Registers as bit structures
 
 typedef struct {
 		unsigned RXIF	:1;

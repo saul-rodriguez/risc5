@@ -18,36 +18,36 @@ RAM              0x0000000000000000 0x0000000000000400 xrw
 Linker script and memory map
 
 
-.text           0x0000000000000000      0x384
+.text           0x0000000000000000      0x430
                 0x0000000000000000                . = ALIGN (0x4)
  *(.text)
  .text          0x0000000000000000      0x17a start.o
- .text          0x000000000000017a       0xf2 /tmp/ccAaclgB.ltrans0.ltrans.o
-                0x000000000000017a                irq
+ .text          0x000000000000017a      0x172 /tmp/ccKqTnRP.ltrans0.ltrans.o
+                0x00000000000001fa                irq
  *(.text*)
- .text.startup  0x000000000000026c      0x116 /tmp/ccAaclgB.ltrans0.ltrans.o
-                0x000000000000026c                main
+ .text.startup  0x00000000000002ec      0x142 /tmp/ccKqTnRP.ltrans0.ltrans.o
+                0x00000000000002ec                main
  *(.rodata)
  *(.rodata*)
  *(.srodata)
  *(.srodata*)
  *(.eh_frame)
  *(.eh_frame*)
-                0x0000000000000384                . = ALIGN (0x4)
- *fill*         0x0000000000000382        0x2 
-                0x0000000000000384                _etext = .
-                0x0000000000000384                _sidata = _etext
+                0x0000000000000430                . = ALIGN (0x4)
+ *fill*         0x000000000000042e        0x2 
+                0x0000000000000430                _etext = .
+                0x0000000000000430                _sidata = _etext
 
-.rela.dyn       0x0000000000000384        0x0
- .rela.text     0x0000000000000384        0x0 start.o
+.rela.dyn       0x0000000000000430        0x0
+ .rela.text     0x0000000000000430        0x0 start.o
 
-.data           0x0000000000000000        0x4 load address 0x0000000000000384
+.data           0x0000000000000000        0x4 load address 0x0000000000000430
                 0x0000000000000000                . = ALIGN (0x4)
                 0x0000000000000000                _sdata = .
                 0x0000000000000000                _ram_start = .
  *(.data)
  .data          0x0000000000000000        0x1 start.o
- .data          0x0000000000000001        0x0 /tmp/ccAaclgB.ltrans0.ltrans.o
+ .data          0x0000000000000001        0x0 /tmp/ccKqTnRP.ltrans0.ltrans.o
  *(.data*)
  *(.sdata)
  *(.sdata*)
@@ -57,15 +57,15 @@ Linker script and memory map
  *fill*         0x0000000000000001        0x3 
                 0x0000000000000004                _edata = .
 
-.bss            0x0000000000000004       0x1c load address 0x0000000000000388
+.bss            0x0000000000000004       0x1c load address 0x0000000000000434
                 0x0000000000000004                . = ALIGN (0x4)
                 0x0000000000000004                _sbss = .
  *(.bss)
  .bss           0x0000000000000004        0x0 start.o
- .bss           0x0000000000000004        0x0 /tmp/ccAaclgB.ltrans0.ltrans.o
+ .bss           0x0000000000000004        0x0 /tmp/ccKqTnRP.ltrans0.ltrans.o
  *(.bss*)
  *(.sbss)
- .sbss          0x0000000000000004       0x19 /tmp/ccAaclgB.ltrans0.ltrans.o
+ .sbss          0x0000000000000004       0x19 /tmp/ccKqTnRP.ltrans0.ltrans.o
  *(.sbss*)
  *(COMMON)
                 0x0000000000000020                . = ALIGN (0x4)
@@ -76,11 +76,11 @@ Linker script and memory map
                 0x0000000000000020                . = ALIGN (0x4)
                 0x0000000000000020                _heap_start = .
 LOAD start.o
-LOAD /tmp/ccAaclgB.ltrans0.ltrans.o
+LOAD /tmp/ccKqTnRP.ltrans0.ltrans.o
 OUTPUT(test_serial.elf elf32-littleriscv)
 
 .comment        0x0000000000000000       0x11
- .comment       0x0000000000000000       0x11 /tmp/ccAaclgB.ltrans0.ltrans.o
+ .comment       0x0000000000000000       0x11 /tmp/ccKqTnRP.ltrans0.ltrans.o
                                          0x12 (size before relaxing)
 
 Cross Reference Table
@@ -113,10 +113,10 @@ eusart1TxBuffer                                   eusart1.o (symbol from plugin)
 eusart1TxBufferRemaining                          eusart1.o (symbol from plugin)
 eusart1TxHead                                     eusart1.o (symbol from plugin)
 eusart1TxTail                                     eusart1.o (symbol from plugin)
-irq                                               /tmp/ccAaclgB.ltrans0.ltrans.o
+irq                                               /tmp/ccKqTnRP.ltrans0.ltrans.o
                                                   interrupt_manager.o (symbol from plugin)
                                                   start.o
-main                                              /tmp/ccAaclgB.ltrans0.ltrans.o
+main                                              /tmp/ccKqTnRP.ltrans0.ltrans.o
                                                   test_serial.o (symbol from plugin)
                                                   start.o
 reg_intcon_bits                                   vargen.o (symbol from plugin)
