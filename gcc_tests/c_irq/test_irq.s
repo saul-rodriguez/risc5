@@ -1,32 +1,32 @@
 	.file	"test_irq.c"
 	.option nopic
-	.section	.gnu.lto_.profile.82b1cf6dc505f2b1,"",@progbits
+	.section	.gnu.lto_.profile.b3e165030aededee,"",@progbits
 	.string	"x\234cg```\004b\006"
 	.string	""
 	.string	"M"
 	.ascii	"\t"
 	.text
-	.section	.gnu.lto_.icf.82b1cf6dc505f2b1,"",@progbits
+	.section	.gnu.lto_.icf.b3e165030aededee,"",@progbits
 	.string	"x\234cg``\340c@"
 	.string	"&\206\263\353\027\376\340b\334\3326\341\023+\003"
 	.ascii	".\356\005\372"
 	.text
-	.section	.gnu.lto_.jmpfuncs.82b1cf6dc505f2b1,"",@progbits
+	.section	.gnu.lto_.jmpfuncs.b3e165030aededee,"",@progbits
 	.string	"x\234cg``\340e@"
 	.string	"&\006FF\306\372\231\314\f\214@\016"
 	.ascii	"\n\242\0016"
 	.text
-	.section	.gnu.lto_.inline.82b1cf6dc505f2b1,"",@progbits
+	.section	.gnu.lto_.inline.b3e165030aededee,"",@progbits
 	.string	"x\234cg``\bg@"
 	.string	"&\006\006\376\006 `OeddP`d``f\003q\331\222\031\030\300\f\226d&\240\032! \353"
 	.string	"K*\003\013H\013#P\240\021(P\007b@X\f@\0310\003\244\030\004"
 	.ascii	"<W\022,"
 	.text
-	.section	.gnu.lto_.pureconst.82b1cf6dc505f2b1,"",@progbits
+	.section	.gnu.lto_.pureconst.b3e165030aededee,"",@progbits
 	.string	"x\234cg```\007b&\206Y,\214\033X"
 	.ascii	"\005L\001d"
 	.text
-	.section	.gnu.lto_irq.82b1cf6dc505f2b1,"",@progbits
+	.section	.gnu.lto_irq.b3e165030aededee,"",@progbits
 	.string	"x\234\215\223\317k\023A\024\307\347;ovvm\223\n9y\350!\007\017\245\210\177\200\247\376'\202\342\301\243m\301cg\323&\325\213\246h\rQ\320\210D\332j\210\236\033\355\232\324_\325\203\324\213JA\260TsP\241\020Q+\266\276\331\331J\222\203803\357\315\373\365y3\273\276\020\242#\205\310\360~\226'\016\bHc\314\230\037\006R\022KYe\006\224\333S\004+\215\2510P\322Kl:\261y\320\211MK?\261\005\211\315G\220\330\002 \226L"
 	.string	"1%Iy\332\0170\205\3634G\350|\277\266\225\036]`\273\211Jo\016\231\205\be\022\342\022O7\260\214Q\366\333\276\221\377I\347\250L\200b\365\335\365\275\327i\253JdY\235\333y\033\0054\004\301\362\342\217\013-5r\333\230\234\2116N\230\303e\"<\004qF<\3000\032\030\026\202\3178\363\nF\204\215\370p\177w>\255UR\024\021\264"
 	.ascii	"\013\365u/2\273{\263&\372\232Y\313\244\300QJ\332\205\354\342"
@@ -43,25 +43,25 @@
 	.ascii	"\177\311>#W\2713\020\177Hv\344\371\241b\023\377s\203\223\247"
 	.ascii	"&&\217\237\036?s\364\244P\274M\374\001,2\f\t"
 	.text
-	.section	.gnu.lto_main.82b1cf6dc505f2b1,"",@progbits
+	.section	.gnu.lto_main.b3e165030aededee,"",@progbits
 	.string	"x\234cg``\350"
 	.string	"b^ \266\001bFV\006F\246\206\206\006\007\366F\016&Ff(\213\231\221\005\312b\201\212922\32431\2630\002\t\006\030\350d\236\310\314\370\345\373\354\247\274Z+\200\212\032\016L\237%\331\260\342"
 	.string	"\343L\240\222\311pe\214\273\031\265\030\030\200*\037m\3747\225\227\215\005*\305\270\207\221\215\201\021\310X\177\211\365@\303\277\377\355\r\007\276\211\234\022\003\212\26423\274;\306\306\330p"
 	.string	"\310b\002\261\032A,\346F\240\r,\214\315 6\013\204\315\330\312\314\310\300\0164\202\273$\265\270$>\263\250P/\231\001"
 	.ascii	"\350\2778\036"
 	.text
-	.section	.gnu.lto_.symbol_nodes.82b1cf6dc505f2b1,"",@progbits
+	.section	.gnu.lto_.symbol_nodes.b3e165030aededee,"",@progbits
 	.ascii	"x\234cg``\320\005b\006&\206z\206\246\206\206\006\026\306\t\347"
 	.ascii	"\030\200l\206]\r\216@Q\306z\306w\307\330\020b\013\031\201j\001"
 	.ascii	"\034(\f\f"
 	.text
-	.section	.gnu.lto_.refs.82b1cf6dc505f2b1,"",@progbits
+	.section	.gnu.lto_.refs.b3e165030aededee,"",@progbits
 	.string	"x\234cg```\004b\006"
 	.string	""
 	.string	"M"
 	.ascii	"\t"
 	.text
-	.section	.gnu.lto_.decls.82b1cf6dc505f2b1,"",@progbits
+	.section	.gnu.lto_.decls.b3e165030aededee,"",@progbits
 	.string	"x\234\215R\315kSA\020\237\337\333\220\204\227H$\224\322C\305@\017\275i\265\007\377"
 	.string	"\017z\362\246'\241\210\n\311\301\202\032=\257_X\212\322\224\212\250\205\252\265hZPK\353\311j\033\333\324\232\244\037~\\JA\322jc\304\203\037\bBA\210\263\273\3575/\325\202\303\233\3357\2633\363\373\355\314\006\210\350\260 j\345\375\006k\205\205Mz\303\n\326I2b\261\346X\347\350o\351\341\300"
 	.ascii	"\357q\326(k\235\223\327\314\272\300:\357\304\301\251\261Qza\316"
@@ -87,7 +87,7 @@
 	.ascii	"\357\300\301\330\336]{(x&\321\236l\335\335\226\024\354\017U\003"
 	.ascii	"\310w\342H\242\375\017A\251\363\365"
 	.text
-	.section	.gnu.lto_.symtab.82b1cf6dc505f2b1,"",@progbits
+	.section	.gnu.lto_.symtab.b3e165030aededee,"",@progbits
 	.string	"irq"
 	.string	""
 	.string	""

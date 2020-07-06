@@ -1,45 +1,45 @@
 	.file	"vargen.c"
 	.option nopic
-	.section	.gnu.lto_.profile.bbb70d376994098,"",@progbits
+	.section	.gnu.lto_.profile.c23dedbcc368e07,"",@progbits
 	.string	"x\234cg```\004b\006"
 	.string	""
 	.string	"M"
 	.ascii	"\t"
 	.text
-	.section	.gnu.lto_.icf.bbb70d376994098,"",@progbits
+	.section	.gnu.lto_.icf.c23dedbcc368e07,"",@progbits
 	.string	"x\234cg``\340e@"
 	.string	"&\206\033;V\0252~\336\325v\235\235\001"
 	.ascii	"*G\005\324"
 	.text
-	.section	.gnu.lto_.jmpfuncs.bbb70d376994098,"",@progbits
+	.section	.gnu.lto_.jmpfuncs.c23dedbcc368e07,"",@progbits
 	.string	"x\234cg```b@\006"
 	.string	""
 	.string	"\254"
 	.ascii	"\n"
 	.text
-	.section	.gnu.lto_.inline.bbb70d376994098,"",@progbits
+	.section	.gnu.lto_.inline.c23dedbcc368e07,"",@progbits
 	.string	"x\234cg```b@\006"
 	.string	""
 	.string	"\254"
 	.ascii	"\n"
 	.text
-	.section	.gnu.lto_.pureconst.bbb70d376994098,"",@progbits
+	.section	.gnu.lto_.pureconst.c23dedbcc368e07,"",@progbits
 	.string	"x\234cg```\004b\006"
 	.string	""
 	.string	"M"
 	.ascii	"\t"
 	.text
-	.section	.gnu.lto_.symbol_nodes.bbb70d376994098,"",@progbits
+	.section	.gnu.lto_.symbol_nodes.c23dedbcc368e07,"",@progbits
 	.string	"x\234cg``\020\002b\006VF\206F%\020\315\300\b\246\031"
 	.ascii	"\017m\001l"
 	.text
-	.section	.gnu.lto_.refs.bbb70d376994098,"",@progbits
+	.section	.gnu.lto_.refs.c23dedbcc368e07,"",@progbits
 	.string	"x\234cg```\004b\006"
 	.string	""
 	.string	"M"
 	.ascii	"\t"
 	.text
-	.section	.gnu.lto_.decls.bbb70d376994098,"",@progbits
+	.section	.gnu.lto_.decls.c23dedbcc368e07,"",@progbits
 	.string	"x\234uR]H\223Q\030>\357\316\230kN\255-\250\213A\203\232$\204N\275\b\274\211\020\377\240\f\324\240\256\314\206\231\220\023T\202n\342\314\037\030\263\254\221\3252\251\205\177\201\031TWb\351f\3454\177\322i\376\3144\t\242\2562\323\033A\264\367\234}mss\007\316w\316yx\316\363\274\337{\236\030BH\207\234\220.\\O\340\334\301\001\270N\221\335C&a+a\270\235\302\332\323\206Mj\245\240Q\201\034\217\276';\323qx<\250\002=\036G\346\037w&\370\2172<\336\267ux\225T\006x\221n\324\376\275\255"
 	.string	"\035\200\ng\013\2632\266\037\\\240\"\270\251e.\346\324\003\201t\035\030u\204\b\234\200\033\331\003\240#-L)\020\024\274\327\337\327\250\2461\\\020\372F\247\275j\252\026\373\325\336\241\347\324\370\222\371\207\362\024\201\367@\203E;mM\236Xz\234S\025\313\353k\343"
 	.string	"\006C\222Akh\023\336;\rGZ\255\254\271\206\233\300G\240\360\t\264\220&\225\222\242\203\213*\360\200\001\336a)\204\264q\003\327\357C\365\314\232\001:\025\021\344\364"
@@ -54,7 +54,7 @@
 	.ascii	"\\s\345ZIY\265\300\"o\231\204m\026\267\315\362Kg\305\241L\346"
 	.ascii	"\271|I$A\0221U\232\005\362\017*\372\202\205"
 	.text
-	.section	.gnu.lto_.symtab.bbb70d376994098,"",@progbits
+	.section	.gnu.lto_.symtab.c23dedbcc368e07,"",@progbits
 	.string	"reg_intflags_bits"
 	.string	""
 	.string	""
