@@ -12,4 +12,6 @@
 #include "../common/timer0.h"
 #include "interrupt_manager.h"
 
+extern volatile unsigned char tmr_flag;
+
 #endif

@@ -20,5 +20,11 @@ bool TMR0_is_done(void);
 
 //#define TMR0_is_done() reg_timer0_conf_bits->INT_TMR
 
+#define TMR0_Stop()  {\
+		reg_timer0_conf_bits->EN = 0; \
+		reg_timer0_conf_bits->GO = 0; \
+	}
+
+
 
 #endif

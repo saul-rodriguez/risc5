@@ -2,9 +2,15 @@
 #include "interrupt_manager.h"
 #include "hardware.h"
 
-void irq(uint32_t irqs) // @suppress("Type cannot be resolved")
+void irq(uint32_t irqs)
 {
 
+	if (reg_intcon_bits->TMR0IE == 1 && reg_intflags_bits->TMR0IF == 1) {
+		reg_timer0_conf_bits->INT_TMR = 0; //also possible to use TMR0_ISR()
+		//TMR0_ISR();
+
+		tmr_flag = 1;
+	}
 
 	/*
 	if (reg_intcon_bits->TXIE == 1 && reg_intflags_bits->TXIF == 1) {           
@@ -15,15 +21,15 @@ void irq(uint32_t irqs) // @suppress("Type cannot be resolved")
     //reg_porta = 0xcc;
       
     if (irqs & IRQ_5) {
-		reg_porta = IRQ_5; // @suppress("Type cannot be resolved")
+		reg_porta = IRQ_5;
 	} 
 
 	if (irqs & IRQ_6) {
-		reg_porta = IRQ_6;		 // @suppress("Type cannot be resolved")
+		reg_porta = IRQ_6;
 	}
 
 	if (irqs & IRQ_7) {
-		reg_porta = IRQ_7; // @suppress("Type cannot be resolved")
+		reg_porta = IRQ_7;
 	}
 	*/
 	
