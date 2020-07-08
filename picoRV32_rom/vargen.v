@@ -13,6 +13,7 @@
 `include "rom.v"
 `include "gio.v"
 `include "uart.v"
+`include "timer.v"
 
 module vargen (
 	input clk,
@@ -47,6 +48,7 @@ always @* begin
 		irq[5] = irq_5;
 		irq[6] = irq_6;
 		irq[7] = irq_7;
+		irq[8] = timer0_int_flag_pico;
 end
 
 // address & data bus 
@@ -61,7 +63,7 @@ wire [31:0] mem_rdata;
 //mem_ready is asserted when a peer that is connected to the address bus (for read/write) has completed reading the address. 
 assign mem_ready = ram_ready || rom_ready || porta_ready || portb_ready || 
 				   uart_conf_ready || uart_tx_ready || uart_rx_ready ||
-				   intcon_ready || intflags_ready;
+				   intcon_ready || intflags_ready || timer0_ready || timer0_value_ready;
 
 //mem_rdata is the read data bus and it is implemented as a mux: 
 assign mem_rdata = ram_ready ? ram_rdata :
@@ -69,7 +71,8 @@ assign mem_rdata = ram_ready ? ram_rdata :
 				   portb_ready ? portb_data32 :
 				   uart_rx_ready ? uart_rx_data32 : 
 				   intcon_ready ? intcon_data32 :
-				   intflags_ready? intflags_data32 : 32'h0000_0000;
+				   intflags_ready? intflags_data32 : 
+				   timer0_ready? timer0_rdata32 : 32'h0000_0000;
 
 /* Only one <name>_ready signal can be asserted at a time!   
 *  Note: ram_ready and rom_ready are left here exactly as they were in the original PicoSoc example
@@ -217,7 +220,8 @@ wire [7:0] interrupt_flags ;
 
 assign interrupt_flags[0] = uart_rx_int_flag;
 assign interrupt_flags[1] = uart_tx_int_flag;
-assign interrupt_flags[7:2] = 0;
+assign interrupt_flags[2] = timer0_int_flag;
+assign interrupt_flags[7:3] = 0;
 
 
 ioport #(.ADDR(`INTFLAGS),
@@ -306,12 +310,60 @@ UART_RX_PICO #(.ADDR(`UART_RX)) rx(
 	.uart_rx_ready(uart_rx_ready) //Acknowledge that address has been read
 );
 
+/***********/
+/* TIMER0  */
+/***********/
+
+//Timer0 value register
+
+wire [31:0] timer0_value;
+wire timer0_value_ready;
+
+ioport #(.ADDR(`TIMER0),
+		.WIDTH(32)
+	) timer0_reg(
+		.clk(clk),
+		.addr(mem_addr), 
+		.wdata(mem_wdata),	
+		.wen(mem_wstrb[0]), 
+		.resetn(resetn), 
+		.mem_valid(mem_valid),
+		.mem_ready(mem_ready),
+		.mem_port_ready(timer0_value_ready),
+		.odata(timer0_value)
+	);
+
+// Timer0 wrapper
+
+wire [7:0] timer0_rdata;
+wire timer0_ready;
+
+wire [31:0] timer0_rdata32;
+assign timer0_rdata32 = {{(24){1'b0}},timer0_rdata};
+
+wire timer0_int_flag;
+wire timer0_int_flag_pico;
+
+assign timer0_int_flag = timer0_rdata[0];
+assign timer0_int_flag_pico = timer0_int_flag & intcon[2];
+
+TIMER_VARGEN #(`TIMER0_CONF) tmr0(
+		.clk(clk),
+		.resetn(resetn),
+		.timer_value(timer0_value), // a configuration register must connect here
+		.addr(mem_addr), 
+		.wen(mem_wstrb[0]),
+		.wdata(mem_wdata[7:0]),	
+		.mem_valid(mem_valid),
+		.mem_ready(mem_ready),
+		.timer_rdata(timer0_rdata),	
+		.timer_ready(timer0_ready)
+	);
 
 endmodule //END module vargen
 
-
-
 //Registers module
+
 module picosoc_regs (
 	input clk, wen,
 	input [5:0] waddr,

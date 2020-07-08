@@ -13,10 +13,10 @@ Linker script and memory map
                 0x0000000000000000                . = ALIGN (0x4)
  *(.text)
  .text          0x0000000000000000      0x17a start.o
- .text          0x000000000000017a       0x32 /tmp/ccs1t6mU.ltrans0.ltrans.o
+ .text          0x000000000000017a       0x32 /tmp/cc3N4Fze.ltrans0.ltrans.o
                 0x000000000000017a                irq
  *(.text*)
- .text.startup  0x00000000000001ac        0x2 /tmp/ccs1t6mU.ltrans0.ltrans.o
+ .text.startup  0x00000000000001ac        0x2 /tmp/cc3N4Fze.ltrans0.ltrans.o
                 0x00000000000001ac                main
  *(.rodata)
  *(.rodata*)
@@ -38,7 +38,7 @@ Linker script and memory map
                 0x0000000000000000                _ram_start = .
  *(.data)
  .data          0x0000000000000000        0x1 start.o
- .data          0x0000000000000001        0x0 /tmp/ccs1t6mU.ltrans0.ltrans.o
+ .data          0x0000000000000001        0x0 /tmp/cc3N4Fze.ltrans0.ltrans.o
  *(.data*)
  *(.sdata)
  *(.sdata*)
@@ -53,7 +53,7 @@ Linker script and memory map
                 0x0000000000000004                _sbss = .
  *(.bss)
  .bss           0x0000000000000004        0x0 start.o
- .bss           0x0000000000000004        0x0 /tmp/ccs1t6mU.ltrans0.ltrans.o
+ .bss           0x0000000000000004        0x0 /tmp/cc3N4Fze.ltrans0.ltrans.o
  *(.bss*)
  *(.sbss)
  *(.sbss*)
@@ -65,11 +65,11 @@ Linker script and memory map
                 0x0000000000000004                . = ALIGN (0x4)
                 0x0000000000000004                _heap_start = .
 LOAD start.o
-LOAD /tmp/ccs1t6mU.ltrans0.ltrans.o
+LOAD /tmp/cc3N4Fze.ltrans0.ltrans.o
 OUTPUT(test_irq.elf elf32-littleriscv)
 
 .comment        0x0000000000000000       0x11
- .comment       0x0000000000000000       0x11 /tmp/ccs1t6mU.ltrans0.ltrans.o
+ .comment       0x0000000000000000       0x11 /tmp/cc3N4Fze.ltrans0.ltrans.o
                                          0x12 (size before relaxing)
 
 Cross Reference Table
@@ -80,9 +80,9 @@ _edata                                            start.o
 _sbss                                             start.o
 _sdata                                            start.o
 _sidata                                           start.o
-irq                                               /tmp/ccs1t6mU.ltrans0.ltrans.o
+irq                                               /tmp/cc3N4Fze.ltrans0.ltrans.o
                                                   test_irq.o (symbol from plugin)
                                                   start.o
-main                                              /tmp/ccs1t6mU.ltrans0.ltrans.o
+main                                              /tmp/cc3N4Fze.ltrans0.ltrans.o
                                                   test_irq.o (symbol from plugin)
                                                   start.o

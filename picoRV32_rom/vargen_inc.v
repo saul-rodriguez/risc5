@@ -13,32 +13,37 @@
  *   Mermory Mapped User Peripherals (MMUP) & Configuration registers
  *	 Name:		Address:		Description:
  *  -------------------------------------------------
- *   INTCON		32'h0010_0000   Interrupts configuration register 
- *   INTFLAGS	32'h0010_0004   User interrupts flags register 	
- * 	 UART_TX	32'h0010_0008	TX Data serial port (8-bit)	
- *	 UART_RX	32'h0010_000c	RX Data serial port (8-bit)
- *   UART_CONF	32'h0010_0010	UART Configuration register (12-bit)
- *	 PORTA		32'h0010_0014	8-bit Digital output	
- *	 PORTB		32'h0010_0018	8-bit Digital input
- * 
+ *   INTCON			32'h0010_0000   Interrupts configuration register 
+ *   INTFLAGS		32'h0010_0004   User interrupts flags register 	
+ * 	 UART_TX		32'h0010_0008	TX Data serial port (8-bit)	
+ *	 UART_RX		32'h0010_000c	RX Data serial port (8-bit)
+ *   UART_CONF		32'h0010_0010	UART Configuration register (12-bit)
+ *	 PORTA			32'h0010_0014	8-bit Digital output	
+ *	 PORTB			32'h0010_0018	8-bit Digital input
+ * 	 TIMER0			32'h0010_001c	32-bit timer value
+ * 	 TIMER0_CONF	32'h0010_0020	TIMER0 Configuration register (8-bit)		
  */
-  
-	
- `define INTCON			32'h0010_0000
- `define INTFLAGS		32'h0010_0004
- `define UART_TX		32'h0010_0008
- `define UART_RX		32'h0010_000c
- `define UART_CONF		32'h0010_0010
- `define PORTA			32'h0010_0014
- `define PORTA_WIDTH 8
- `define PORTB			32'h0010_0018
- `define PORTB_WIDTH 8
+  	
+`define INTCON			32'h0010_0000
+`define INTFLAGS		32'h0010_0004
+`define UART_TX			32'h0010_0008
+`define UART_RX			32'h0010_000c
+`define UART_CONF		32'h0010_0010
+`define PORTA			32'h0010_0014
+`define PORTA_WIDTH 8
+`define PORTB			32'h0010_0018
+`define PORTB_WIDTH 8
+`define TIMER0 			32'h0010_001c
+`define TIMER0_CONF		32'h0010_0020
     
     
-// Interrupt bits order in INTCON and INTFLAG
-//  B7      B6      B5      B4       B3      B2      B1      B0
-//  -      -         -       -        -     TMR0   TX_UART RX_UART 
+// INTCON and INTFLAG bits
+//  B7      B6      B5      B4       B3       B2       B1       B0
+//  -      -         -       -        -      TMR0    TX_UART   RX_UART 
 
+// TIMER0_CONF bits
+//  B7      B6      B5      B4       B3       B2       B1       B0
+//  -       -       -       -      AUTO_LD    EN       GO     INT_TMR
 
 `endif
 

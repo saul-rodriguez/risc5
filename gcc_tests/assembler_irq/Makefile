@@ -10,7 +10,6 @@ LINK_FLAGS = -march=rv32imc -Wall -flto -nostartfiles -Wl,-Bstatic,-T,sections.l
 
 #sources
 NAME=test_irq_nr
-
 SRCS = test_irq_nr.S
 
 all: $(NAME).hex4

@@ -8,8 +8,7 @@
 // CLK_FREQ must be defined before delay.h is read
 
 #ifndef CLK_FREQ
-	#warning "CLK_FREQ undefined, assuming Tinyfpga's clk 16 MHz"
-	#define CLK_FREQ 16000000		
+	#error "CLK_FREQ must be defined before delay.h is read"
 #endif
 
 /* delay_cycles 

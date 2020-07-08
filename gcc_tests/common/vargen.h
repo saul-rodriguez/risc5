@@ -26,15 +26,20 @@
 //output porta
 #define PORTB	0x00100018
 //#define PORTB_WIDTH 8
- 
 
-#define reg_porta     (*(volatile uint32_t*) PORTA) // 8 bit digital output
-#define reg_portb     (*(volatile uint32_t*) PORTB) // 8 bit digital input
-#define reg_uart_tx   (*(volatile uint32_t*) UART_TX) // 8 bit tx uart
-#define reg_uart_rx   (*(volatile uint32_t*) UART_RX) // 8 bit rx uart
-#define reg_uart_conf (*(volatile uint32_t*) UART_CONF) // 12 bit uart configuration
-#define reg_intcon    (*(volatile uint32_t*) INTCON) // 8 bit interrupt enable configuration
-#define reg_intflags  (*(volatile uint32_t*) INTFLAGS) // 8 bit interrupt flags
+//timer0 registers
+#define TIMER0 			0x0010001c
+#define TIMER0_CONF		0x00100020
+
+#define reg_porta     	(*(volatile uint32_t*) PORTA) // 8-bit digital output
+#define reg_portb     	(*(volatile uint32_t*) PORTB) // 8-bit digital input
+#define reg_uart_tx   	(*(volatile uint32_t*) UART_TX) // 8-bit tx uart
+#define reg_uart_rx   	(*(volatile uint32_t*) UART_RX) // 8-bit rx uart
+#define reg_uart_conf 	(*(volatile uint32_t*) UART_CONF) // 12-bit uart configuration
+#define reg_intcon    	(*(volatile uint32_t*) INTCON) // 8-bit interrupt enable configuration
+#define reg_intflags  	(*(volatile uint32_t*) INTFLAGS) // 8-bit interrupt flags
+#define reg_timer0	  	(*(volatile uint32_t*) TIMER0) //32-bit timer value
+#define reg_timer0_conf	(*(volatile uint32_t*) TIMER0_CONF) //8-bit timer copnfiguration register
 
 //External interrupts flags available in pircorv32 reg q0
 //q0 is passed as parameter irqs in void irq(uint32_t irqs);
@@ -49,8 +54,6 @@
 //default configuration for the uart
 #define CLK_FREQ 16000000
 #define BRATE 9600
-
-#define UART_CONF_VAL (CLK_FREQ/BRATE)
 
 //Registers as bit structures
 
@@ -70,7 +73,14 @@ typedef struct {
 
 extern volatile INTCON_bits_s* reg_intcon_bits;
 
+typedef struct {
+		unsigned INT_TMR	:1;
+		unsigned GO			:1;
+		unsigned EN			:1;
+		unsigned AUTO_LD	:1;
+} TIMER0_CONF_bits_s;
 
+extern volatile TIMER0_CONF_bits_s* reg_timer0_conf_bits;
 
 
 #endif

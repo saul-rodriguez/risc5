@@ -5,9 +5,16 @@
 
 #include "vargen.h"
 
-#ifndef UART_CONF_VAL
-	#error "UART_CONF must be defined before eusart1.h is read"
+#ifndef CLK_FREQ
+	#error "CLK_FREQ must be defined before eusart1.h is read"
 #endif
+
+#ifndef BRATE
+	#error "BRATE must be defined before eusart1.h is read"
+#endif
+
+#define UART_CONF_VAL (CLK_FREQ/BRATE)
+
 
 extern volatile uint8_t eusart1TxBufferRemaining;
 extern volatile uint8_t eusart1RxCount;

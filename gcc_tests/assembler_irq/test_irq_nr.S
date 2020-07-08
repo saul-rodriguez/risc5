@@ -1,9 +1,10 @@
 #include "custom_ops.S"
-			.equ IRQ_5, 0x0020
-			.equ IRQ_6, 0x0040
-			.equ IRQ_7, 0x0080
+			.include "../common/vargen_inc.s"
+			#.equ IRQ_5, 0x0020
+			#.equ IRQ_6, 0x0040
+			#.equ IRQ_7, 0x0080
 			
-			.equ PORTA, 0x00100000
+			#.equ PORTA, 0x00100000
 
 			.section .data
 			.balign 4
