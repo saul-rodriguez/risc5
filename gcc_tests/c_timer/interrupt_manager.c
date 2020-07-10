@@ -6,10 +6,10 @@ void irq(uint32_t irqs)
 {
 
 	if (reg_intcon_bits->TMR0IE == 1 && reg_intflags_bits->TMR0IF == 1) {
-		reg_timer0_conf_bits->INT_TMR = 0; //also possible to use TMR0_ISR()
-		//TMR0_ISR();
+		//reg_timer0_conf_bits->INT_TMR = 0; //also possible to use TMR0_ISR()
+		TMR0_ISR();
 
-		tmr_flag = 1;
+		//tmr_flag = 1;
 	}
 
 	/*

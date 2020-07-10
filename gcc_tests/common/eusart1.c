@@ -5,6 +5,8 @@
 /**
   Section: Macro Declarations
 */
+#pragma GCC push_options
+#pragma GCC optimize ("O2")
 
 #define EUSART1_TX_BUFFER_SIZE 8
 #define EUSART1_RX_BUFFER_SIZE 8
@@ -24,16 +26,17 @@ volatile uint8_t eusart1RxBuffer[EUSART1_RX_BUFFER_SIZE];
 volatile uint8_t eusart1RxCount;
 //volatile eusart1_status_t eusart1RxLastError;
 
-//void (*EUSART1_TxDefaultInterruptHandler)(void);
-//void (*EUSART1_RxDefaultInterruptHandler)(void);
+void (*EUSART1_TxDefaultInterruptHandler)(void);
+void (*EUSART1_RxDefaultInterruptHandler)(void);
 
 void EUSART1_Initialize(void)
 {
 	// disable interrupts before changing states
 	reg_intcon_bits->RXIE = 0;	
 	//EUSART1_SetRxInterruptHandler(EUSART1_Receive_ISR);
+	EUSART1_SetRxInterruptHandler(EUSART1_RxDataHandler);
 	reg_intcon_bits->TXIE = 0;	
-	//EUSART1_SetTxInterruptHandler(EUSART1_Transmit_ISR);
+	EUSART1_SetTxInterruptHandler(EUSART1_Transmit_ISR);
 	
 	//configure baud rate counter
 	reg_uart_conf = UART_CONF_VAL;	
@@ -172,7 +175,7 @@ void EUSART1_RxDataHandler(void){
     eusart1RxCount++;
 }
 
-/*
+
 void EUSART1_SetTxInterruptHandler(void (* interruptHandler)(void)){
     EUSART1_TxDefaultInterruptHandler = interruptHandler;
 }
@@ -180,6 +183,6 @@ void EUSART1_SetTxInterruptHandler(void (* interruptHandler)(void)){
 void EUSART1_SetRxInterruptHandler(void (* interruptHandler)(void)){
     EUSART1_RxDefaultInterruptHandler = interruptHandler;
 }
-*/
 
+#pragma GCC pop_options
 

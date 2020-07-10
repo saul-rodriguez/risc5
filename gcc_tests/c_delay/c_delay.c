@@ -34,10 +34,10 @@ void main()
 		reg_porta = 0x00;
 		//delay_cycles_11(a);
 		//__delay_us(100);
-		__delay_ms(100);		
+		__delay_ms(1);
 		reg_porta = 0xff;
 		//__delay_us(100);
-		__delay_ms(100);
+		__delay_ms(1);
 		//delay_cycles_11(a);	
 	}
 	

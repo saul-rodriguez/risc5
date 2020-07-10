@@ -10,6 +10,8 @@ typedef enum {
 	AUTO_LOAD = 8
 } TMR0_Config;
 
+extern void (*TMR0_InterruptHandler)(void);
+
 void TMR0_Initialize(TMR0_Config conf);
 void TMR0_StartTimer(void);
 void TMR0_StopTimer(void);
@@ -17,6 +19,12 @@ void TMR0_ISR(void);
 void TMR0_WriteTimer(uint32_t timerVal);
 void TMR0_clear_int_flag(void);
 bool TMR0_is_done(void);
+void TMR0_SetInterruptHandler(void (* InterruptHandler)(void));
+void TMR0_DefaultInterruptHandler(void);
+
+
+
+
 
 //#define TMR0_is_done() reg_timer0_conf_bits->INT_TMR
 

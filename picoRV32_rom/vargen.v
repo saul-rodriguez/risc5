@@ -68,6 +68,7 @@ assign mem_ready = ram_ready || rom_ready || porta_ready || portb_ready ||
 //mem_rdata is the read data bus and it is implemented as a mux: 
 assign mem_rdata = ram_ready ? ram_rdata :
 				   rom_ready ? rom_rdata : 
+				   porta_ready ? porta_data32 :
 				   portb_ready ? portb_data32 :
 				   uart_rx_ready ? uart_rx_data32 : 
 				   intcon_ready ? intcon_data32 :
@@ -141,7 +142,10 @@ rom512 pico_rom(
 /************/
 /* PORTA (W)*/
 /************/
+//porta_out already declared at vargen()
 wire porta_ready;
+wire [31:0] porta_data32;
+assign porta_data32 = {{(32 -`PORTA_WIDTH){1'b0}},porta_out};
 
 ioport #(.ADDR(`PORTA),
 		  .WIDTH(`PORTA_WIDTH)
@@ -172,7 +176,7 @@ ioport #(.ADDR(`PORTB),
 			.clk(clk),
 			.addr(mem_addr), 
 			.wdata(portb_in),	
-			.wen(1'b1), // it would also work  .wen(!mem_wstrb[0])
+			.wen(1'b1), // always enabled for writing
 			.resetn(resetn), 
 			.mem_valid(mem_valid),
 			.mem_ready(mem_ready),

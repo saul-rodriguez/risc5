@@ -7,6 +7,11 @@
 
 volatile unsigned char tmr_flag;
 
+void myTMR0_handler()
+{
+	tmr_flag = 1;
+}
+
 int main() 
 {
 	//unsigned char flag;
@@ -15,6 +20,7 @@ int main()
 	//TMR0_Initialize(EN);
 	TMR0_Initialize(EN | AUTO_LOAD);
 	TMR0_WriteTimer(TIMER_VALUE);
+	TMR0_SetInterruptHandler(myTMR0_handler); // Redirect default interrupt handler to users handler
 
 	TMR0_StartTimer(); //it is the same as reg_timer0_conf_bits->GO = 1;
 
@@ -55,7 +61,7 @@ int main()
 			reg_porta = aux++;
 			//reg_timer0_conf_bits->EN = 0;
 			if (aux == 0xf5) {
-				TMR0_StopTimer();   // #pragma GCC optimize ("O2") was used to prevent the optimizer to remove this
+				TMR0_StopTimer();   // #pragma GCC optimize ("O2") was used to prevent the optimizer O3 to remove this
 			}
 		}
 

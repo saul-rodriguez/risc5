@@ -4,7 +4,7 @@
 
 `include "vargen.v"
 
-`define END_SIM 72000
+`define END_SIM 150000
 
 module vargen_tb;
 

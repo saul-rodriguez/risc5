@@ -6,6 +6,7 @@
 #include "vargen.h"
 
 // CLK_FREQ must be defined before delay.h is read
+//#define CLK_FREQ 16000000
 
 #ifndef CLK_FREQ
 	#error "CLK_FREQ must be defined before delay.h is read"
