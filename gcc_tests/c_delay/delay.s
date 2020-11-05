@@ -1,81 +1,616 @@
 	.file	"delay.c"
 	.option nopic
-	.section	.gnu.lto_.profile.8f9b9206c7b6a523,"",@progbits
-	.string	"x\234cg```\004b\006"
-	.string	""
-	.string	"M"
-	.ascii	"\t"
+# GNU C17 (GCC) version 8.2.0 (riscv32-unknown-elf)
+#	compiled by GNU C version 7.5.0, GMP version 6.1.2, MPFR version 4.0.1, MPC version 1.1.0, isl version none
+# GGC heuristics: --param ggc-min-expand=30 --param ggc-min-heapsize=4096
+# options passed:  ../common/delay.c -march=rv32imc -mabi=ilp32 -g -O3
+# -Wall -fverbose-asm
+# options enabled:  -faggressive-loop-optimizations -falign-functions
+# -falign-jumps -falign-labels -falign-loops -fauto-inc-dec
+# -fbranch-count-reg -fcaller-saves -fchkp-check-incomplete-type
+# -fchkp-check-read -fchkp-check-write -fchkp-instrument-calls
+# -fchkp-narrow-bounds -fchkp-optimize -fchkp-store-bounds
+# -fchkp-use-static-bounds -fchkp-use-static-const-bounds
+# -fchkp-use-wrappers -fcode-hoisting -fcombine-stack-adjustments -fcommon
+# -fcompare-elim -fcprop-registers -fcrossjumping -fcse-follow-jumps
+# -fdefer-pop -fdelete-null-pointer-checks -fdevirtualize
+# -fdevirtualize-speculatively -fdwarf2-cfi-asm -fearly-inlining
+# -feliminate-unused-debug-types -fexpensive-optimizations
+# -fforward-propagate -ffp-int-builtin-inexact -ffunction-cse -fgcse
+# -fgcse-after-reload -fgcse-lm -fgnu-runtime -fgnu-unique
+# -fguess-branch-probability -fhoist-adjacent-loads -fident -fif-conversion
+# -fif-conversion2 -findirect-inlining -finline -finline-atomics
+# -finline-functions -finline-functions-called-once
+# -finline-small-functions -fipa-bit-cp -fipa-cp -fipa-cp-clone -fipa-icf
+# -fipa-icf-functions -fipa-icf-variables -fipa-profile -fipa-pure-const
+# -fipa-ra -fipa-reference -fipa-sra -fipa-vrp -fira-hoist-pressure
+# -fira-share-save-slots -fira-share-spill-slots
+# -fisolate-erroneous-paths-dereference -fivopts -fkeep-static-consts
+# -fleading-underscore -flifetime-dse -floop-interchange
+# -floop-unroll-and-jam -flra-remat -flto-odr-type-merging -fmath-errno
+# -fmerge-constants -fmerge-debug-strings -fmove-loop-invariants
+# -fomit-frame-pointer -foptimize-sibling-calls -foptimize-strlen
+# -fpartial-inlining -fpeel-loops -fpeephole -fpeephole2 -fplt
+# -fpredictive-commoning -fprefetch-loop-arrays -free -freg-struct-return
+# -freorder-blocks -freorder-functions -frerun-cse-after-loop
+# -fsched-critical-path-heuristic -fsched-dep-count-heuristic
+# -fsched-group-heuristic -fsched-interblock -fsched-last-insn-heuristic
+# -fsched-rank-heuristic -fsched-spec -fsched-spec-insn-heuristic
+# -fsched-stalled-insns-dep -fschedule-fusion -fschedule-insns
+# -fschedule-insns2 -fsection-anchors -fsemantic-interposition
+# -fshow-column -fshrink-wrap -fshrink-wrap-separate -fsigned-zeros
+# -fsplit-ivs-in-unroller -fsplit-loops -fsplit-paths -fsplit-wide-types
+# -fssa-backprop -fssa-phiopt -fstdarg-opt -fstore-merging
+# -fstrict-aliasing -fstrict-volatile-bitfields -fsync-libcalls
+# -fthread-jumps -ftoplevel-reorder -ftrapping-math -ftree-bit-ccp
+# -ftree-builtin-call-dce -ftree-ccp -ftree-ch -ftree-coalesce-vars
+# -ftree-copy-prop -ftree-dce -ftree-dominator-opts -ftree-dse
+# -ftree-forwprop -ftree-fre -ftree-loop-distribute-patterns
+# -ftree-loop-distribution -ftree-loop-if-convert -ftree-loop-im
+# -ftree-loop-ivcanon -ftree-loop-optimize -ftree-loop-vectorize
+# -ftree-parallelize-loops= -ftree-partial-pre -ftree-phiprop -ftree-pre
+# -ftree-pta -ftree-reassoc -ftree-scev-cprop -ftree-sink
+# -ftree-slp-vectorize -ftree-slsr -ftree-sra -ftree-switch-conversion
+# -ftree-tail-merge -ftree-ter -ftree-vrp -funit-at-a-time -funswitch-loops
+# -fvar-tracking -fvar-tracking-assignments -fverbose-asm
+# -fzero-initialized-in-bss -mdiv -mexplicit-relocs -mplt -mstrict-align
+
 	.text
-	.section	.gnu.lto_.icf.8f9b9206c7b6a523,"",@progbits
-	.string	"x\234cg``\340`@"
-	.string	"F\206\275\323\017\376gd"
-	.string	""
-	.ascii	"\016\314\003&"
-	.text
-	.section	.gnu.lto_.jmpfuncs.8f9b9206c7b6a523,"",@progbits
-	.string	"x\234cg``\340b@"
-	.string	"F\006FF\306\372\231\314\f\f"
-	.ascii	"\006\263\0011"
-	.text
-	.section	.gnu.lto_.inline.8f9b9206c7b6a523,"",@progbits
-	.string	"x\234cg``Pe@"
-	.string	"F\006\006\216\006 `Oad`\342\002\261XS\030\030\330@\f\226d&\006&\260\""
-	.ascii	"\245j\007\210"
-	.text
-	.section	.gnu.lto_.pureconst.8f9b9206c7b6a523,"",@progbits
-	.string	"x\234cg```\001bF\206]\254"
-	.string	"\001\375"
-	.ascii	"\314"
-	.text
-	.section	.gnu.lto_delay_cycles_11.8f9b9206c7b6a523,"",@progbits
-	.string	"x\2345O\317KTQ\024>\337\273\327\231\367fzPA\320B\341\361P\020\321\321\021\332\bA\177\200\273\240m\215\316\b\206\343K\241Em\274\363dL\243\026i2\f\202\332@\341N#\231\205\277z\376\250\240]\351*j#\030\004\263\221\221\264\002\355\334\347x\270\227{\276\357\334\357;\347D\211h\024D\367\370m\340\013A0\224R\267\2429\323"
-	.string	"t&\225\t\03210\202\t\361B\340\350x\346\300nY\340\212\n\n\345\353j!@Q\020M\361=\017\254\242\205\377\035\316\345\377\210qQ\024\200d\370m\366l\327\326\320\200\303\360G\371\331\230-\256\2018\257T_U#\315o\224\362U\360=\255\032\213B`\003\202\035\261\216z\254\241\236\2109v~\217f\322\212\375\267\247\323vD\326\232\"@\204x\007Z\374Z\027\250\323\263'*\370y\345i\\\002Z`\324dyA>\317,\241\002\032\023F.\314G\003\372\005\277\364\357\262\366"
-	.string	"{4\260\373\334\347\345\222to\317+3l\266\264\377\372\344\222{\347\002\376\336\232,\332\222]\267\340b\023nHV\226\367\276\230\232\334\206,\b\203g\332\t\267.<\367W\204{\367B[-\344Jq\251\313\037j\302\352\337\275\227uZ\370Q\013y"
-	.ascii	"|\202\244\n\374\371wV\270\227\216\274\300\371\270\254\274\232"
-	.ascii	"H\264\367z\331\2547\330\236\316\f\244\036%z):\3700\333\355y\017"
-	.ascii	"n$\273\034\313\352\311\f9M\035\255\2173\303^kg_\314\262\254T"
-	.ascii	":\335\257)>m\311\230\345\350\260\356;\311\236XgW\214\214\233"
-	.ascii	"\303f\252\346\200\216\377g-\215\377"
-	.text
-	.section	.gnu.lto_.symbol_nodes.8f9b9206c7b6a523,"",@progbits
-	.string	"x\234cg``\220"
-	.string	"b\006&\206z\206\246\206\206\006\026\306\t\347\030\200l\206]\r\216@a"
-	.string	"N\370\006"
-	.text
-	.section	.gnu.lto_.refs.8f9b9206c7b6a523,"",@progbits
-	.string	"x\234cg```\004b\006"
-	.string	""
-	.string	"M"
-	.ascii	"\t"
-	.text
-	.section	.gnu.lto_.decls.8f9b9206c7b6a523,"",@progbits
-	.string	"x\234cg``x\310\310\300`\017\244\023\200\370?\0200\001\351\213@\f\024f\210d\200"
-	.string	"\020\3730\003&h\007J\260"
-	.string	"\351\f \026\002b\021\"\364Ldf<\375y\325\021\376\373\214w\031\231!\312@\252\031!$\220\006a0\377?\f0B\304\201\242L i\260\036F\230Z\030\200\21100A\315`\002\033\0161\r\204\030\241\210\021\311\\\210\315\020\013\021\226C\fad\200;\r!\017\221@v\031\003#\003#\212c\320\235\215\n`A\003\004L\260\3608\262\362\370lvf\240\337\200\354\215wo\177\343a\026\002\263\367Oi\334\306e\260\256\001\0028|\030\030\367\202\202\f\246m\335\232\337\033\270X@\336\214\344b,c\001\t\235\2741{\031\177\0073\243\020\027#\023\220{\351\306\363o\034@\256\b\027\243"
-	.string	"\220\373\357\\\363,\026\211i \303.44(01f\2101\036d\224a<\300(\0034\344\020\243\004\220\334\317\310\0021\375\311\243\003-\034\312\013\033\026<h8\360\376)\333\263\206\206\025@}\n e\214{\030\231\031\3671\032\200\375\262\007\354$\306\335\214\367A\241t\230Q\231\201?%5'\2612>\27129'\2658\336\320PPOO?9?77?O\037,\243\227\314\341\356\027\252\340lh\316 \204!\305"
-	.string	""
-	.ascii	"\210$\204S"
-	.text
-	.section	.gnu.lto_.symtab.8f9b9206c7b6a523,"",@progbits
+.Ltext0:
+	.cfi_sections	.debug_frame
+	.align	1
+	.globl	delay_cycles_11
+	.type	delay_cycles_11, @function
+delay_cycles_11:
+.LFB0:
+	.file 1 "../common/delay.c"
+	.loc 1 12 1
+	.cfi_startproc
+.LVL0:
+	.loc 1 14 2
+ #APP
+# 14 "../common/delay.c" 1
+	1: 		beq a0,zero,2f	# numLoop
+			addi a0,a0,-1	# numLoop
+	     	j 1b
+2:
+
+# 0 "" 2
+.LVL1:
+# ../common/delay.c:20: }
+	.loc 1 20 1 is_stmt 0
+ #NO_APP
+	ret	
+	.cfi_endproc
+.LFE0:
+	.size	delay_cycles_11, .-delay_cycles_11
+.Letext0:
+	.file 2 "../common/vargen.h"
+	.section	.debug_info,"",@progbits
+.Ldebug_info0:
+	.4byte	0x1b0
+	.2byte	0x4
+	.4byte	.Ldebug_abbrev0
+	.byte	0x4
+	.byte	0x1
+	.4byte	.LASF23
+	.byte	0xc
+	.4byte	.LASF24
+	.4byte	.LASF25
+	.4byte	.Ldebug_ranges0+0
+	.4byte	0
+	.4byte	.Ldebug_line0
+	.byte	0x2
+	.byte	0x1
+	.byte	0x6
+	.4byte	.LASF0
+	.byte	0x2
+	.byte	0x1
+	.byte	0x8
+	.4byte	.LASF1
+	.byte	0x2
+	.byte	0x2
+	.byte	0x5
+	.4byte	.LASF2
+	.byte	0x2
+	.byte	0x2
+	.byte	0x7
+	.4byte	.LASF3
+	.byte	0x2
+	.byte	0x4
+	.byte	0x5
+	.4byte	.LASF4
+	.byte	0x2
+	.byte	0x4
+	.byte	0x7
+	.4byte	.LASF5
+	.byte	0x2
+	.byte	0x8
+	.byte	0x5
+	.4byte	.LASF6
+	.byte	0x2
+	.byte	0x8
+	.byte	0x7
+	.4byte	.LASF7
+	.byte	0x3
+	.byte	0x4
+	.byte	0x5
+	.string	"int"
+	.byte	0x2
+	.byte	0x4
+	.byte	0x7
+	.4byte	.LASF8
+	.byte	0x4
+	.byte	0x4
+	.byte	0x2
+	.byte	0x3c
+	.byte	0x9
+	.4byte	0xa5
+	.byte	0x5
+	.4byte	.LASF9
+	.byte	0x2
+	.byte	0x3d
+	.byte	0xc
+	.4byte	0x64
+	.byte	0x4
+	.byte	0x1
+	.byte	0x1f
+	.byte	0
+	.byte	0x5
+	.4byte	.LASF10
+	.byte	0x2
+	.byte	0x3e
+	.byte	0xc
+	.4byte	0x64
+	.byte	0x4
+	.byte	0x1
+	.byte	0x1e
+	.byte	0
+	.byte	0x5
+	.4byte	.LASF11
+	.byte	0x2
+	.byte	0x3f
+	.byte	0xc
+	.4byte	0x64
+	.byte	0x4
+	.byte	0x1
+	.byte	0x1d
+	.byte	0
+	.byte	0
+	.byte	0x6
+	.4byte	.LASF15
+	.byte	0x2
+	.byte	0x40
+	.byte	0x3
+	.4byte	0x6b
+	.byte	0x7
+	.4byte	0xa5
+	.byte	0x8
+	.4byte	.LASF17
+	.byte	0x2
+	.byte	0x42
+	.byte	0x22
+	.4byte	0xc2
+	.byte	0x9
+	.byte	0x4
+	.4byte	0xb1
+	.byte	0x4
+	.byte	0x4
+	.byte	0x2
+	.byte	0x44
+	.byte	0x9
+	.4byte	0x102
+	.byte	0x5
+	.4byte	.LASF12
+	.byte	0x2
+	.byte	0x45
+	.byte	0xc
+	.4byte	0x64
+	.byte	0x4
+	.byte	0x1
+	.byte	0x1f
+	.byte	0
+	.byte	0x5
+	.4byte	.LASF13
+	.byte	0x2
+	.byte	0x46
+	.byte	0xc
+	.4byte	0x64
+	.byte	0x4
+	.byte	0x1
+	.byte	0x1e
+	.byte	0
+	.byte	0x5
+	.4byte	.LASF14
+	.byte	0x2
+	.byte	0x47
+	.byte	0xc
+	.4byte	0x64
+	.byte	0x4
+	.byte	0x1
+	.byte	0x1d
+	.byte	0
+	.byte	0
+	.byte	0x6
+	.4byte	.LASF16
+	.byte	0x2
+	.byte	0x48
+	.byte	0x3
+	.4byte	0xc8
+	.byte	0x7
+	.4byte	0x102
+	.byte	0x8
+	.4byte	.LASF18
+	.byte	0x2
+	.byte	0x4a
+	.byte	0x20
+	.4byte	0x11f
+	.byte	0x9
+	.byte	0x4
+	.4byte	0x10e
+	.byte	0x4
+	.byte	0x4
+	.byte	0x2
+	.byte	0x4c
+	.byte	0x9
+	.4byte	0x16d
+	.byte	0x5
+	.4byte	.LASF19
+	.byte	0x2
+	.byte	0x4d
+	.byte	0xc
+	.4byte	0x64
+	.byte	0x4
+	.byte	0x1
+	.byte	0x1f
+	.byte	0
+	.byte	0xa
+	.string	"GO"
+	.byte	0x2
+	.byte	0x4e
+	.byte	0xc
+	.4byte	0x64
+	.byte	0x4
+	.byte	0x1
+	.byte	0x1e
+	.byte	0
+	.byte	0xa
+	.string	"EN"
+	.byte	0x2
+	.byte	0x4f
+	.byte	0xc
+	.4byte	0x64
+	.byte	0x4
+	.byte	0x1
+	.byte	0x1d
+	.byte	0
+	.byte	0x5
+	.4byte	.LASF20
+	.byte	0x2
+	.byte	0x50
+	.byte	0xc
+	.4byte	0x64
+	.byte	0x4
+	.byte	0x1
+	.byte	0x1c
+	.byte	0
+	.byte	0
+	.byte	0x6
+	.4byte	.LASF21
+	.byte	0x2
+	.byte	0x51
+	.byte	0x3
+	.4byte	0x125
+	.byte	0x7
+	.4byte	0x16d
+	.byte	0x8
+	.4byte	.LASF22
+	.byte	0x2
+	.byte	0x53
+	.byte	0x25
+	.4byte	0x18a
+	.byte	0x9
+	.byte	0x4
+	.4byte	0x179
+	.byte	0xb
+	.4byte	.LASF26
+	.byte	0x1
+	.byte	0xb
+	.byte	0x6
+	.4byte	.LFB0
+	.4byte	.LFE0-.LFB0
+	.byte	0x1
+	.byte	0x9c
+	.byte	0xc
+	.4byte	.LASF27
+	.byte	0x1
+	.byte	0xb
+	.byte	0x23
+	.4byte	0x64
+	.4byte	.LLST0
+	.byte	0
+	.byte	0
+	.section	.debug_abbrev,"",@progbits
+.Ldebug_abbrev0:
+	.byte	0x1
+	.byte	0x11
+	.byte	0x1
+	.byte	0x25
+	.byte	0xe
+	.byte	0x13
+	.byte	0xb
+	.byte	0x3
+	.byte	0xe
+	.byte	0x1b
+	.byte	0xe
+	.byte	0x55
+	.byte	0x17
+	.byte	0x11
+	.byte	0x1
+	.byte	0x10
+	.byte	0x17
+	.byte	0
+	.byte	0
+	.byte	0x2
+	.byte	0x24
+	.byte	0
+	.byte	0xb
+	.byte	0xb
+	.byte	0x3e
+	.byte	0xb
+	.byte	0x3
+	.byte	0xe
+	.byte	0
+	.byte	0
+	.byte	0x3
+	.byte	0x24
+	.byte	0
+	.byte	0xb
+	.byte	0xb
+	.byte	0x3e
+	.byte	0xb
+	.byte	0x3
+	.byte	0x8
+	.byte	0
+	.byte	0
+	.byte	0x4
+	.byte	0x13
+	.byte	0x1
+	.byte	0xb
+	.byte	0xb
+	.byte	0x3a
+	.byte	0xb
+	.byte	0x3b
+	.byte	0xb
+	.byte	0x39
+	.byte	0xb
+	.byte	0x1
+	.byte	0x13
+	.byte	0
+	.byte	0
+	.byte	0x5
+	.byte	0xd
+	.byte	0
+	.byte	0x3
+	.byte	0xe
+	.byte	0x3a
+	.byte	0xb
+	.byte	0x3b
+	.byte	0xb
+	.byte	0x39
+	.byte	0xb
+	.byte	0x49
+	.byte	0x13
+	.byte	0xb
+	.byte	0xb
+	.byte	0xd
+	.byte	0xb
+	.byte	0xc
+	.byte	0xb
+	.byte	0x38
+	.byte	0xb
+	.byte	0
+	.byte	0
+	.byte	0x6
+	.byte	0x16
+	.byte	0
+	.byte	0x3
+	.byte	0xe
+	.byte	0x3a
+	.byte	0xb
+	.byte	0x3b
+	.byte	0xb
+	.byte	0x39
+	.byte	0xb
+	.byte	0x49
+	.byte	0x13
+	.byte	0
+	.byte	0
+	.byte	0x7
+	.byte	0x35
+	.byte	0
+	.byte	0x49
+	.byte	0x13
+	.byte	0
+	.byte	0
+	.byte	0x8
+	.byte	0x34
+	.byte	0
+	.byte	0x3
+	.byte	0xe
+	.byte	0x3a
+	.byte	0xb
+	.byte	0x3b
+	.byte	0xb
+	.byte	0x39
+	.byte	0xb
+	.byte	0x49
+	.byte	0x13
+	.byte	0x3f
+	.byte	0x19
+	.byte	0x3c
+	.byte	0x19
+	.byte	0
+	.byte	0
+	.byte	0x9
+	.byte	0xf
+	.byte	0
+	.byte	0xb
+	.byte	0xb
+	.byte	0x49
+	.byte	0x13
+	.byte	0
+	.byte	0
+	.byte	0xa
+	.byte	0xd
+	.byte	0
+	.byte	0x3
+	.byte	0x8
+	.byte	0x3a
+	.byte	0xb
+	.byte	0x3b
+	.byte	0xb
+	.byte	0x39
+	.byte	0xb
+	.byte	0x49
+	.byte	0x13
+	.byte	0xb
+	.byte	0xb
+	.byte	0xd
+	.byte	0xb
+	.byte	0xc
+	.byte	0xb
+	.byte	0x38
+	.byte	0xb
+	.byte	0
+	.byte	0
+	.byte	0xb
+	.byte	0x2e
+	.byte	0x1
+	.byte	0x3f
+	.byte	0x19
+	.byte	0x3
+	.byte	0xe
+	.byte	0x3a
+	.byte	0xb
+	.byte	0x3b
+	.byte	0xb
+	.byte	0x39
+	.byte	0xb
+	.byte	0x27
+	.byte	0x19
+	.byte	0x11
+	.byte	0x1
+	.byte	0x12
+	.byte	0x6
+	.byte	0x40
+	.byte	0x18
+	.byte	0x97,0x42
+	.byte	0x19
+	.byte	0
+	.byte	0
+	.byte	0xc
+	.byte	0x5
+	.byte	0
+	.byte	0x3
+	.byte	0xe
+	.byte	0x3a
+	.byte	0xb
+	.byte	0x3b
+	.byte	0xb
+	.byte	0x39
+	.byte	0xb
+	.byte	0x49
+	.byte	0x13
+	.byte	0x2
+	.byte	0x17
+	.byte	0
+	.byte	0
+	.byte	0
+	.section	.debug_loc,"",@progbits
+.Ldebug_loc0:
+.LLST0:
+	.4byte	.LVL0
+	.4byte	.LVL1
+	.2byte	0x1
+	.byte	0x5a
+	.4byte	0
+	.4byte	0
+	.section	.debug_aranges,"",@progbits
+	.4byte	0x1c
+	.2byte	0x2
+	.4byte	.Ldebug_info0
+	.byte	0x4
+	.byte	0
+	.2byte	0
+	.2byte	0
+	.4byte	.Ltext0
+	.4byte	.Letext0-.Ltext0
+	.4byte	0
+	.4byte	0
+	.section	.debug_ranges,"",@progbits
+.Ldebug_ranges0:
+	.4byte	.Ltext0
+	.4byte	.Letext0
+	.4byte	0
+	.4byte	0
+	.section	.debug_line,"",@progbits
+.Ldebug_line0:
+	.section	.debug_str,"MS",@progbits,1
+.LASF22:
+	.string	"reg_timer0_conf_bits"
+.LASF17:
+	.string	"reg_intflags_bits"
+.LASF23:
+	.string	"GNU C17 8.2.0 -march=rv32imc -mabi=ilp32 -g -O3"
+.LASF1:
+	.string	"unsigned char"
+.LASF5:
+	.string	"long unsigned int"
+.LASF3:
+	.string	"short unsigned int"
+.LASF26:
 	.string	"delay_cycles_11"
-	.string	""
-	.string	""
-	.string	""
-	.string	""
-	.string	""
-	.string	""
-	.string	""
-	.string	""
-	.string	""
-	.string	""
-	.string	""
-	.string	"\303"
-	.string	""
-	.string	""
-	.text
-	.section	.gnu.lto_.opts,"",@progbits
-	.string	"'-fno-openmp' '-fno-openacc' '-march=rv32imc' '-mabi=ilp32' '-O3' '-flto'"
-	.text
-	.comm	__gnu_lto_v1,1,1
-	.comm	__gnu_lto_slim,1,1
+.LASF19:
+	.string	"INT_TMR"
+.LASF27:
+	.string	"numLoop"
+.LASF15:
+	.string	"INTFLAGS_bits_s"
+.LASF12:
+	.string	"RXIE"
+.LASF9:
+	.string	"RXIF"
+.LASF8:
+	.string	"unsigned int"
+.LASF7:
+	.string	"long long unsigned int"
+.LASF14:
+	.string	"TMR0IE"
+.LASF11:
+	.string	"TMR0IF"
+.LASF24:
+	.string	"../common/delay.c"
+.LASF18:
+	.string	"reg_intcon_bits"
+.LASF6:
+	.string	"long long int"
+.LASF21:
+	.string	"TIMER0_CONF_bits_s"
+.LASF25:
+	.string	"/home/saul/projects/tinyfpga/gcc_tests/c_delay"
+.LASF16:
+	.string	"INTCON_bits_s"
+.LASF2:
+	.string	"short int"
+.LASF13:
+	.string	"TXIE"
+.LASF10:
+	.string	"TXIF"
+.LASF4:
+	.string	"long int"
+.LASF0:
+	.string	"signed char"
+.LASF20:
+	.string	"AUTO_LD"
 	.ident	"GCC: (GNU) 8.2.0"

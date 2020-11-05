@@ -1,7 +1,7 @@
 	.include "../common/vargen_inc.s"
 
 #	.equ PORTA, 0x00100000
-	.equ DEL, 0x00040000
+	.equ DEL, 0x00000005
 	
 	.text
 

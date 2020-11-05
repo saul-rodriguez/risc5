@@ -1,34 +1,34 @@
 	.file	"interrupt_manager.c"
 	.option nopic
-	.section	.gnu.lto_.profile.54e65f1b2a9ed844,"",@progbits
+	.section	.gnu.lto_.profile.401ed3cab9e1fa18,"",@progbits
 	.string	"x\234cg```\004b\006"
 	.string	""
 	.string	"M"
 	.ascii	"\t"
 	.text
-	.section	.gnu.lto_.icf.54e65f1b2a9ed844,"",@progbits
+	.section	.gnu.lto_.icf.401ed3cab9e1fa18,"",@progbits
 	.string	"x\234cg``\340`@"
 	.string	"F\206\263\353\027\376\340b"
 	.string	""
 	.ascii	"\017!\0030"
 	.text
-	.section	.gnu.lto_.jmpfuncs.54e65f1b2a9ed844,"",@progbits
+	.section	.gnu.lto_.jmpfuncs.401ed3cab9e1fa18,"",@progbits
 	.string	"x\234cg``\340b@"
 	.string	"F\006FF\306\372\231\314\f\f"
 	.ascii	"\006\263\0011"
 	.text
-	.section	.gnu.lto_.inline.54e65f1b2a9ed844,"",@progbits
+	.section	.gnu.lto_.inline.401ed3cab9e1fa18,"",@progbits
 	.string	"x\234cg``0a@"
 	.string	"F\006\006\376\006 `OeddP"
 	.string	"\362\230\331@\\\266d\006\0060\203%\231\211\201\211A\b\310:\300\222\312\300\002\326\003"
 	.ascii	"%\340\n}"
 	.text
-	.section	.gnu.lto_.pureconst.54e65f1b2a9ed844,"",@progbits
+	.section	.gnu.lto_.pureconst.401ed3cab9e1fa18,"",@progbits
 	.string	"x\234cg```\001bF\206Y,"
 	.string	"\001\274"
 	.ascii	"\253"
 	.text
-	.section	.gnu.lto_irq.54e65f1b2a9ed844,"",@progbits
+	.section	.gnu.lto_irq.401ed3cab9e1fa18,"",@progbits
 	.string	"x\234\215\223\317k\023A\024\307\347;3;\273\325D/\202\007{\310\301C)\342\037\340\251\177\207\027\251R\244\007\213\306\212\307\316\246M\253\0075EkXEM\221H#\226\352E\017F]\223\370\253*H=)\005\301P\311\301K\241E\255\264\365\315\316T\222\036\304\201\231yo\336\257\317\233\331\365\031c\253\234\261}\264\237\245\211.\006\256\265\356\363\303\200sARF\352\035\322\356)\001#\365\3110\220\334s6\345l\036\224\263)\356;[\340l>\002g\013\200D\322\001\330\b\027\322S~\200\021\234\027\223\002+?\256/\245{g\310\256\343\342<\364L\214H0v\231\246\035x\214^\362[\276\225\377%\316\211H"
 	.ascii	"\222\324\31777?\246\215\312\221!ur\355S\034\210\275`$W~^\254"
 	.ascii	"\313\236;Z\347t\274xT\357\217\204\300S\b\312\210'\350F\025\335"
@@ -47,18 +47,18 @@
 	.ascii	"<=Tb\242\237n\317\340\320\360@6{\346\344\360\221\023\375C\375"
 	.ascii	"\307\007\262\007\21719\230=u\372\0170\217\017%"
 	.text
-	.section	.gnu.lto_.symbol_nodes.54e65f1b2a9ed844,"",@progbits
+	.section	.gnu.lto_.symbol_nodes.401ed3cab9e1fa18,"",@progbits
 	.string	"x\234cg``\220"
 	.string	"b\006&\206z\206\246\206\206\006\026\306\t\347\030\200l\206]\r\216@a"
 	.string	"N\370\006"
 	.text
-	.section	.gnu.lto_.refs.54e65f1b2a9ed844,"",@progbits
+	.section	.gnu.lto_.refs.401ed3cab9e1fa18,"",@progbits
 	.string	"x\234cg```\004b\006"
 	.string	""
 	.string	"M"
 	.ascii	"\t"
 	.text
-	.section	.gnu.lto_.decls.54e65f1b2a9ed844,"",@progbits
+	.section	.gnu.lto_.decls.401ed3cab9e1fa18,"",@progbits
 	.ascii	"x\234\215RKH\224Q\024>\337\275\303\314\317\337\037\023\323\020"
 	.ascii	"\006B\003.l%V\213\266A\213\\\265\263\255HH\n%5\214\255\257\206"
 	.ascii	"5\210Q\"\270\t\354a\017\rz\220\264\262t\262\321\232\231M\217"
@@ -84,7 +84,7 @@
 	.ascii	"\231\236t\333i\357\304\311\316\324\361CG\311\033`\355\221\303"
 	.ascii	"]\031\335\227\276\220\374\207%\375\001\240\337\312,"
 	.text
-	.section	.gnu.lto_.symtab.54e65f1b2a9ed844,"",@progbits
+	.section	.gnu.lto_.symtab.401ed3cab9e1fa18,"",@progbits
 	.string	"irq"
 	.string	""
 	.string	""

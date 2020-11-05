@@ -1,0 +1,1180 @@
+   1              	# 1 "../common/start.S"
+   1              	//start.S
+   1              	...
+   0              	
+   0              	
+   2              	
+   3              	#include "custom_ops.S"
+   1              	// This is free and unencumbered software released into the public domain.
+   4              	
+   5              				.section .data
+   6              				.balign 4
+   7              	
+   8 0000 00       	flag_isr:	.byte	0  //this flag is used as workaround to avoid isr re-entry
+   9              	
+  10              				.section .text
+  11              				.global irq
+  12              		
+  13              	reset_vec:
+  14 0000 0B600006 				picorv32_maskirq_insn(zero, zero)	//activate interrups
+  15 0004 E9A0     				j start
+  16              				
+  17              	
+  18              			   /*
+  19              			    * Interrupt handler
+  20              			    */
+  21 0006 01001300 				.balign 16
+  21      00001300 
+  21      00001300 
+  21      0000
+  22              				
+  23              	irq_vec:	
+  24              				/* check status of flag_isr */
+  25              			
+  26 0014 97020000 				la t0, flag_isr
+  26      93820200 
+  27 001c 03A50200 				lw a0,0(t0)
+  28 0020 630A0500 				beq a0,zero,1f   //if (flag_isr == 0) { jump 1: } else {
+  29              		
+  30              				//re-entering isr, clear flag and jump to exit
+  31 0024 0145     				li a0, 00
+  32 0026 97020000 				la t0, flag_isr
+  32      93820200 
+  33 002e 23A0A200 				sw a0,0(t0)
+  34 0032 61A8     				j 2f
+  35              	
+  36              	1:			/* set flag_isr */
+  37 0034 0545     				li a0, 1
+  38 0036 97020000 				la t0, flag_isr
+  38      93820200 
+  39 003e 23A0A200 				sw a0,0(t0)
+  40              	
+  41              				/*Save registers*/
+  42              				
+  43              				//picorv32_setq_insn(q2, x1)	// q2 = ra
+  44              				//picorv32_setq_insn(q3, x2)	// q3 = sp
+  45              				
+  46 0042 1971     				addi sp, sp, -128
+  47              				
+  48 0044 06C0     				sw x1, 0*4(sp) //ra
+  49 0046 0AC2     				sw x2, 1*4(sp) //sp TODO: is it needed at all?
+  50 0048 0EC4     				sw x3, 2*4(sp)
+  51 004a 12C6     				sw x4, 3*4(sp)
+  52 004c 16C8     				sw x5, 4*4(sp)
+  53 004e 1ACA     				sw x6, 5*4(sp)
+  54 0050 1ECC     				sw x7, 6*4(sp)
+  55 0052 22CE     				sw x8, 7*4(sp)
+  56 0054 26D0     				sw x9, 8*4(sp)
+  57 0056 2AD2     				sw x10, 9*4(sp)
+  58 0058 2ED4     				sw x11, 10*4(sp)
+  59 005a 32D6     				sw x12, 11*4(sp)
+  60 005c 36D8     				sw x13, 12*4(sp)
+  61 005e 3ADA     				sw x14, 13*4(sp)
+  62 0060 3EDC     				sw x15, 14*4(sp)
+  63 0062 42DE     				sw x16, 15*4(sp)
+  64 0064 C6C0     				sw x17, 16*4(sp)
+  65 0066 CAC2     				sw x18, 17*4(sp)
+  66 0068 CEC4     				sw x19, 18*4(sp)
+  67 006a D2C6     				sw x20, 19*4(sp)
+  68 006c D6C8     				sw x21, 20*4(sp)
+  69 006e DACA     				sw x22, 21*4(sp)
+  70 0070 DECC     				sw x23, 22*4(sp)
+  71 0072 E2CE     				sw x24, 23*4(sp)
+  72 0074 E6D0     				sw x25, 24*4(sp)
+  73 0076 EAD2     				sw x26, 25*4(sp)
+  74 0078 EED4     				sw x27, 26*4(sp)
+  75 007a F2D6     				sw x28, 27*4(sp)
+  76 007c F6D8     				sw x29, 28*4(sp)
+  77 007e FADA     				sw x30, 29*4(sp)
+  78 0080 FEDC     				sw x31, 30*4(sp)
+  79              				
+  80              				// Call C function
+  81              				
+  82 0082 0BC50000 				picorv32_getq_insn(a0, q1)
+  83 0086 EFF0BFF7 				jal irq
+  84              				
+  85              				//Restore registers
+  86 008a 8240     				lw x1, 0*4(sp)
+  87 008c 1241     				lw x2, 1*4(sp)
+  88 008e A241     				lw x3, 2*4(sp)
+  89 0090 3242     				lw x4, 3*4(sp)
+  90 0092 C242     				lw x5, 4*4(sp)
+  91 0094 5243     				lw x6, 5*4(sp)
+  92 0096 E243     				lw x7, 6*4(sp)
+  93 0098 7244     				lw x8, 7*4(sp)
+  94 009a 8254     				lw x9, 8*4(sp)
+  95 009c 1255     				lw x10, 9*4(sp)
+  96 009e A255     				lw x11, 10*4(sp)
+  97 00a0 3256     				lw x12, 11*4(sp)
+  98 00a2 C256     				lw x13, 12*4(sp)
+  99 00a4 5257     				lw x14, 13*4(sp)
+ 100 00a6 E257     				lw x15, 14*4(sp)
+ 101 00a8 7258     				lw x16, 15*4(sp)
+ 102 00aa 8648     				lw x17, 16*4(sp)
+ 103 00ac 1649     				lw x18, 17*4(sp)
+ 104 00ae A649     				lw x19, 18*4(sp)
+ 105 00b0 364A     				lw x20, 19*4(sp)
+ 106 00b2 C64A     				lw x21, 20*4(sp)
+ 107 00b4 564B     				lw x22, 21*4(sp)
+ 108 00b6 E64B     				lw x23, 22*4(sp)
+ 109 00b8 764C     				lw x24, 23*4(sp)
+ 110 00ba 865C     				lw x25, 24*4(sp)
+ 111 00bc 165D     				lw x26, 25*4(sp)
+ 112 00be A65D     				lw x27, 26*4(sp)
+ 113 00c0 365E     				lw x28, 27*4(sp)
+ 114 00c2 C65E     				lw x29, 28*4(sp)
+ 115 00c4 565F     				lw x30, 29*4(sp)
+ 116 00c6 E65F     				lw x31, 30*4(sp)
+ 117              										
+ 118 00c8 0961     				addi sp, sp, 128
+ 119              				
+ 120 00ca 0B000004 	2:			picorv32_retirq_insn()
+ 121              	
+ 122              	start:
+ 123              			/* zero-initialize all registers */
+ 124 00ce 93000000 				addi x1, zero, 0
+ 125              				//addi x2, zero, 0 Stack pointer is already initialized to 4*MEM_WORDS on reset
+ 126 00d2 93010000 				addi x3, zero, 0
+ 127 00d6 13020000 				addi x4, zero, 0
+ 128 00da 93020000 				addi x5, zero, 0
+ 129 00de 13030000 				addi x6, zero, 0
+ 130 00e2 93030000 				addi x7, zero, 0
+ 131 00e6 13040000 				addi x8, zero, 0
+ 132 00ea 93040000 				addi x9, zero, 0
+ 133 00ee 13050000 				addi x10, zero, 0
+ 134 00f2 93050000 				addi x11, zero, 0
+ 135 00f6 13060000 				addi x12, zero, 0
+ 136 00fa 93060000 				addi x13, zero, 0
+ 137 00fe 13070000 				addi x14, zero, 0
+ 138 0102 93070000 				addi x15, zero, 0
+ 139 0106 13080000 				addi x16, zero, 0
+ 140 010a 93080000 				addi x17, zero, 0
+ 141 010e 13090000 				addi x18, zero, 0
+ 142 0112 93090000 				addi x19, zero, 0
+ 143 0116 130A0000 				addi x20, zero, 0
+ 144 011a 930A0000 				addi x21, zero, 0
+ 145 011e 130B0000 				addi x22, zero, 0
+ 146 0122 930B0000 				addi x23, zero, 0
+ 147 0126 130C0000 				addi x24, zero, 0
+ 148 012a 930C0000 				addi x25, zero, 0
+ 149 012e 130D0000 				addi x26, zero, 0
+ 150 0132 930D0000 				addi x27, zero, 0
+ 151 0136 130E0000 				addi x28, zero, 0
+ 152 013a 930E0000 				addi x29, zero, 0
+ 153 013e 130F0000 				addi x30, zero, 0
+ 154 0142 930F0000 				addi x31, zero, 0
+ 155              	
+ 156              				//copy data section
+ 157              				
+ 158 0146 17050000 				la a0, _sidata
+ 158      13050500 
+ 159 014e 97050000 				la a1, _sdata
+ 159      93850500 
+ 160 0156 17060000 				la a2, _edata
+ 160      13060600 
+ 161 015e 63D8C500 				bge a1, a2, end_init_data
+ 162              	loop_init_data:
+ 163 0162 1441     				lw a3, 0(a0)
+ 164 0164 94C1     				sw a3, 0(a1)
+ 165 0166 1105     				addi a0, a0, 4
+ 166 0168 9105     				addi a1, a1, 4
+ 167 016a E3CCC5FE 				blt a1, a2, loop_init_data
+ 168              	end_init_data:
+ 169              				
+ 170              				// zero-init bss section
+ 171              				
+ 172 016e 17050000 				la a0, _sbss
+ 172      13050500 
+ 173 0176 97050000 				la a1, _ebss
+ 173      93850500 
+ 174 017e 6357B500 				bge a0, a1, end_init_bss
+ 175              	loop_init_bss:
+ 176 0182 23200500 				sw zero, 0(a0)
+ 177 0186 1105     				addi a0, a0, 4
+ 178 0188 E34DB5FE 				blt a0, a1, loop_init_bss
+ 179              	end_init_bss:
+ 180              				
+ 181              				//initialize flag_isr 
+ 182              				//NOTE: this has already been done in loop_init_data!
+ 183              				/*
+ 184              				li a0, 0
+ 185              				la t0, flag_isr
+ 186              				sw a0,0(t0)
+ 187              				*/	
+ 188              				
+ 189              				// call main
+ 190 018c 97000000 				call main
+ 190      E7800000 
+ 191              	loop:		
+ 192 0194 01A00000 				j loop
+ 192      00000000 
+ 192      00000000 
+   1              		.file	"vargen.c"
+   2              		.option nopic
+   3              	# GNU C17 (GCC) version 8.2.0 (riscv32-unknown-elf)
+   4              	#	compiled by GNU C version 7.5.0, GMP version 6.1.2, MPFR version 4.0.1, MPC version 1.1.0, isl ve
+   5              	# GGC heuristics: --param ggc-min-expand=30 --param ggc-min-heapsize=4096
+   6              	# options passed:  ../common/vargen.c -march=rv32imc -mabi=ilp32 -g -O3
+   7              	# -Wall -fverbose-asm
+   8              	# options enabled:  -faggressive-loop-optimizations -falign-functions
+   9              	# -falign-jumps -falign-labels -falign-loops -fauto-inc-dec
+  10              	# -fbranch-count-reg -fcaller-saves -fchkp-check-incomplete-type
+  11              	# -fchkp-check-read -fchkp-check-write -fchkp-instrument-calls
+  12              	# -fchkp-narrow-bounds -fchkp-optimize -fchkp-store-bounds
+  13              	# -fchkp-use-static-bounds -fchkp-use-static-const-bounds
+  14              	# -fchkp-use-wrappers -fcode-hoisting -fcombine-stack-adjustments -fcommon
+  15              	# -fcompare-elim -fcprop-registers -fcrossjumping -fcse-follow-jumps
+  16              	# -fdefer-pop -fdelete-null-pointer-checks -fdevirtualize
+  17              	# -fdevirtualize-speculatively -fdwarf2-cfi-asm -fearly-inlining
+  18              	# -feliminate-unused-debug-types -fexpensive-optimizations
+  19              	# -fforward-propagate -ffp-int-builtin-inexact -ffunction-cse -fgcse
+  20              	# -fgcse-after-reload -fgcse-lm -fgnu-runtime -fgnu-unique
+  21              	# -fguess-branch-probability -fhoist-adjacent-loads -fident -fif-conversion
+  22              	# -fif-conversion2 -findirect-inlining -finline -finline-atomics
+  23              	# -finline-functions -finline-functions-called-once
+  24              	# -finline-small-functions -fipa-bit-cp -fipa-cp -fipa-cp-clone -fipa-icf
+  25              	# -fipa-icf-functions -fipa-icf-variables -fipa-profile -fipa-pure-const
+  26              	# -fipa-ra -fipa-reference -fipa-sra -fipa-vrp -fira-hoist-pressure
+  27              	# -fira-share-save-slots -fira-share-spill-slots
+  28              	# -fisolate-erroneous-paths-dereference -fivopts -fkeep-static-consts
+  29              	# -fleading-underscore -flifetime-dse -floop-interchange
+  30              	# -floop-unroll-and-jam -flra-remat -flto-odr-type-merging -fmath-errno
+  31              	# -fmerge-constants -fmerge-debug-strings -fmove-loop-invariants
+  32              	# -fomit-frame-pointer -foptimize-sibling-calls -foptimize-strlen
+  33              	# -fpartial-inlining -fpeel-loops -fpeephole -fpeephole2 -fplt
+  34              	# -fpredictive-commoning -fprefetch-loop-arrays -free -freg-struct-return
+  35              	# -freorder-blocks -freorder-functions -frerun-cse-after-loop
+  36              	# -fsched-critical-path-heuristic -fsched-dep-count-heuristic
+  37              	# -fsched-group-heuristic -fsched-interblock -fsched-last-insn-heuristic
+  38              	# -fsched-rank-heuristic -fsched-spec -fsched-spec-insn-heuristic
+  39              	# -fsched-stalled-insns-dep -fschedule-fusion -fschedule-insns
+  40              	# -fschedule-insns2 -fsection-anchors -fsemantic-interposition
+  41              	# -fshow-column -fshrink-wrap -fshrink-wrap-separate -fsigned-zeros
+  42              	# -fsplit-ivs-in-unroller -fsplit-loops -fsplit-paths -fsplit-wide-types
+  43              	# -fssa-backprop -fssa-phiopt -fstdarg-opt -fstore-merging
+  44              	# -fstrict-aliasing -fstrict-volatile-bitfields -fsync-libcalls
+  45              	# -fthread-jumps -ftoplevel-reorder -ftrapping-math -ftree-bit-ccp
+  46              	# -ftree-builtin-call-dce -ftree-ccp -ftree-ch -ftree-coalesce-vars
+  47              	# -ftree-copy-prop -ftree-dce -ftree-dominator-opts -ftree-dse
+  48              	# -ftree-forwprop -ftree-fre -ftree-loop-distribute-patterns
+  49              	# -ftree-loop-distribution -ftree-loop-if-convert -ftree-loop-im
+  50              	# -ftree-loop-ivcanon -ftree-loop-optimize -ftree-loop-vectorize
+  51              	# -ftree-parallelize-loops= -ftree-partial-pre -ftree-phiprop -ftree-pre
+  52              	# -ftree-pta -ftree-reassoc -ftree-scev-cprop -ftree-sink
+  53              	# -ftree-slp-vectorize -ftree-slsr -ftree-sra -ftree-switch-conversion
+  54              	# -ftree-tail-merge -ftree-ter -ftree-vrp -funit-at-a-time -funswitch-loops
+  55              	# -fvar-tracking -fvar-tracking-assignments -fverbose-asm
+  56              	# -fzero-initialized-in-bss -mdiv -mexplicit-relocs -mplt -mstrict-align
+  57              	
+  58              		.text
+  59              	.Ltext0:
+  60              		.cfi_sections	.debug_frame
+  61              		.globl	reg_timer0_conf_bits
+  62              		.globl	reg_intflags_bits
+  63              		.globl	reg_intcon_bits
+  64              		.section	.sdata,"aw"
+  65              		.align	2
+  68              	reg_timer0_conf_bits:
+  69 0000 20001000 		.word	1048608
+  72              	reg_intflags_bits:
+  73 0004 04001000 		.word	1048580
+  76              	reg_intcon_bits:
+  77 0008 00001000 		.word	1048576
+  78              		.text
+  79              	.Letext0:
+  80              		.file 1 "../common/vargen.h"
+  81              		.file 2 "../common/vargen.c"
+   1              		.file	"timer0.c"
+   2              		.option nopic
+   3              	# GNU C17 (GCC) version 8.2.0 (riscv32-unknown-elf)
+   4              	#	compiled by GNU C version 7.5.0, GMP version 6.1.2, MPFR version 4.0.1, MPC version 1.1.0, isl ve
+   5              	# GGC heuristics: --param ggc-min-expand=30 --param ggc-min-heapsize=4096
+   6              	# options passed:  ../common/timer0.c -march=rv32imc -mabi=ilp32 -g -O3
+   7              	# -Wall -fverbose-asm
+   8              	# options enabled:  -faggressive-loop-optimizations -falign-functions
+   9              	# -falign-jumps -falign-labels -falign-loops -fauto-inc-dec
+  10              	# -fbranch-count-reg -fcaller-saves -fchkp-check-incomplete-type
+  11              	# -fchkp-check-read -fchkp-check-write -fchkp-instrument-calls
+  12              	# -fchkp-narrow-bounds -fchkp-optimize -fchkp-store-bounds
+  13              	# -fchkp-use-static-bounds -fchkp-use-static-const-bounds
+  14              	# -fchkp-use-wrappers -fcode-hoisting -fcombine-stack-adjustments -fcommon
+  15              	# -fcompare-elim -fcprop-registers -fcrossjumping -fcse-follow-jumps
+  16              	# -fdefer-pop -fdelete-null-pointer-checks -fdevirtualize
+  17              	# -fdevirtualize-speculatively -fdwarf2-cfi-asm -fearly-inlining
+  18              	# -feliminate-unused-debug-types -fexpensive-optimizations
+  19              	# -fforward-propagate -ffp-int-builtin-inexact -ffunction-cse -fgcse
+  20              	# -fgcse-after-reload -fgcse-lm -fgnu-runtime -fgnu-unique
+  21              	# -fguess-branch-probability -fhoist-adjacent-loads -fident -fif-conversion
+  22              	# -fif-conversion2 -findirect-inlining -finline -finline-atomics
+  23              	# -finline-functions -finline-functions-called-once
+  24              	# -finline-small-functions -fipa-bit-cp -fipa-cp -fipa-cp-clone -fipa-icf
+  25              	# -fipa-icf-functions -fipa-icf-variables -fipa-profile -fipa-pure-const
+  26              	# -fipa-ra -fipa-reference -fipa-sra -fipa-vrp -fira-hoist-pressure
+  27              	# -fira-share-save-slots -fira-share-spill-slots
+  28              	# -fisolate-erroneous-paths-dereference -fivopts -fkeep-static-consts
+  29              	# -fleading-underscore -flifetime-dse -floop-interchange
+  30              	# -floop-unroll-and-jam -flra-remat -flto-odr-type-merging -fmath-errno
+  31              	# -fmerge-constants -fmerge-debug-strings -fmove-loop-invariants
+  32              	# -fomit-frame-pointer -foptimize-sibling-calls -foptimize-strlen
+  33              	# -fpartial-inlining -fpeel-loops -fpeephole -fpeephole2 -fplt
+  34              	# -fpredictive-commoning -fprefetch-loop-arrays -free -freg-struct-return
+  35              	# -freorder-blocks -freorder-functions -frerun-cse-after-loop
+  36              	# -fsched-critical-path-heuristic -fsched-dep-count-heuristic
+  37              	# -fsched-group-heuristic -fsched-interblock -fsched-last-insn-heuristic
+  38              	# -fsched-rank-heuristic -fsched-spec -fsched-spec-insn-heuristic
+  39              	# -fsched-stalled-insns-dep -fschedule-fusion -fschedule-insns
+  40              	# -fschedule-insns2 -fsection-anchors -fsemantic-interposition
+  41              	# -fshow-column -fshrink-wrap -fshrink-wrap-separate -fsigned-zeros
+  42              	# -fsplit-ivs-in-unroller -fsplit-loops -fsplit-paths -fsplit-wide-types
+  43              	# -fssa-backprop -fssa-phiopt -fstdarg-opt -fstore-merging
+  44              	# -fstrict-aliasing -fstrict-volatile-bitfields -fsync-libcalls
+  45              	# -fthread-jumps -ftoplevel-reorder -ftrapping-math -ftree-bit-ccp
+  46              	# -ftree-builtin-call-dce -ftree-ccp -ftree-ch -ftree-coalesce-vars
+  47              	# -ftree-copy-prop -ftree-dce -ftree-dominator-opts -ftree-dse
+  48              	# -ftree-forwprop -ftree-fre -ftree-loop-distribute-patterns
+  49              	# -ftree-loop-distribution -ftree-loop-if-convert -ftree-loop-im
+  50              	# -ftree-loop-ivcanon -ftree-loop-optimize -ftree-loop-vectorize
+  51              	# -ftree-parallelize-loops= -ftree-partial-pre -ftree-phiprop -ftree-pre
+  52              	# -ftree-pta -ftree-reassoc -ftree-scev-cprop -ftree-sink
+  53              	# -ftree-slp-vectorize -ftree-slsr -ftree-sra -ftree-switch-conversion
+  54              	# -ftree-tail-merge -ftree-ter -ftree-vrp -funit-at-a-time -funswitch-loops
+  55              	# -fvar-tracking -fvar-tracking-assignments -fverbose-asm
+  56              	# -fzero-initialized-in-bss -mdiv -mexplicit-relocs -mplt -mstrict-align
+  57              	
+  58              		.text
+  59              	.Ltext0:
+  60              		.cfi_sections	.debug_frame
+  61              		.comm	TMR0_InterruptHandler,4,4
+  62              		.align	1
+  63              		.globl	TMR0_Initialize
+  65              	TMR0_Initialize:
+  66              	.LFB0:
+  67              		.file 1 "../common/timer0.c"
+   1:../common/timer0.c **** #include "timer0.h"
+   2:../common/timer0.c **** 
+   3:../common/timer0.c **** #pragma GCC push_options
+   4:../common/timer0.c **** #pragma GCC optimize ("O0")
+   5:../common/timer0.c **** 
+   6:../common/timer0.c **** void (*TMR0_InterruptHandler)(void);
+   7:../common/timer0.c **** 
+   8:../common/timer0.c **** void TMR0_Initialize(TMR0_Config conf)
+   9:../common/timer0.c **** {
+  68              		.loc 1 9 1
+  69              		.cfi_startproc
+  70              	.LVL0:
+  71 0000 0111     		addi	sp,sp,-32	#,,
+  72              		.cfi_def_cfa_offset 32
+  73 0002 06CE     		sw	ra,28(sp)	#,
+  74 0004 22CC     		sw	s0,24(sp)	#,
+  75              		.cfi_offset 1, -4
+  76              		.cfi_offset 8, -8
+  77 0006 0010     		addi	s0,sp,32	#,,
+  78              		.cfi_def_cfa 8, 0
+  79 0008 2326A4FE 		sw	a0,-20(s0)	# conf, conf
+  10:../common/timer0.c **** 
+  11:../common/timer0.c **** 	reg_timer0_conf = conf;
+  80              		.loc 1 11 2
+  81 000c B7071000 		li	a5,1048576		# tmp73,
+  82 0010 93870702 		addi	a5,a5,32	#, _1, tmp73
+  83              	# ../common/timer0.c:11: 	reg_timer0_conf = conf;
+  84              		.loc 1 11 18 is_stmt 0
+  85 0014 0327C4FE 		lw	a4,-20(s0)		# tmp74, conf
+  86 0018 98C3     		sw	a4,0(a5)	# tmp74, *_1
+  12:../common/timer0.c **** 
+  13:../common/timer0.c **** 	//reg_timer0_conf_bits->INT_TMR = 0;0
+  14:../common/timer0.c **** 	//reg_timer0_conf_bits->GO = 0;
+  15:../common/timer0.c **** 	//reg_timer0_conf_bits->EN = 1;
+  16:../common/timer0.c **** 	//reg_timer0_conf_bits->AUTO_LOAD = 0;
+  17:../common/timer0.c **** 
+  18:../common/timer0.c **** 	TMR0_SetInterruptHandler(TMR0_DefaultInterruptHandler);
+  87              		.loc 1 18 2 is_stmt 1
+  88 001a B7070000 		lui	a5,%hi(TMR0_DefaultInterruptHandler)	# tmp75,
+  89 001e 13850700 		addi	a0,a5,%lo(TMR0_DefaultInterruptHandler)	#, tmp75,
+  90              	.LVL1:
+  91 0022 97000000 		call	TMR0_SetInterruptHandler		#
+  91      E7800000 
+  92              	.LVL2:
+  93              	# ../common/timer0.c:20: }
+  19:../common/timer0.c **** 
+  20:../common/timer0.c **** }
+  94              		.loc 1 20 1 is_stmt 0
+  95 002a 0100     		nop	
+  96 002c F240     		lw	ra,28(sp)		#,
+  97              		.cfi_restore 1
+  98 002e 6244     		lw	s0,24(sp)		#,
+  99              		.cfi_restore 8
+ 100              	.LVL3:
+ 101 0030 0561     		addi	sp,sp,32	#,,
+ 102              		.cfi_def_cfa_register 2
+ 103              	.LVL4:
+ 104 0032 8280     		jr	ra		#
+ 105              		.cfi_endproc
+ 106              	.LFE0:
+ 108              		.align	1
+ 109              		.globl	TMR0_StartTimer
+ 111              	TMR0_StartTimer:
+ 112              	.LFB1:
+  21:../common/timer0.c **** 
+  22:../common/timer0.c **** void TMR0_StartTimer(void)
+  23:../common/timer0.c **** {
+ 113              		.loc 1 23 1 is_stmt 1
+ 114              		.cfi_startproc
+ 115 0034 4111     		addi	sp,sp,-16	#,,
+ 116              		.cfi_def_cfa_offset 16
+ 117 0036 22C6     		sw	s0,12(sp)	#,
+ 118              		.cfi_offset 8, -4
+ 119 0038 0008     		addi	s0,sp,16	#,,
+ 120              		.cfi_def_cfa 8, 0
+  24:../common/timer0.c **** 	reg_timer0_conf_bits->GO = 1;
+ 121              		.loc 1 24 2
+ 122              	# ../common/timer0.c:24: 	reg_timer0_conf_bits->GO = 1;
+ 123              		.loc 1 24 22 is_stmt 0
+ 124 003a B7070000 		lui	a5,%hi(reg_timer0_conf_bits)	# tmp73,
+ 125 003e 83A70700 		lw	a5,%lo(reg_timer0_conf_bits)(a5)		# reg_timer0_conf_bits.0_1, reg_timer0_conf_bits
+ 126              	# ../common/timer0.c:24: 	reg_timer0_conf_bits->GO = 1;
+ 127              		.loc 1 24 27
+ 128 0042 03C70700 		lbu	a4,0(a5)	# tmp75, reg_timer0_conf_bits.0_1->GO
+ 129 0046 13672700 		ori	a4,a4,2	#, tmp76, tmp75
+ 130 004a 2380E700 		sb	a4,0(a5)	# tmp77, reg_timer0_conf_bits.0_1->GO
+ 131              	# ../common/timer0.c:25: }
+  25:../common/timer0.c **** }
+ 132              		.loc 1 25 1
+ 133 004e 0100     		nop	
+ 134 0050 3244     		lw	s0,12(sp)		#,
+ 135              		.cfi_restore 8
+ 136 0052 4101     		addi	sp,sp,16	#,,
+ 137              		.cfi_def_cfa_register 2
+ 138 0054 8280     		jr	ra		#
+ 139              		.cfi_endproc
+ 140              	.LFE1:
+ 142              		.align	1
+ 143              		.globl	TMR0_StopTimer
+ 145              	TMR0_StopTimer:
+ 146              	.LFB2:
+  26:../common/timer0.c **** 
+  27:../common/timer0.c **** //#pragma GCC push_options
+  28:../common/timer0.c **** //#pragma GCC optimize ("O2")
+  29:../common/timer0.c **** 
+  30:../common/timer0.c **** void TMR0_StopTimer(void)
+  31:../common/timer0.c **** {
+ 147              		.loc 1 31 1 is_stmt 1
+ 148              		.cfi_startproc
+ 149 0056 4111     		addi	sp,sp,-16	#,,
+ 150              		.cfi_def_cfa_offset 16
+ 151 0058 22C6     		sw	s0,12(sp)	#,
+ 152              		.cfi_offset 8, -4
+ 153 005a 0008     		addi	s0,sp,16	#,,
+ 154              		.cfi_def_cfa 8, 0
+  32:../common/timer0.c **** 	reg_timer0_conf_bits->EN = 0;
+ 155              		.loc 1 32 2
+ 156              	# ../common/timer0.c:32: 	reg_timer0_conf_bits->EN = 0;
+ 157              		.loc 1 32 22 is_stmt 0
+ 158 005c B7070000 		lui	a5,%hi(reg_timer0_conf_bits)	# tmp74,
+ 159 0060 83A70700 		lw	a5,%lo(reg_timer0_conf_bits)(a5)		# reg_timer0_conf_bits.1_1, reg_timer0_conf_bits
+ 160              	# ../common/timer0.c:32: 	reg_timer0_conf_bits->EN = 0;
+ 161              		.loc 1 32 27
+ 162 0064 03C70700 		lbu	a4,0(a5)	# tmp76, reg_timer0_conf_bits.1_1->EN
+ 163 0068 6D9B     		andi	a4,a4,-5	#, tmp77, tmp76
+ 164 006a 2380E700 		sb	a4,0(a5)	# tmp78, reg_timer0_conf_bits.1_1->EN
+  33:../common/timer0.c **** 	reg_timer0_conf_bits->GO = 0;
+ 165              		.loc 1 33 2 is_stmt 1
+ 166              	# ../common/timer0.c:33: 	reg_timer0_conf_bits->GO = 0;
+ 167              		.loc 1 33 22 is_stmt 0
+ 168 006e B7070000 		lui	a5,%hi(reg_timer0_conf_bits)	# tmp79,
+ 169 0072 83A70700 		lw	a5,%lo(reg_timer0_conf_bits)(a5)		# reg_timer0_conf_bits.2_2, reg_timer0_conf_bits
+ 170              	# ../common/timer0.c:33: 	reg_timer0_conf_bits->GO = 0;
+ 171              		.loc 1 33 27
+ 172 0076 03C70700 		lbu	a4,0(a5)	# tmp81, reg_timer0_conf_bits.2_2->GO
+ 173 007a 759B     		andi	a4,a4,-3	#, tmp82, tmp81
+ 174 007c 2380E700 		sb	a4,0(a5)	# tmp83, reg_timer0_conf_bits.2_2->GO
+ 175              	# ../common/timer0.c:34: }
+  34:../common/timer0.c **** }
+ 176              		.loc 1 34 1
+ 177 0080 0100     		nop	
+ 178 0082 3244     		lw	s0,12(sp)		#,
+ 179              		.cfi_restore 8
+ 180 0084 4101     		addi	sp,sp,16	#,,
+ 181              		.cfi_def_cfa_register 2
+ 182 0086 8280     		jr	ra		#
+ 183              		.cfi_endproc
+ 184              	.LFE2:
+ 186              		.align	1
+ 187              		.globl	TMR0_ISR
+ 189              	TMR0_ISR:
+ 190              	.LFB3:
+  35:../common/timer0.c **** 
+  36:../common/timer0.c **** //#pragma GCC pop_options
+  37:../common/timer0.c **** 
+  38:../common/timer0.c **** void TMR0_ISR(void)
+  39:../common/timer0.c **** {
+ 191              		.loc 1 39 1 is_stmt 1
+ 192              		.cfi_startproc
+ 193 0088 4111     		addi	sp,sp,-16	#,,
+ 194              		.cfi_def_cfa_offset 16
+ 195 008a 06C6     		sw	ra,12(sp)	#,
+ 196 008c 22C4     		sw	s0,8(sp)	#,
+ 197              		.cfi_offset 1, -4
+ 198              		.cfi_offset 8, -8
+ 199 008e 0008     		addi	s0,sp,16	#,,
+ 200              		.cfi_def_cfa 8, 0
+  40:../common/timer0.c **** 	reg_timer0_conf_bits->INT_TMR = 0;
+ 201              		.loc 1 40 2
+ 202              	# ../common/timer0.c:40: 	reg_timer0_conf_bits->INT_TMR = 0;
+ 203              		.loc 1 40 22 is_stmt 0
+ 204 0090 B7070000 		lui	a5,%hi(reg_timer0_conf_bits)	# tmp75,
+ 205 0094 83A70700 		lw	a5,%lo(reg_timer0_conf_bits)(a5)		# reg_timer0_conf_bits.3_1, reg_timer0_conf_bits
+ 206              	# ../common/timer0.c:40: 	reg_timer0_conf_bits->INT_TMR = 0;
+ 207              		.loc 1 40 32
+ 208 0098 03C70700 		lbu	a4,0(a5)	# tmp77, reg_timer0_conf_bits.3_1->INT_TMR
+ 209 009c 799B     		andi	a4,a4,-2	#, tmp78, tmp77
+ 210 009e 2380E700 		sb	a4,0(a5)	# tmp79, reg_timer0_conf_bits.3_1->INT_TMR
+  41:../common/timer0.c **** 
+  42:../common/timer0.c **** 	if(TMR0_InterruptHandler) {
+ 211              		.loc 1 42 2 is_stmt 1
+ 212              	# ../common/timer0.c:42: 	if(TMR0_InterruptHandler) {
+ 213              		.loc 1 42 5 is_stmt 0
+ 214 00a2 B7070000 		lui	a5,%hi(TMR0_InterruptHandler)	# tmp80,
+ 215 00a6 83A70700 		lw	a5,%lo(TMR0_InterruptHandler)(a5)		# TMR0_InterruptHandler.4_2, TMR0_InterruptHandler
+ 216              	# ../common/timer0.c:42: 	if(TMR0_InterruptHandler) {
+ 217              		.loc 1 42 4
+ 218 00aa 91C7     		beqz	a5,.L6	#, TMR0_InterruptHandler.4_2,
+  43:../common/timer0.c **** 		TMR0_InterruptHandler();
+ 219              		.loc 1 43 3 is_stmt 1
+ 220 00ac B7070000 		lui	a5,%hi(TMR0_InterruptHandler)	# tmp81,
+ 221 00b0 83A70700 		lw	a5,%lo(TMR0_InterruptHandler)(a5)		# TMR0_InterruptHandler.5_3, TMR0_InterruptHandler
+ 222 00b4 8297     		jalr	a5		# TMR0_InterruptHandler.5_3
+ 223              	.LVL5:
+ 224              	.L6:
+ 225              	# ../common/timer0.c:45: }
+  44:../common/timer0.c **** 	}
+  45:../common/timer0.c **** }
+ 226              		.loc 1 45 1 is_stmt 0
+ 227 00b6 0100     		nop	
+ 228 00b8 B240     		lw	ra,12(sp)		#,
+ 229              		.cfi_restore 1
+ 230 00ba 2244     		lw	s0,8(sp)		#,
+ 231              		.cfi_restore 8
+ 232 00bc 4101     		addi	sp,sp,16	#,,
+ 233              		.cfi_def_cfa_register 2
+ 234 00be 8280     		jr	ra		#
+ 235              		.cfi_endproc
+ 236              	.LFE3:
+ 238              		.align	1
+ 239              		.globl	TMR0_WriteTimer
+ 241              	TMR0_WriteTimer:
+ 242              	.LFB4:
+  46:../common/timer0.c **** 
+  47:../common/timer0.c **** void TMR0_WriteTimer(uint32_t timerVal)
+  48:../common/timer0.c **** {
+ 243              		.loc 1 48 1 is_stmt 1
+ 244              		.cfi_startproc
+ 245              	.LVL6:
+ 246 00c0 0111     		addi	sp,sp,-32	#,,
+ 247              		.cfi_def_cfa_offset 32
+ 248 00c2 22CE     		sw	s0,28(sp)	#,
+ 249              		.cfi_offset 8, -4
+ 250 00c4 0010     		addi	s0,sp,32	#,,
+ 251              		.cfi_def_cfa 8, 0
+ 252 00c6 2326A4FE 		sw	a0,-20(s0)	# timerVal, timerVal
+  49:../common/timer0.c **** 	reg_timer0 = timerVal;
+ 253              		.loc 1 49 2
+ 254 00ca B7071000 		li	a5,1048576		# tmp73,
+ 255 00ce F107     		addi	a5,a5,28	#, _1, tmp73
+ 256              	# ../common/timer0.c:49: 	reg_timer0 = timerVal;
+ 257              		.loc 1 49 13 is_stmt 0
+ 258 00d0 0327C4FE 		lw	a4,-20(s0)		# tmp74, timerVal
+ 259 00d4 98C3     		sw	a4,0(a5)	# tmp74, *_1
+ 260              	# ../common/timer0.c:50: }
+  50:../common/timer0.c **** }
+ 261              		.loc 1 50 1
+ 262 00d6 0100     		nop	
+ 263 00d8 7244     		lw	s0,28(sp)		#,
+ 264              		.cfi_restore 8
+ 265 00da 0561     		addi	sp,sp,32	#,,
+ 266              		.cfi_def_cfa_register 2
+ 267 00dc 8280     		jr	ra		#
+ 268              		.cfi_endproc
+ 269              	.LFE4:
+ 271              		.align	1
+ 272              		.globl	TMR0_clear_int_flag
+ 274              	TMR0_clear_int_flag:
+ 275              	.LFB5:
+  51:../common/timer0.c **** 
+  52:../common/timer0.c **** 
+  53:../common/timer0.c **** void TMR0_clear_int_flag(void)
+  54:../common/timer0.c **** {
+ 276              		.loc 1 54 1 is_stmt 1
+ 277              		.cfi_startproc
+ 278 00de 4111     		addi	sp,sp,-16	#,,
+ 279              		.cfi_def_cfa_offset 16
+ 280 00e0 22C6     		sw	s0,12(sp)	#,
+ 281              		.cfi_offset 8, -4
+ 282 00e2 0008     		addi	s0,sp,16	#,,
+ 283              		.cfi_def_cfa 8, 0
+  55:../common/timer0.c **** 	reg_timer0_conf_bits->INT_TMR = 0;
+ 284              		.loc 1 55 2
+ 285              	# ../common/timer0.c:55: 	reg_timer0_conf_bits->INT_TMR = 0;
+ 286              		.loc 1 55 22 is_stmt 0
+ 287 00e4 B7070000 		lui	a5,%hi(reg_timer0_conf_bits)	# tmp73,
+ 288 00e8 83A70700 		lw	a5,%lo(reg_timer0_conf_bits)(a5)		# reg_timer0_conf_bits.6_1, reg_timer0_conf_bits
+ 289              	# ../common/timer0.c:55: 	reg_timer0_conf_bits->INT_TMR = 0;
+ 290              		.loc 1 55 32
+ 291 00ec 03C70700 		lbu	a4,0(a5)	# tmp75, reg_timer0_conf_bits.6_1->INT_TMR
+ 292 00f0 799B     		andi	a4,a4,-2	#, tmp76, tmp75
+ 293 00f2 2380E700 		sb	a4,0(a5)	# tmp77, reg_timer0_conf_bits.6_1->INT_TMR
+ 294              	# ../common/timer0.c:56: }
+  56:../common/timer0.c **** }
+ 295              		.loc 1 56 1
+ 296 00f6 0100     		nop	
+ 297 00f8 3244     		lw	s0,12(sp)		#,
+ 298              		.cfi_restore 8
+ 299 00fa 4101     		addi	sp,sp,16	#,,
+ 300              		.cfi_def_cfa_register 2
+ 301 00fc 8280     		jr	ra		#
+ 302              		.cfi_endproc
+ 303              	.LFE5:
+ 305              		.align	1
+ 306              		.globl	TMR0_is_done
+ 308              	TMR0_is_done:
+ 309              	.LFB6:
+  57:../common/timer0.c **** 
+  58:../common/timer0.c **** bool TMR0_is_done(void)
+  59:../common/timer0.c **** {
+ 310              		.loc 1 59 1 is_stmt 1
+ 311              		.cfi_startproc
+ 312 00fe 4111     		addi	sp,sp,-16	#,,
+ 313              		.cfi_def_cfa_offset 16
+ 314 0100 22C6     		sw	s0,12(sp)	#,
+ 315              		.cfi_offset 8, -4
+ 316 0102 0008     		addi	s0,sp,16	#,,
+ 317              		.cfi_def_cfa 8, 0
+  60:../common/timer0.c **** 	return (reg_timer0_conf_bits->INT_TMR ? true : false);
+ 318              		.loc 1 60 2
+ 319              	# ../common/timer0.c:60: 	return (reg_timer0_conf_bits->INT_TMR ? true : false);
+ 320              		.loc 1 60 30 is_stmt 0
+ 321 0104 B7070000 		lui	a5,%hi(reg_timer0_conf_bits)	# tmp76,
+ 322 0108 83A70700 		lw	a5,%lo(reg_timer0_conf_bits)(a5)		# reg_timer0_conf_bits.7_1, reg_timer0_conf_bits
+ 323 010c 9C43     		lw	a5,0(a5)		# tmp79, *reg_timer0_conf_bits.7_1
+ 324 010e 858B     		andi	a5,a5,1	#, tmp80, tmp78
+ 325 0110 93F7F70F 		andi	a5,a5,0xff	# _2, tmp80
+ 326              	# ../common/timer0.c:61: }
+  61:../common/timer0.c **** }
+ 327              		.loc 1 61 1
+ 328 0114 3E85     		mv	a0,a5	#, <retval>
+ 329 0116 3244     		lw	s0,12(sp)		#,
+ 330              		.cfi_restore 8
+ 331 0118 4101     		addi	sp,sp,16	#,,
+ 332              		.cfi_def_cfa_register 2
+ 333 011a 8280     		jr	ra		#
+ 334              		.cfi_endproc
+ 335              	.LFE6:
+ 337              		.align	1
+ 338              		.globl	TMR0_SetInterruptHandler
+ 340              	TMR0_SetInterruptHandler:
+ 341              	.LFB7:
+  62:../common/timer0.c **** 
+  63:../common/timer0.c **** void TMR0_SetInterruptHandler(void (* InterruptHandler)(void)){
+ 342              		.loc 1 63 63 is_stmt 1
+ 343              		.cfi_startproc
+ 344              	.LVL7:
+ 345 011c 0111     		addi	sp,sp,-32	#,,
+ 346              		.cfi_def_cfa_offset 32
+ 347 011e 22CE     		sw	s0,28(sp)	#,
+ 348              		.cfi_offset 8, -4
+ 349 0120 0010     		addi	s0,sp,32	#,,
+ 350              		.cfi_def_cfa 8, 0
+ 351 0122 2326A4FE 		sw	a0,-20(s0)	# InterruptHandler, InterruptHandler
+  64:../common/timer0.c ****     TMR0_InterruptHandler = InterruptHandler;
+ 352              		.loc 1 64 5
+ 353              	# ../common/timer0.c:64:     TMR0_InterruptHandler = InterruptHandler;
+ 354              		.loc 1 64 27 is_stmt 0
+ 355 0126 B7070000 		lui	a5,%hi(TMR0_InterruptHandler)	# tmp72,
+ 356 012a 0327C4FE 		lw	a4,-20(s0)		# tmp73, InterruptHandler
+ 357 012e 23A0E700 		sw	a4,%lo(TMR0_InterruptHandler)(a5)	# tmp73, TMR0_InterruptHandler
+ 358              	# ../common/timer0.c:65: }
+  65:../common/timer0.c **** }
+ 359              		.loc 1 65 1
+ 360 0132 0100     		nop	
+ 361 0134 7244     		lw	s0,28(sp)		#,
+ 362              		.cfi_restore 8
+ 363 0136 0561     		addi	sp,sp,32	#,,
+ 364              		.cfi_def_cfa_register 2
+ 365 0138 8280     		jr	ra		#
+ 366              		.cfi_endproc
+ 367              	.LFE7:
+ 369              		.align	1
+ 370              		.globl	TMR0_DefaultInterruptHandler
+ 372              	TMR0_DefaultInterruptHandler:
+ 373              	.LFB8:
+  66:../common/timer0.c **** 
+  67:../common/timer0.c **** void TMR0_DefaultInterruptHandler(void){
+ 374              		.loc 1 67 40 is_stmt 1
+ 375              		.cfi_startproc
+ 376 013a 4111     		addi	sp,sp,-16	#,,
+ 377              		.cfi_def_cfa_offset 16
+ 378 013c 22C6     		sw	s0,12(sp)	#,
+ 379              		.cfi_offset 8, -4
+ 380 013e 0008     		addi	s0,sp,16	#,,
+ 381              		.cfi_def_cfa 8, 0
+  68:../common/timer0.c ****     // add your TMR0 interrupt custom code
+  69:../common/timer0.c ****     // or set custom function using TMR0_SetInterruptHandler()
+  70:../common/timer0.c **** }
+ 382              		.loc 1 70 1
+ 383 0140 0100     		nop	
+ 384 0142 3244     		lw	s0,12(sp)		#,
+ 385              		.cfi_restore 8
+ 386 0144 4101     		addi	sp,sp,16	#,,
+ 387              		.cfi_def_cfa_register 2
+ 388 0146 8280     		jr	ra		#
+ 389              		.cfi_endproc
+ 390              	.LFE8:
+ 392              	.Letext0:
+ 393              		.file 2 "/opt/riscv32i/riscv32-unknown-elf/include/machine/_default_types.h"
+ 394              		.file 3 "/opt/riscv32i/riscv32-unknown-elf/include/sys/_stdint.h"
+ 395              		.file 4 "../common/vargen.h"
+ 396              		.file 5 "../common/timer0.h"
+   1              		.file	"test_timer.c"
+   2              		.option nopic
+   3              	# GNU C17 (GCC) version 8.2.0 (riscv32-unknown-elf)
+   4              	#	compiled by GNU C version 7.5.0, GMP version 6.1.2, MPFR version 4.0.1, MPC version 1.1.0, isl ve
+   5              	# GGC heuristics: --param ggc-min-expand=30 --param ggc-min-heapsize=4096
+   6              	# options passed:  test_timer.c -march=rv32imc -mabi=ilp32 -g -O3 -Wall
+   7              	# -fverbose-asm
+   8              	# options enabled:  -faggressive-loop-optimizations -falign-functions
+   9              	# -falign-jumps -falign-labels -falign-loops -fauto-inc-dec
+  10              	# -fbranch-count-reg -fcaller-saves -fchkp-check-incomplete-type
+  11              	# -fchkp-check-read -fchkp-check-write -fchkp-instrument-calls
+  12              	# -fchkp-narrow-bounds -fchkp-optimize -fchkp-store-bounds
+  13              	# -fchkp-use-static-bounds -fchkp-use-static-const-bounds
+  14              	# -fchkp-use-wrappers -fcode-hoisting -fcombine-stack-adjustments -fcommon
+  15              	# -fcompare-elim -fcprop-registers -fcrossjumping -fcse-follow-jumps
+  16              	# -fdefer-pop -fdelete-null-pointer-checks -fdevirtualize
+  17              	# -fdevirtualize-speculatively -fdwarf2-cfi-asm -fearly-inlining
+  18              	# -feliminate-unused-debug-types -fexpensive-optimizations
+  19              	# -fforward-propagate -ffp-int-builtin-inexact -ffunction-cse -fgcse
+  20              	# -fgcse-after-reload -fgcse-lm -fgnu-runtime -fgnu-unique
+  21              	# -fguess-branch-probability -fhoist-adjacent-loads -fident -fif-conversion
+  22              	# -fif-conversion2 -findirect-inlining -finline -finline-atomics
+  23              	# -finline-functions -finline-functions-called-once
+  24              	# -finline-small-functions -fipa-bit-cp -fipa-cp -fipa-cp-clone -fipa-icf
+  25              	# -fipa-icf-functions -fipa-icf-variables -fipa-profile -fipa-pure-const
+  26              	# -fipa-ra -fipa-reference -fipa-sra -fipa-vrp -fira-hoist-pressure
+  27              	# -fira-share-save-slots -fira-share-spill-slots
+  28              	# -fisolate-erroneous-paths-dereference -fivopts -fkeep-static-consts
+  29              	# -fleading-underscore -flifetime-dse -floop-interchange
+  30              	# -floop-unroll-and-jam -flra-remat -flto-odr-type-merging -fmath-errno
+  31              	# -fmerge-constants -fmerge-debug-strings -fmove-loop-invariants
+  32              	# -fomit-frame-pointer -foptimize-sibling-calls -foptimize-strlen
+  33              	# -fpartial-inlining -fpeel-loops -fpeephole -fpeephole2 -fplt
+  34              	# -fpredictive-commoning -fprefetch-loop-arrays -free -freg-struct-return
+  35              	# -freorder-blocks -freorder-functions -frerun-cse-after-loop
+  36              	# -fsched-critical-path-heuristic -fsched-dep-count-heuristic
+  37              	# -fsched-group-heuristic -fsched-interblock -fsched-last-insn-heuristic
+  38              	# -fsched-rank-heuristic -fsched-spec -fsched-spec-insn-heuristic
+  39              	# -fsched-stalled-insns-dep -fschedule-fusion -fschedule-insns
+  40              	# -fschedule-insns2 -fsection-anchors -fsemantic-interposition
+  41              	# -fshow-column -fshrink-wrap -fshrink-wrap-separate -fsigned-zeros
+  42              	# -fsplit-ivs-in-unroller -fsplit-loops -fsplit-paths -fsplit-wide-types
+  43              	# -fssa-backprop -fssa-phiopt -fstdarg-opt -fstore-merging
+  44              	# -fstrict-aliasing -fstrict-volatile-bitfields -fsync-libcalls
+  45              	# -fthread-jumps -ftoplevel-reorder -ftrapping-math -ftree-bit-ccp
+  46              	# -ftree-builtin-call-dce -ftree-ccp -ftree-ch -ftree-coalesce-vars
+  47              	# -ftree-copy-prop -ftree-dce -ftree-dominator-opts -ftree-dse
+  48              	# -ftree-forwprop -ftree-fre -ftree-loop-distribute-patterns
+  49              	# -ftree-loop-distribution -ftree-loop-if-convert -ftree-loop-im
+  50              	# -ftree-loop-ivcanon -ftree-loop-optimize -ftree-loop-vectorize
+  51              	# -ftree-parallelize-loops= -ftree-partial-pre -ftree-phiprop -ftree-pre
+  52              	# -ftree-pta -ftree-reassoc -ftree-scev-cprop -ftree-sink
+  53              	# -ftree-slp-vectorize -ftree-slsr -ftree-sra -ftree-switch-conversion
+  54              	# -ftree-tail-merge -ftree-ter -ftree-vrp -funit-at-a-time -funswitch-loops
+  55              	# -fvar-tracking -fvar-tracking-assignments -fverbose-asm
+  56              	# -fzero-initialized-in-bss -mdiv -mexplicit-relocs -mplt -mstrict-align
+  57              	
+  58              		.text
+  59              	.Ltext0:
+  60              		.cfi_sections	.debug_frame
+  61              		.align	1
+  62              		.globl	myTMR0_handler
+  64              	myTMR0_handler:
+  65              	.LFB0:
+  66              		.file 1 "test_timer.c"
+   1:test_timer.c  **** //test_irq.c
+   2:test_timer.c  **** 
+   3:test_timer.c  **** #include "hardware.h"
+   4:test_timer.c  **** 
+   5:test_timer.c  **** //extern uint32_t sram;
+   6:test_timer.c  **** #define TIMER_VALUE 0xffffffc0
+   7:test_timer.c  **** 
+   8:test_timer.c  **** volatile unsigned char tmr_flag;
+   9:test_timer.c  **** 
+  10:test_timer.c  **** void myTMR0_handler()
+  11:test_timer.c  **** {
+  67              		.loc 1 11 1
+  68              		.cfi_startproc
+  12:test_timer.c  **** 	tmr_flag = 1;
+  69              		.loc 1 12 2
+  70              	# test_timer.c:12: 	tmr_flag = 1;
+  71              		.loc 1 12 11 is_stmt 0
+  72 0000 B7070000 		lui	a5,%hi(tmr_flag)	# tmp72,
+  73 0004 0547     		li	a4,1		# tmp73,
+  74 0006 2380E700 		sb	a4,%lo(tmr_flag)(a5)	# tmp73, tmr_flag
+  75              	# test_timer.c:13: }
+  13:test_timer.c  **** }
+  76              		.loc 1 13 1
+  77 000a 8280     		ret	
+  78              		.cfi_endproc
+  79              	.LFE0:
+  81              		.section	.text.startup,"ax",@progbits
+  82              		.align	1
+  83              		.globl	main
+  85              	main:
+  86              	.LFB1:
+  14:test_timer.c  **** 
+  15:test_timer.c  **** int main() 
+  16:test_timer.c  **** {
+  87              		.loc 1 16 1 is_stmt 1
+  88              		.cfi_startproc
+  17:test_timer.c  **** 	//unsigned char flag;
+  18:test_timer.c  **** 	unsigned char aux;
+  89              		.loc 1 18 2
+  19:test_timer.c  **** 	
+  20:test_timer.c  **** 	TMR0_Initialize(EN);
+  90              		.loc 1 20 2
+  91              	# test_timer.c:16: {
+  16:test_timer.c  **** 	//unsigned char flag;
+  92              		.loc 1 16 1 is_stmt 0
+  93 0000 0111     		addi	sp,sp,-32	#,,
+  94              		.cfi_def_cfa_offset 32
+  95              	# test_timer.c:20: 	TMR0_Initialize(EN);
+  96              		.loc 1 20 2
+  97 0002 1145     		li	a0,4		#,
+  98              	# test_timer.c:16: {
+  16:test_timer.c  **** 	//unsigned char flag;
+  99              		.loc 1 16 1
+ 100 0004 06CE     		sw	ra,28(sp)	#,
+ 101 0006 22CC     		sw	s0,24(sp)	#,
+ 102 0008 4AC8     		sw	s2,16(sp)	#,
+ 103 000a 4EC6     		sw	s3,12(sp)	#,
+ 104 000c 26CA     		sw	s1,20(sp)	#,
+ 105              		.cfi_offset 1, -4
+ 106              		.cfi_offset 8, -8
+ 107              		.cfi_offset 18, -16
+ 108              		.cfi_offset 19, -20
+ 109              		.cfi_offset 9, -12
+ 110              	# test_timer.c:20: 	TMR0_Initialize(EN);
+ 111              		.loc 1 20 2
+ 112 000e 97000000 		call	TMR0_Initialize		#
+ 112      E7800000 
+ 113              	.LVL0:
+  21:test_timer.c  **** 	//TMR0_Initialize(EN | AUTO_LOAD);
+  22:test_timer.c  **** 	TMR0_WriteTimer(TIMER_VALUE);
+ 114              		.loc 1 22 2 is_stmt 1
+ 115 0016 130500FC 		li	a0,-64		#,
+ 116 001a 97000000 		call	TMR0_WriteTimer		#
+ 116      E7800000 
+ 117              	.LVL1:
+  23:test_timer.c  **** 	TMR0_SetInterruptHandler(myTMR0_handler); // Redirect default interrupt handler to users handler
+ 118              		.loc 1 23 2
+ 119 0022 37050000 		lui	a0,%hi(myTMR0_handler)	# tmp78,
+ 120 0026 13050500 		addi	a0,a0,%lo(myTMR0_handler)	#, tmp78,
+ 121 002a 97000000 		call	TMR0_SetInterruptHandler		#
+ 121      E7800000 
+ 122              	.LVL2:
+  24:test_timer.c  **** 
+  25:test_timer.c  **** 	TMR0_StartTimer(); //it is the same as reg_timer0_conf_bits->GO = 1;
+ 123              		.loc 1 25 2
+ 124 0032 97000000 		call	TMR0_StartTimer		#
+ 124      E7800000 
+ 125              	.LVL3:
+  26:test_timer.c  **** 
+  27:test_timer.c  **** 	aux = 0x00;
+ 126              		.loc 1 27 2
+  28:test_timer.c  **** 	tmr_flag = 0;
+ 127              		.loc 1 28 2
+ 128              	# test_timer.c:31: 	reg_intcon_bits->TMR0IE = 1;
+  29:test_timer.c  **** 
+  30:test_timer.c  **** 	//Enable the timer0 interrupt
+  31:test_timer.c  **** 	reg_intcon_bits->TMR0IE = 1;
+ 129              		.loc 1 31 17 is_stmt 0
+ 130 003a B7070000 		lui	a5,%hi(reg_intcon_bits)	# tmp80,
+ 131 003e 83A60700 		lw	a3,%lo(reg_intcon_bits)(a5)		# reg_intcon_bits.0_1, reg_intcon_bits
+ 132              	# test_timer.c:28: 	tmr_flag = 0;
+  28:test_timer.c  **** 	tmr_flag = 0;
+ 133              		.loc 1 28 11
+ 134 0042 37040000 		lui	s0,%hi(tmr_flag)	# tmp93,
+ 135 0046 23000400 		sb	zero,%lo(tmr_flag)(s0)	#, tmr_flag
+ 136              		.loc 1 31 2 is_stmt 1
+ 137              	# test_timer.c:31: 	reg_intcon_bits->TMR0IE = 1;
+ 138              		.loc 1 31 26 is_stmt 0
+ 139 004a 83C70600 		lbu	a5,0(a3)	#, reg_intcon_bits.0_1->TMR0IE
+ 140              	# test_timer.c:27: 	aux = 0x00;
+  27:test_timer.c  **** 	tmr_flag = 0;
+ 141              		.loc 1 27 6
+ 142 004e 0147     		li	a4,0		# aux,
+ 143              	# test_timer.c:61: 			reg_porta = aux++;
+  32:test_timer.c  **** 
+  33:test_timer.c  **** 	while(1) {
+  34:test_timer.c  **** 		/* Use of timer0 with polling */
+  35:test_timer.c  **** 
+  36:test_timer.c  **** 		/*//Direct use of registers
+  37:test_timer.c  **** 		if (reg_timer0_conf_bits->INT_TMR) {
+  38:test_timer.c  **** 			reg_timer0_conf_bits->INT_TMR = 0; //Clear timer flag
+  39:test_timer.c  **** 			reg_timer0_conf_bits->GO = 1; //manual restart (disabled autoload)
+  40:test_timer.c  **** 			reg_porta = aux++;
+  41:test_timer.c  **** 		}
+  42:test_timer.c  **** 
+  43:test_timer.c  **** 		// the timer flag is also available in reg_intflags_bits->TMR0IF
+  44:test_timer.c  **** 		if (reg_intflags_bits->TMR0IF) {
+  45:test_timer.c  **** 					reg_timer0_conf_bits->INT_TMR = 0; //Clear timer flag
+  46:test_timer.c  **** 					reg_timer0_conf_bits->GO = 1; //manual restart (disabled autoload)
+  47:test_timer.c  **** 					reg_porta = aux++;
+  48:test_timer.c  **** 		}
+  49:test_timer.c  **** 
+  50:test_timer.c  **** 		// Use of inline functions instead of config registers
+  51:test_timer.c  **** 		if (TMR0_is_done()) {
+  52:test_timer.c  **** 							TMR0_clear_int_flag();
+  53:test_timer.c  **** 							TMR0_StartTimer(); //manual restart (disabled autoload)
+  54:test_timer.c  **** 							reg_porta = aux++;
+  55:test_timer.c  **** 		}
+  56:test_timer.c  **** 		*/
+  57:test_timer.c  **** 
+  58:test_timer.c  **** 		/* Use of timer0 with interrupt */
+  59:test_timer.c  **** 		if (tmr_flag) {
+  60:test_timer.c  **** 			tmr_flag = 0;
+  61:test_timer.c  **** 			reg_porta = aux++;
+ 144              		.loc 1 61 14
+ 145 0050 B7091000 		li	s3,1048576		# tmp91,
+ 146              	# test_timer.c:31: 	reg_intcon_bits->TMR0IE = 1;
+  31:test_timer.c  **** 
+ 147              		.loc 1 31 26
+ 148 0054 93E74700 		ori	a5,a5,4	#, tmp83, reg_intcon_bits.0_1->TMR0IE
+ 149 0058 2380F600 		sb	a5,0(a3)	# tmp83, reg_intcon_bits.0_1->TMR0IE
+ 150              	# test_timer.c:63: 			if (aux == 3) {
+  62:test_timer.c  **** 			//reg_timer0_conf_bits->EN = 0;
+  63:test_timer.c  **** 			if (aux == 3) {
+ 151              		.loc 1 63 7
+ 152 005c 0D49     		li	s2,3		# tmp92,
+ 153              	.LVL4:
+ 154              	.L5:
+  33:test_timer.c  **** 		/* Use of timer0 with polling */
+ 155              		.loc 1 33 2 is_stmt 1
+  59:test_timer.c  **** 			tmr_flag = 0;
+ 156              		.loc 1 59 3
+ 157              	# test_timer.c:59: 		if (tmr_flag) {
+  59:test_timer.c  **** 			tmr_flag = 0;
+ 158              		.loc 1 59 7 is_stmt 0
+ 159 005e 83470400 		lbu	a5,%lo(tmr_flag)(s0)	#, tmr_flag
+ 160 0062 93F7F70F 		andi	a5,a5,0xff	# tmr_flag.1_2, tmr_flag
+ 161              	# test_timer.c:59: 		if (tmr_flag) {
+  59:test_timer.c  **** 			tmr_flag = 0;
+ 162              		.loc 1 59 6
+ 163 0066 E5DF     		beqz	a5,.L5	#, tmr_flag.1_2,
+  60:test_timer.c  **** 			reg_porta = aux++;
+ 164              		.loc 1 60 4 is_stmt 1
+  64:test_timer.c  **** 				TMR0_StopTimer();   // #pragma GCC optimize ("O2") was used to prevent the optimizer O3 to remo
+ 165              		.loc 1 64 5
+  65:test_timer.c  **** 			} else {
+  66:test_timer.c  **** 				TMR0_StartTimer(); // if auto_load is not enabled
+ 166              		.loc 1 66 5
+ 167              	# test_timer.c:60: 			tmr_flag = 0;
+  60:test_timer.c  **** 			reg_porta = aux++;
+ 168              		.loc 1 60 13 is_stmt 0
+ 169 0068 23000400 		sb	zero,%lo(tmr_flag)(s0)	#, tmr_flag
+  61:test_timer.c  **** 			//reg_timer0_conf_bits->EN = 0;
+ 170              		.loc 1 61 4 is_stmt 1
+ 171              	# test_timer.c:61: 			reg_porta = aux++;
+  61:test_timer.c  **** 			//reg_timer0_conf_bits->EN = 0;
+ 172              		.loc 1 61 19 is_stmt 0
+ 173 006c 93041700 		addi	s1,a4,1	#, tmp89, aux
+ 174 0070 93F4F40F 		andi	s1,s1,0xff	# aux, tmp89
+ 175              	.LVL5:
+ 176              	# test_timer.c:61: 			reg_porta = aux++;
+  61:test_timer.c  **** 			//reg_timer0_conf_bits->EN = 0;
+ 177              		.loc 1 61 14
+ 178 0074 23AAE900 		sw	a4,20(s3)	# aux, MEM[(volatile uint32_t *)1048596B]
+  63:test_timer.c  **** 				TMR0_StopTimer();   // #pragma GCC optimize ("O2") was used to prevent the optimizer O3 to remo
+ 179              		.loc 1 63 4 is_stmt 1
+ 180              	# test_timer.c:63: 			if (aux == 3) {
+  63:test_timer.c  **** 				TMR0_StopTimer();   // #pragma GCC optimize ("O2") was used to prevent the optimizer O3 to remo
+ 181              		.loc 1 63 7 is_stmt 0
+ 182 0078 63982401 		bne	s1,s2,.L6	#, aux, tmp92,
+ 183              	# test_timer.c:64: 				TMR0_StopTimer();   // #pragma GCC optimize ("O2") was used to prevent the o
+  64:test_timer.c  **** 			} else {
+ 184              		.loc 1 64 5
+ 185 007c 97000000 		call	TMR0_StopTimer		#
+ 185      E7800000 
+ 186              	.LVL6:
+ 187              	# test_timer.c:16: {
+  16:test_timer.c  **** 	//unsigned char flag;
+ 188              		.loc 1 16 1
+ 189 0084 2687     		mv	a4,s1	# aux, aux
+ 190 0086 E1BF     		j	.L5		#
+ 191              	.L6:
+ 192              	# test_timer.c:66: 				TMR0_StartTimer(); // if auto_load is not enabled
+ 193              		.loc 1 66 5
+ 194 0088 97000000 		call	TMR0_StartTimer		#
+ 194      E7800000 
+ 195              	.LVL7:
+ 196              	# test_timer.c:16: {
+  16:test_timer.c  **** 	//unsigned char flag;
+ 197              		.loc 1 16 1
+ 198 0090 2687     		mv	a4,s1	# aux, aux
+ 199 0092 F1B7     		j	.L5		#
+ 200              		.cfi_endproc
+ 201              	.LFE1:
+ 203              		.comm	tmr_flag,1,1
+ 204              		.text
+ 205              	.Letext0:
+ 206              		.file 2 "/opt/riscv32i/riscv32-unknown-elf/include/machine/_default_types.h"
+ 207              		.file 3 "/opt/riscv32i/riscv32-unknown-elf/include/sys/_stdint.h"
+ 208              		.file 4 "../common/vargen.h"
+ 209              		.file 5 "../common/eusart1.h"
+ 210              		.file 6 "../common/timer0.h"
+ 211              		.file 7 "hardware.h"
+   1              		.file	"interrupt_manager.c"
+   2              		.option nopic
+   3              	# GNU C17 (GCC) version 8.2.0 (riscv32-unknown-elf)
+   4              	#	compiled by GNU C version 7.5.0, GMP version 6.1.2, MPFR version 4.0.1, MPC version 1.1.0, isl ve
+   5              	# GGC heuristics: --param ggc-min-expand=30 --param ggc-min-heapsize=4096
+   6              	# options passed:  interrupt_manager.c -march=rv32imc -mabi=ilp32 -g -O3
+   7              	# -Wall -fverbose-asm
+   8              	# options enabled:  -faggressive-loop-optimizations -falign-functions
+   9              	# -falign-jumps -falign-labels -falign-loops -fauto-inc-dec
+  10              	# -fbranch-count-reg -fcaller-saves -fchkp-check-incomplete-type
+  11              	# -fchkp-check-read -fchkp-check-write -fchkp-instrument-calls
+  12              	# -fchkp-narrow-bounds -fchkp-optimize -fchkp-store-bounds
+  13              	# -fchkp-use-static-bounds -fchkp-use-static-const-bounds
+  14              	# -fchkp-use-wrappers -fcode-hoisting -fcombine-stack-adjustments -fcommon
+  15              	# -fcompare-elim -fcprop-registers -fcrossjumping -fcse-follow-jumps
+  16              	# -fdefer-pop -fdelete-null-pointer-checks -fdevirtualize
+  17              	# -fdevirtualize-speculatively -fdwarf2-cfi-asm -fearly-inlining
+  18              	# -feliminate-unused-debug-types -fexpensive-optimizations
+  19              	# -fforward-propagate -ffp-int-builtin-inexact -ffunction-cse -fgcse
+  20              	# -fgcse-after-reload -fgcse-lm -fgnu-runtime -fgnu-unique
+  21              	# -fguess-branch-probability -fhoist-adjacent-loads -fident -fif-conversion
+  22              	# -fif-conversion2 -findirect-inlining -finline -finline-atomics
+  23              	# -finline-functions -finline-functions-called-once
+  24              	# -finline-small-functions -fipa-bit-cp -fipa-cp -fipa-cp-clone -fipa-icf
+  25              	# -fipa-icf-functions -fipa-icf-variables -fipa-profile -fipa-pure-const
+  26              	# -fipa-ra -fipa-reference -fipa-sra -fipa-vrp -fira-hoist-pressure
+  27              	# -fira-share-save-slots -fira-share-spill-slots
+  28              	# -fisolate-erroneous-paths-dereference -fivopts -fkeep-static-consts
+  29              	# -fleading-underscore -flifetime-dse -floop-interchange
+  30              	# -floop-unroll-and-jam -flra-remat -flto-odr-type-merging -fmath-errno
+  31              	# -fmerge-constants -fmerge-debug-strings -fmove-loop-invariants
+  32              	# -fomit-frame-pointer -foptimize-sibling-calls -foptimize-strlen
+  33              	# -fpartial-inlining -fpeel-loops -fpeephole -fpeephole2 -fplt
+  34              	# -fpredictive-commoning -fprefetch-loop-arrays -free -freg-struct-return
+  35              	# -freorder-blocks -freorder-functions -frerun-cse-after-loop
+  36              	# -fsched-critical-path-heuristic -fsched-dep-count-heuristic
+  37              	# -fsched-group-heuristic -fsched-interblock -fsched-last-insn-heuristic
+  38              	# -fsched-rank-heuristic -fsched-spec -fsched-spec-insn-heuristic
+  39              	# -fsched-stalled-insns-dep -fschedule-fusion -fschedule-insns
+  40              	# -fschedule-insns2 -fsection-anchors -fsemantic-interposition
+  41              	# -fshow-column -fshrink-wrap -fshrink-wrap-separate -fsigned-zeros
+  42              	# -fsplit-ivs-in-unroller -fsplit-loops -fsplit-paths -fsplit-wide-types
+  43              	# -fssa-backprop -fssa-phiopt -fstdarg-opt -fstore-merging
+  44              	# -fstrict-aliasing -fstrict-volatile-bitfields -fsync-libcalls
+  45              	# -fthread-jumps -ftoplevel-reorder -ftrapping-math -ftree-bit-ccp
+  46              	# -ftree-builtin-call-dce -ftree-ccp -ftree-ch -ftree-coalesce-vars
+  47              	# -ftree-copy-prop -ftree-dce -ftree-dominator-opts -ftree-dse
+  48              	# -ftree-forwprop -ftree-fre -ftree-loop-distribute-patterns
+  49              	# -ftree-loop-distribution -ftree-loop-if-convert -ftree-loop-im
+  50              	# -ftree-loop-ivcanon -ftree-loop-optimize -ftree-loop-vectorize
+  51              	# -ftree-parallelize-loops= -ftree-partial-pre -ftree-phiprop -ftree-pre
+  52              	# -ftree-pta -ftree-reassoc -ftree-scev-cprop -ftree-sink
+  53              	# -ftree-slp-vectorize -ftree-slsr -ftree-sra -ftree-switch-conversion
+  54              	# -ftree-tail-merge -ftree-ter -ftree-vrp -funit-at-a-time -funswitch-loops
+  55              	# -fvar-tracking -fvar-tracking-assignments -fverbose-asm
+  56              	# -fzero-initialized-in-bss -mdiv -mexplicit-relocs -mplt -mstrict-align
+  57              	
+  58              		.text
+  59              	.Ltext0:
+  60              		.cfi_sections	.debug_frame
+  61              		.align	1
+  62              		.globl	irq
+  64              	irq:
+  65              	.LFB0:
+  66              		.file 1 "interrupt_manager.c"
+   1:interrupt_manager.c **** //interrupt_manager.c
+   2:interrupt_manager.c **** #include "interrupt_manager.h"
+   3:interrupt_manager.c **** #include "hardware.h"
+   4:interrupt_manager.c **** 
+   5:interrupt_manager.c **** void irq(uint32_t irqs)
+   6:interrupt_manager.c **** {
+  67              		.loc 1 6 1
+  68              		.cfi_startproc
+  69              	.LVL0:
+   7:interrupt_manager.c **** 
+   8:interrupt_manager.c **** 	if (reg_intcon_bits->TMR0IE == 1 && reg_intflags_bits->TMR0IF == 1) {
+  70              		.loc 1 8 2
+  71              	# interrupt_manager.c:8: 	if (reg_intcon_bits->TMR0IE == 1 && reg_intflags_bits->TMR0IF == 1) {
+  72              		.loc 1 8 21 is_stmt 0
+  73 0000 B7070000 		lui	a5,%hi(reg_intcon_bits)	# tmp77,
+  74 0004 83A70700 		lw	a5,%lo(reg_intcon_bits)(a5)		# reg_intcon_bits.0_1, reg_intcon_bits
+  75 0008 9C43     		lw	a5,0(a5)		# *reg_intcon_bits.0_1, *reg_intcon_bits.0_1
+  76 000a 8983     		srli	a5,a5,2	#, tmp79, *reg_intcon_bits.0_1
+  77 000c 858B     		andi	a5,a5,1	#, _2, tmp79
+  78              	# interrupt_manager.c:8: 	if (reg_intcon_bits->TMR0IE == 1 && reg_intflags_bits->TMR0IF == 1) {
+  79              		.loc 1 8 5
+  80 000e 91E3     		bnez	a5,.L4	#, _2,
+  81              	.L1:
+  82              	# interrupt_manager.c:37: }
+   9:interrupt_manager.c **** 		//reg_timer0_conf_bits->INT_TMR = 0; //also possible to use TMR0_ISR()
+  10:interrupt_manager.c **** 		TMR0_ISR();
+  11:interrupt_manager.c **** 
+  12:interrupt_manager.c **** 		//tmr_flag = 1;
+  13:interrupt_manager.c **** 	}
+  14:interrupt_manager.c **** 
+  15:interrupt_manager.c **** 	/*
+  16:interrupt_manager.c **** 	if (reg_intcon_bits->TXIE == 1 && reg_intflags_bits->TXIF == 1) {           
+  17:interrupt_manager.c ****             EUSART1_Transmit_ISR();
+  18:interrupt_manager.c ****     } else if (reg_intcon_bits->RXIE == 1 && reg_intflags_bits->RXIF == 1) {            
+  19:interrupt_manager.c ****             EUSART1_RxDataHandler();            
+  20:interrupt_manager.c ****     }
+  21:interrupt_manager.c ****     //reg_porta = 0xcc;
+  22:interrupt_manager.c ****       
+  23:interrupt_manager.c ****     if (irqs & IRQ_5) {
+  24:interrupt_manager.c **** 		reg_porta = IRQ_5;
+  25:interrupt_manager.c **** 	} 
+  26:interrupt_manager.c **** 
+  27:interrupt_manager.c **** 	if (irqs & IRQ_6) {
+  28:interrupt_manager.c **** 		reg_porta = IRQ_6;
+  29:interrupt_manager.c **** 	}
+  30:interrupt_manager.c **** 
+  31:interrupt_manager.c **** 	if (irqs & IRQ_7) {
+  32:interrupt_manager.c **** 		reg_porta = IRQ_7;
+  33:interrupt_manager.c **** 	}
+  34:interrupt_manager.c **** 	*/
+  35:interrupt_manager.c **** 	
+  36:interrupt_manager.c **** 	
+  37:interrupt_manager.c **** }
+  83              		.loc 1 37 1
+  84 0010 8280     		ret	
+  85              	.L4:
+  86              	# interrupt_manager.c:8: 	if (reg_intcon_bits->TMR0IE == 1 && reg_intflags_bits->TMR0IF == 1) {
+   8:interrupt_manager.c **** 		//reg_timer0_conf_bits->INT_TMR = 0; //also possible to use TMR0_ISR()
+  87              		.loc 1 8 55 discriminator 1
+  88 0012 37070000 		lui	a4,%hi(reg_intflags_bits)	# tmp84,
+  89 0016 03270700 		lw	a4,%lo(reg_intflags_bits)(a4)		# reg_intflags_bits.1_3, reg_intflags_bits
+  90 001a 1843     		lw	a4,0(a4)		# *reg_intflags_bits.1_3, *reg_intflags_bits.1_3
+  91 001c 0983     		srli	a4,a4,2	#, tmp86, *reg_intflags_bits.1_3
+  92 001e 058B     		andi	a4,a4,1	#, _4, tmp86
+  93              	# interrupt_manager.c:8: 	if (reg_intcon_bits->TMR0IE == 1 && reg_intflags_bits->TMR0IF == 1) {
+   8:interrupt_manager.c **** 		//reg_timer0_conf_bits->INT_TMR = 0; //also possible to use TMR0_ISR()
+  94              		.loc 1 8 35 discriminator 1
+  95 0020 E318F7FE 		bne	a4,a5,.L1	#, _4, _2,
+  10:interrupt_manager.c **** 
+  96              		.loc 1 10 3 is_stmt 1
+  97 0024 17030000 		tail	TMR0_ISR		#
+  97      67000300 
+  98              	.LVL1:
+  99              		.cfi_endproc
+ 100              	.LFE0:
+ 102              	.Letext0:
+ 103              		.file 2 "/opt/riscv32i/riscv32-unknown-elf/include/machine/_default_types.h"
+ 104              		.file 3 "/opt/riscv32i/riscv32-unknown-elf/include/sys/_stdint.h"
+ 105              		.file 4 "../common/vargen.h"
+ 106              		.file 5 "../common/eusart1.h"
+ 107              		.file 6 "../common/timer0.h"
+ 108              		.file 7 "hardware.h"

@@ -1,7 +1,7 @@
 #include "timer0.h"
 
 #pragma GCC push_options
-#pragma GCC optimize ("O2")
+#pragma GCC optimize ("O0")
 
 void (*TMR0_InterruptHandler)(void);
 

@@ -1,45 +1,45 @@
 	.file	"vargen.c"
 	.option nopic
-	.section	.gnu.lto_.profile.f1ad7e089c99cee8,"",@progbits
+	.section	.gnu.lto_.profile.9ff02ac24330dd99,"",@progbits
 	.string	"x\234cg```\004b\006"
 	.string	""
 	.string	"M"
 	.ascii	"\t"
 	.text
-	.section	.gnu.lto_.icf.f1ad7e089c99cee8,"",@progbits
+	.section	.gnu.lto_.icf.9ff02ac24330dd99,"",@progbits
 	.string	"x\234cg``\020f@"
 	.string	"f\206\253\257w\336\341c\274\261cU!\323\347]m\327\331\031"
 	.ascii	"`\033\t@"
 	.text
-	.section	.gnu.lto_.jmpfuncs.f1ad7e089c99cee8,"",@progbits
+	.section	.gnu.lto_.jmpfuncs.9ff02ac24330dd99,"",@progbits
 	.string	"x\234cg```b@\006"
 	.string	""
 	.string	"\254"
 	.ascii	"\n"
 	.text
-	.section	.gnu.lto_.inline.f1ad7e089c99cee8,"",@progbits
+	.section	.gnu.lto_.inline.9ff02ac24330dd99,"",@progbits
 	.string	"x\234cg```b@\006"
 	.string	""
 	.string	"\254"
 	.ascii	"\n"
 	.text
-	.section	.gnu.lto_.pureconst.f1ad7e089c99cee8,"",@progbits
+	.section	.gnu.lto_.pureconst.9ff02ac24330dd99,"",@progbits
 	.string	"x\234cg```\004b\006"
 	.string	""
 	.string	"M"
 	.ascii	"\t"
 	.text
-	.section	.gnu.lto_.symbol_nodes.f1ad7e089c99cee8,"",@progbits
+	.section	.gnu.lto_.symbol_nodes.9ff02ac24330dd99,"",@progbits
 	.string	"x\234cg``\220\002b\006V&\206F%\020\315\310\b\241\031\230\3004\003"
 	.ascii	"\037\320\002 "
 	.text
-	.section	.gnu.lto_.refs.f1ad7e089c99cee8,"",@progbits
+	.section	.gnu.lto_.refs.9ff02ac24330dd99,"",@progbits
 	.string	"x\234cg```\004b\006"
 	.string	""
 	.string	"M"
 	.ascii	"\t"
 	.text
-	.section	.gnu.lto_.decls.f1ad7e089c99cee8,"",@progbits
+	.section	.gnu.lto_.decls.9ff02ac24330dd99,"",@progbits
 	.string	"x\234\205\224mL\233U\024\307\357\351\255m)/\235e\037\3244\221D\213#1\320\261\017&\373\266\314\362\0227H\260K4~\250\033aH\"\220"
 	.string	"\361\363-\003\323\225Ye\202\002*V7\352\222\211\311|\311$l\254\305I\231\203\301"
 	.string	"\031vl\016&\260\r\035/#\304!2\317\275\367\261/\224\352\223\334\366\236\323\377\371\237\333\347\374\236GK\bQk\t\231\301o\013\256Gx\001~_%\321\027\3055\206\3536\256\345M\2775RX\372\264\376!uR0\352A\215a\260\375\321h2\206\333\365\220\206\341'\343\177\275\255\204\024\303K\023\037y\r2Ta\350\232>\026TQ\025\240\017]\251]~G\003&"
@@ -70,7 +70,7 @@
 	.ascii	"\2509\374\346\301\322j\221\343%V^b\225%\326d,\301\336J\201A)"
 	.ascii	"\300\266\"\363\017\330(?\305"
 	.text
-	.section	.gnu.lto_.symtab.f1ad7e089c99cee8,"",@progbits
+	.section	.gnu.lto_.symtab.9ff02ac24330dd99,"",@progbits
 	.string	"reg_timer0_conf_bits"
 	.string	""
 	.string	""

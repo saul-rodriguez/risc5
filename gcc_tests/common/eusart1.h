@@ -1,5 +1,7 @@
 //eusart1.h
 
+//NOTE: eusart compiles correctly with max optimization -O2
+
 #ifndef EUSART1_H
 #define EUSART1_H
 

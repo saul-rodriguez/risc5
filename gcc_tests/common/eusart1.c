@@ -5,8 +5,6 @@
 /**
   Section: Macro Declarations
 */
-#pragma GCC push_options
-#pragma GCC optimize ("O2")
 
 #define EUSART1_TX_BUFFER_SIZE 8
 #define EUSART1_RX_BUFFER_SIZE 8
@@ -35,6 +33,7 @@ void EUSART1_Initialize(void)
 	reg_intcon_bits->RXIE = 0;	
 	//EUSART1_SetRxInterruptHandler(EUSART1_Receive_ISR);
 	EUSART1_SetRxInterruptHandler(EUSART1_RxDataHandler);
+
 	reg_intcon_bits->TXIE = 0;	
 	EUSART1_SetTxInterruptHandler(EUSART1_Transmit_ISR);
 	
@@ -184,5 +183,5 @@ void EUSART1_SetRxInterruptHandler(void (* interruptHandler)(void)){
     EUSART1_RxDefaultInterruptHandler = interruptHandler;
 }
 
-#pragma GCC pop_options
+
 

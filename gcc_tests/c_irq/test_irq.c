@@ -26,7 +26,6 @@ void irq(uint32_t irqs) // @suppress("Type cannot be resolved")
 
 void main() 
 {
-
 	while(1) {
 	}
 }

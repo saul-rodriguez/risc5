@@ -1,40 +1,40 @@
 	.file	"main.c"
 	.option nopic
-	.section	.gnu.lto_.profile.51bf654c45ee4293,"",@progbits
+	.section	.gnu.lto_.profile.21f5dbd16ac36a41,"",@progbits
 	.string	"x\234cg```\004b\006"
 	.string	""
 	.string	"M"
 	.ascii	"\t"
 	.text
-	.section	.gnu.lto_.icf.51bf654c45ee4293,"",@progbits
+	.section	.gnu.lto_.icf.21f5dbd16ac36a41,"",@progbits
 	.string	"x\234cg``\020f@"
 	.string	"f\206\257\337o\036\344d|\366\351w\030\323\336\207\357\332Y\031"
 	.ascii	"h*\t\361"
 	.text
-	.section	.gnu.lto_.jmpfuncs.51bf654c45ee4293,"",@progbits
+	.section	.gnu.lto_.jmpfuncs.21f5dbd16ac36a41,"",@progbits
 	.string	"x\234cg``pd@"
 	.string	"&\006&FF\346\372\231\314\f \314\310\300\300\302\300\300x\200\221\221\001\210\377320Ndf<yc\3662\376\016f\2204\023\343nF\031\260<\023H\rC\275\002\003"
 	.ascii	"\235*\f\302"
 	.text
-	.section	.gnu.lto_.inline.51bf654c45ee4293,"",@progbits
+	.section	.gnu.lto_.inline.21f5dbd16ac36a41,"",@progbits
 	.ascii	"x\234E\214\261\r\2000\f\004\317&\004\212\210\202\301\030\202"
 	.ascii	"\300\004\364\b6@\312@\f\300R\330\241\340\n\313\262\377\257\003"
 	.ascii	"V~\024\302a\304,J/ >\0328\355\270C\364g\310jA\255\353L\362\236"
 	.ascii	"0<\245\334\355&h\252\202\305L_\313\303F\034\315\244\327\004/"
 	.ascii	"\001\263\023\211"
 	.text
-	.section	.gnu.lto_.pureconst.51bf654c45ee4293,"",@progbits
+	.section	.gnu.lto_.pureconst.21f5dbd16ac36a41,"",@progbits
 	.string	"x\234cg```\007b&\206\006\026\306\255,"
 	.ascii	"\004\324\001O"
 	.text
-	.section	.gnu.lto_my_func.51bf654c45ee4293,"",@progbits
+	.section	.gnu.lto_my_func.21f5dbd16ac36a41,"",@progbits
 	.string	"x\234m\220\261KBQ\024\306\317\367\216\3724Tpk0h\022q\210\240\265\241!\372?\254\251\301\266\240\315\373\236i\004-!\361\b\242\032B$\210\254\301%\253kE\004RAPKK\004A\2244\271\005\332=\317\202\202\016\\\356\307\341\373}\347\336c\023Q\016D\ts\017\231\003&XJ\251\t\333\t[\200\250\200\n\203\362\026\362X\346U\306\326\307\373}$SU\312U\332\253\2157Uqp\235\211\312\006\034Kb4IR8B\306x\237V\352{1\036"
 	.string	"\031\355\266./\"\351\212\317\265'U\324@h\200\177q\022C8F\332\2707J\273/\314Q\237,\367\016\273\341o\2623\325'O\376!O\221&\361\337\326\037\253\340\270\317\266*\235F<\265\343\263\017NpQigXx\375\207\2272\346\347\203\356Z,\024@\023)\371\217d\236!Df=\220\336\376]P\253noI\351\233\304\233\035\004\344\255fIf\256\211\022\210\212L\256\331Y"
 	.ascii	"JS\211-\307\327\005M\257(l\226\256\317!y\036\263\307\360\330"
 	.ascii	"\2426\334\355\317\253\237\246\314+2\372\214Ed\347\262\263s#3"
 	.ascii	"\204,\2469;\277\360\005Gmsc"
 	.text
-	.section	.gnu.lto_main.51bf654c45ee4293,"",@progbits
+	.section	.gnu.lto_main.21f5dbd16ac36a41,"",@progbits
 	.ascii	"x\234\215\222\313kSA\024\306\347\273g\222\233\206$\305\3422\213"
 	.ascii	"\254\262\350B\004\267.\254\177\201\377BP\004\027\272\023\334"
 	.ascii	"97\315\243\326\372\302Jz\321\324\202\266\246J\025\027\026\304"
@@ -56,17 +56,17 @@
 	.ascii	"\232\324Z8nqi9\331\314\227.\315\201#\313>mF\264\017\246\016\034"
 	.ascii	"\332\266W`\037R\224:|\344\007\264\327%\333"
 	.text
-	.section	.gnu.lto_.symbol_nodes.51bf654c45ee4293,"",@progbits
+	.section	.gnu.lto_.symbol_nodes.21f5dbd16ac36a41,"",@progbits
 	.string	"x\234cg``p"
 	.string	"b\006&\306z\206\246\206\206\006\026\306\t\347\030\030\352\031\030v-p\004\2122\3253\276;\306\006\027kX\310\310\300\300\312\300\320\250\004\324\302\302\330\b\3260\225\215\201\001"
 	.ascii	"+\n\017\217"
 	.text
-	.section	.gnu.lto_.refs.51bf654c45ee4293,"",@progbits
+	.section	.gnu.lto_.refs.21f5dbd16ac36a41,"",@progbits
 	.string	"x\234cg``\340\001bfFF&F&\006F\006&v\006"
 	.string	"\001\332"
 	.ascii	"("
 	.text
-	.section	.gnu.lto_.decls.51bf654c45ee4293,"",@progbits
+	.section	.gnu.lto_.decls.21f5dbd16ac36a41,"",@progbits
 	.ascii	"x\234\215RKk\023Q\024\276g\356\220\2041!\022\272\350\"\213`\241"
 	.ascii	"\241 R\037\340\017p\241+\027\202\233n\212\024\204.\022\\$Bw\327"
 	.ascii	"\276hEi\203\"\266\202\255R\224\212\324`\213\202\2155\246I\233"
@@ -99,7 +99,7 @@
 	.ascii	"\323g\317\373N\035=\211\274\360\211\312O5\320u)\344\bw\006C\307"
 	.ascii	"\217\265\207\376\002\333\257\034r"
 	.text
-	.section	.gnu.lto_.symtab.51bf654c45ee4293,"",@progbits
+	.section	.gnu.lto_.symtab.21f5dbd16ac36a41,"",@progbits
 	.string	"my_func"
 	.string	""
 	.string	""

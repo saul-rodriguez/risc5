@@ -1,6 +1,6 @@
 	.include "../common/vargen_inc.s"
 
-	.equ DEL, 0x00040000
+	.equ DEL, 0x000000f
 
 	.text
 	li t0, PORTB

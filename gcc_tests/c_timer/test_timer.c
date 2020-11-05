@@ -3,7 +3,7 @@
 #include "hardware.h"
 
 //extern uint32_t sram;
-#define TIMER_VALUE 0xfffff000
+#define TIMER_VALUE 0xffffffc0
 
 volatile unsigned char tmr_flag;
 
@@ -17,14 +17,14 @@ int main()
 	//unsigned char flag;
 	unsigned char aux;
 	
-	//TMR0_Initialize(EN);
-	TMR0_Initialize(EN | AUTO_LOAD);
+	TMR0_Initialize(EN);
+	//TMR0_Initialize(EN | AUTO_LOAD);
 	TMR0_WriteTimer(TIMER_VALUE);
-	TMR0_SetInterruptHandler(myTMR0_handler); // Redirect default interrupt handler to users handler
+	TMR0_SetInterruptHandler(myTMR0_handler); // Redirect default interrupt handler to user's handler
 
 	TMR0_StartTimer(); //it is the same as reg_timer0_conf_bits->GO = 1;
 
-	aux = 0xf0;
+	aux = 0x00;
 	tmr_flag = 0;
 
 	//Enable the timer0 interrupt
@@ -60,8 +60,10 @@ int main()
 			tmr_flag = 0;
 			reg_porta = aux++;
 			//reg_timer0_conf_bits->EN = 0;
-			if (aux == 0xf5) {
+			if (aux == 3) {
 				TMR0_StopTimer();   // #pragma GCC optimize ("O2") was used to prevent the optimizer O3 to remove this
+			} else {
+				TMR0_StartTimer(); // if auto_load is not enabled
 			}
 		}
 

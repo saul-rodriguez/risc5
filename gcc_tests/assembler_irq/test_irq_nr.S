@@ -20,9 +20,9 @@ reset_vec:
 			.balign 16
 irq_vec:	
 			//register entering to isr
-			li t0, PORTA
-			li t1, 0xee
-			sw t1, 0(t0)
+			//li t0, PORTA
+			//li t1, 0xee
+			//sw t1, 0(t0)
 	
 				
 			//check status of flag_isr		
@@ -51,9 +51,9 @@ irq_vec:
 			//picorv32_getq_insn(t0,q3)
 			
 			//
-			li t0, PORTA
-			li t1, 0xff
-			sw t1, (t0)
+			//li t0, PORTA
+			//li t1, 0xff
+			//sw t1, (t0)
 			//
 			picorv32_retirq_insn()
 		
@@ -82,7 +82,7 @@ irq_handler:
 			li t0, IRQ_5 		// t0 = IRQ_5
 			and t1,a0,t0		// t1 = a0 & t0
 			
-			bne t0,a0,else1		// if (t0 == a0) {			
+			bne t0,t1,else1		// if (t0 == t1) {
 			
 			li t0, PORTA
 			li t1, IRQ_5
@@ -91,7 +91,7 @@ else1:
 			li t0, IRQ_6 		// t0 = IRQ_6
 			and t1,a0,t0		// t1 = a0 & t0
 			
-			bne t0,a0,else2		// if (t0 == a0) {			
+			bne t0,t1,else2		// if (t0 == t1) {
 			
 			li t0, PORTA
 			li t1, IRQ_6
@@ -100,7 +100,7 @@ else2:
 			li t0, IRQ_7 		// t0 = IRQ_7
 			and t1,a0,t0		// t1 = a0 & t0
 			
-			bne t0,a0,else3		// if (t0 == a0) {			
+			bne t0,t1,else3		// if (t0 == t1) {
 			
 			li t0, PORTA
 			li t1, IRQ_7
