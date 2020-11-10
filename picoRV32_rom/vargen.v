@@ -14,6 +14,7 @@
 `include "gio.v"
 `include "uart.v"
 `include "timer.v"
+`include "SPI_Master.v"
 
 module vargen (
 	input clk,
@@ -24,7 +25,11 @@ module vargen (
 	output [`PORTA_WIDTH-1:0] porta_out,
 	input [`PORTB_WIDTH-1:0] portb_in,
 	input rx_uart,
-	output tx_uart
+	output tx_uart,
+	output spi_clk,
+	output spi_mosi,
+	input  spi_miso,
+	output spi_cs	
 );
 
 parameter integer MEM_WORDS = 256;
@@ -49,6 +54,7 @@ always @* begin
 		irq[6] = irq_6;
 		irq[7] = irq_7;
 		irq[8] = timer0_int_flag_pico;
+		irq[9] = spi_master_tx_int_flag_pico;
 end
 
 // address & data bus 
@@ -63,7 +69,8 @@ wire [31:0] mem_rdata;
 //mem_ready is asserted when a peer that is connected to the address bus (for read/write) has completed reading the address. 
 assign mem_ready = ram_ready || rom_ready || porta_ready || portb_ready || 
 				   uart_conf_ready || uart_tx_ready || uart_rx_ready ||
-				   intcon_ready || intflags_ready || timer0_ready || timer0_value_ready;
+				   intcon_ready || intflags_ready || timer0_ready || timer0_value_ready ||
+				   spi_master_conf_ready || spi_master_ready;
 
 //mem_rdata is the read data bus and it is implemented as a mux: 
 assign mem_rdata = ram_ready ? ram_rdata :
@@ -73,7 +80,8 @@ assign mem_rdata = ram_ready ? ram_rdata :
 				   uart_rx_ready ? uart_rx_data32 : 
 				   intcon_ready ? intcon_data32 :
 				   intflags_ready? intflags_data32 : 
-				   timer0_ready? timer0_rdata32 : 32'h0000_0000;
+				   timer0_ready? timer0_rdata32 : 
+				   spi_master_ready? spi_master_rx_data32 : 32'h0000_0000;
 
 /* Only one <name>_ready signal can be asserted at a time!   
 *  Note: ram_ready and rom_ready are left here exactly as they were in the original PicoSoc example
@@ -190,7 +198,7 @@ ioport #(.ADDR(`PORTB),
 
 //          Interrupt bits order in INTCON and INTFLAG
 //  B7      B6      B5      B4       B3      B2      B1      B0
-//  -      -         -       -        -     TMR0   TX_UART RX_UART 
+//  -      -         -       -   SPI_MASTER TMR0   TX_UART RX_UART 
 
 wire intcon_ready;
 wire [7:0] intcon;
@@ -225,7 +233,8 @@ wire [7:0] interrupt_flags ;
 assign interrupt_flags[0] = uart_rx_int_flag;
 assign interrupt_flags[1] = uart_tx_int_flag;
 assign interrupt_flags[2] = timer0_int_flag;
-assign interrupt_flags[7:3] = 0;
+assign interrupt_flags[3] = spi_master_tx_int_flag;
+assign interrupt_flags[7:4] = 0;
 
 
 ioport #(.ADDR(`INTFLAGS),
@@ -363,6 +372,58 @@ TIMER_VARGEN #(`TIMER0_CONF) tmr0(
 		.timer_rdata(timer0_rdata),	
 		.timer_ready(timer0_ready)
 	);
+	
+/***************
+ * SPI MASTER  *
+ ***************/
+ 
+ //SPI Master configuration register
+wire [11:0] spi_master_conf;
+wire spi_master_conf_ready;
+
+ioport #(.ADDR(`SPI_MST_CONF),
+		.WIDTH(12)
+	) spi_master_conf_reg(
+		.clk(clk),
+		.addr(mem_addr), 
+		.wdata(mem_wdata[11:0]),	
+		.wen(mem_wstrb[0]), 
+		.resetn(resetn), 
+		.mem_valid(mem_valid),
+		.mem_ready(mem_ready),
+		.mem_port_ready(spi_master_conf_ready),
+		.odata(spi_master_conf)
+	);
+ 
+ //SPI Master wrapper
+wire [7:0] spi_master_rx_data;
+wire [31:0] spi_master_rx_data32;
+wire spi_master_ready;
+
+assign spi_master_rx_data32 = {{(24){1'b0}},spi_master_rx_data};
+
+wire spi_master_tx_int_flag;
+wire spi_master_tx_int_flag_pico; //This signal will connect to an irq input in the picorv32
+
+assign spi_master_tx_int_flag_pico = intcon[3] & spi_master_tx_int_flag;
+
+SPI_Master_Pico #(.ADDR(`SPI_MST)) spi(
+		.rstn(resetn),
+		.clk(clk),
+		.Clks_per_half_bit(spi_master_conf),
+		.addr(mem_addr),
+		.wen(mem_wstrb[0]),
+		.wdata(mem_wdata[7:0]), //data to be transmited	
+		.mem_valid(mem_valid),
+		.mem_ready(mem_ready),
+		.spi_master_ready(spi_master_ready), //Aknowledge that address has been read
+		.spi_master_tx_int_flag(spi_master_tx_int_flag),	
+		.rx_data(spi_master_rx_data),	
+		.SPI_Clk(spi_clk),
+		.SPI_MISO(spi_miso),
+		.SPI_MOSI(spi_mosi) //Back to back test
+	);
+ 
 
 endmodule //END module vargen
 

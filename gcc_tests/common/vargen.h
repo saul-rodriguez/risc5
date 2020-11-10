@@ -31,15 +31,24 @@
 #define TIMER0 			0x0010001c
 #define TIMER0_CONF		0x00100020
 
-#define reg_porta     	(*(volatile uint32_t*) PORTA) // 8-bit digital output
-#define reg_portb     	(*(volatile uint32_t*) PORTB) // 8-bit digital input
-#define reg_uart_tx   	(*(volatile uint32_t*) UART_TX) // 8-bit tx uart
-#define reg_uart_rx   	(*(volatile uint32_t*) UART_RX) // 8-bit rx uart
-#define reg_uart_conf 	(*(volatile uint32_t*) UART_CONF) // 12-bit uart configuration
-#define reg_intcon    	(*(volatile uint32_t*) INTCON) // 8-bit interrupt enable configuration
-#define reg_intflags  	(*(volatile uint32_t*) INTFLAGS) // 8-bit interrupt flags
-#define reg_timer0	  	(*(volatile uint32_t*) TIMER0) //32-bit timer value
-#define reg_timer0_conf	(*(volatile uint32_t*) TIMER0_CONF) //8-bit timer copnfiguration register
+//SPI master
+#define SPI_MST		 	0x00100024
+#define SPI_MST_CONF 	0x00100028
+
+
+// registers definitions
+#define reg_porta     		(*(volatile uint32_t*) PORTA) // 8-bit digital output
+#define reg_portb     		(*(volatile uint32_t*) PORTB) // 8-bit digital input
+#define reg_uart_tx   		(*(volatile uint32_t*) UART_TX) // 8-bit tx uart
+#define reg_uart_rx   		(*(volatile uint32_t*) UART_RX) // 8-bit rx uart
+#define reg_uart_conf 		(*(volatile uint32_t*) UART_CONF) // 12-bit uart configuration
+#define reg_intcon    		(*(volatile uint32_t*) INTCON) // 8-bit interrupt enable configuration
+#define reg_intflags  		(*(volatile uint32_t*) INTFLAGS) // 8-bit interrupt flags
+#define reg_timer0	  		(*(volatile uint32_t*) TIMER0) //32-bit timer value
+#define reg_timer0_conf		(*(volatile uint32_t*) TIMER0_CONF) //8-bit timer configuration register
+#define reg_spi_master		(*(volatile uint32_t*) SPI_MST)
+#define reg_spi_master_conf (*(volatile uint32_t*) SPI_MST_CONF)
+
 
 //External interrupts flags available in pircorv32 reg q0
 //q0 is passed as parameter irqs in void irq(uint32_t irqs);
@@ -61,6 +70,7 @@ typedef struct {
 		unsigned RXIF	:1;
 		unsigned TXIF	:1;
 		unsigned TMR0IF	:1;
+		unsigned SPIIF	:1;
 } INTFLAGS_bits_s;	
 
 extern volatile INTFLAGS_bits_s* reg_intflags_bits;
@@ -69,6 +79,7 @@ typedef struct {
 		unsigned RXIE	:1;
 		unsigned TXIE	:1;
 		unsigned TMR0IE	:1;
+		unsigned SPIIE	:1;
 } INTCON_bits_s;	
 
 extern volatile INTCON_bits_s* reg_intcon_bits;
@@ -81,6 +92,8 @@ typedef struct {
 } TIMER0_CONF_bits_s;
 
 extern volatile TIMER0_CONF_bits_s* reg_timer0_conf_bits;
+
+
 
 
 #endif

@@ -209,9 +209,9 @@ module SPI_Master_Pico (
 	output reg spi_master_ready, //Aknowledge that address has been read
 	output spi_master_tx_int_flag,	
 	output [7:0] rx_data,	
-	output reg SPI_Clk,
-	input      SPI_MISO,
-	output reg SPI_MOSI
+	output SPI_Clk,
+	input  SPI_MISO,
+	output SPI_MOSI
 );
 	
 parameter ADDR = 32'h0000_0000; // This address must be changed during instantiation!

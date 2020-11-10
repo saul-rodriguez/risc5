@@ -81,6 +81,7 @@ module SPI_Master_Pico_TB ();
       rstn = 1'b0;
       repeat(10) @(posedge clk);
       rstn = 1'b1;
+      repeat(10) @(posedge clk);
       
       // Test single byte
       SendSingleByte(8'hC1);

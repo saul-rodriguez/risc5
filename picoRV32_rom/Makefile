@@ -1,13 +1,13 @@
 #NAME is the name of the top_module which should be inside the file top_module.v
 
 SRC = top.v
-SRC_TB = vargen_tb.v
+SRC_TB = vargen_tb.sv
 NAME= $(basename $(SRC))
 
 sim: $(NAME)
 
 $(NAME): $(SRC_TB)
-	iverilog -o $(NAME) $(SRC_TB)
+	iverilog -g2005-sv -o $(NAME) $(SRC_TB)
 	vvp $(NAME)
 
 plot: $(NAME) dump.vcd

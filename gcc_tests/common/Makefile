@@ -83,7 +83,7 @@ $(NAME).hex4: $(NAME).elf
 	./ihex2all $(NAME).hex $(NAME).hex4
 	
 #simulate	
-sim: $(NAME).hex4
+sim: 
 	make debug
 	make dump
 	$(VARGEN) $(NAME).hex4 $(NAME).dmp $(NAME).lst

@@ -21,7 +21,9 @@
  *	 PORTA			32'h0010_0014	8-bit Digital output	
  *	 PORTB			32'h0010_0018	8-bit Digital input
  * 	 TIMER0			32'h0010_001c	32-bit timer value
- * 	 TIMER0_CONF	32'h0010_0020	TIMER0 Configuration register (8-bit)		
+ * 	 TIMER0_CONF	32'h0010_0020	TIMER0 Configuration register (8-bit)	
+ * 	 SPI_MST		32'h0010_0024	SPI master TX/RX	
+ * 	 SPI_MST_CONF	32'h0010_0028	SPI master Config. register (12-bit)
  */
   	
 `define INTCON			32'h0010_0000
@@ -35,11 +37,13 @@
 `define PORTB_WIDTH 8
 `define TIMER0 			32'h0010_001c
 `define TIMER0_CONF		32'h0010_0020
+`define SPI_MST			32'h0010_0024
+`define SPI_MST_CONF	32'h0010_0028
     
     
 // INTCON and INTFLAG bits
 //  B7      B6      B5      B4       B3       B2       B1       B0
-//  -      -         -       -        -      TMR0    TX_UART   RX_UART 
+//  -      -         -       -     SPI_MST   TMR0    TX_UART   RX_UART 
 
 // TIMER0_CONF bits
 //  B7      B6      B5      B4       B3       B2       B1       B0
