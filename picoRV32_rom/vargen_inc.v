@@ -48,6 +48,11 @@
 // TIMER0_CONF bits
 //  B7      B6      B5      B4       B3       B2       B1       B0
 //  -       -       -       -      AUTO_LD    EN       GO     INT_TMR
+	
+// SPI_MST_CONF bits [12:0]
+// 12			11:0
+// CS		CLKS_PER_HALF_BIT
+		
 
 `endif
 

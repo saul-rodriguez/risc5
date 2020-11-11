@@ -4,7 +4,7 @@
 
 `include "vargen.v"
 
-`define END_SIM 150000
+`define END_SIM 15000
 
 module vargen_tb;
 
@@ -24,6 +24,7 @@ module vargen_tb;
 	wire spi_clk;
 	wire spi_mosi;
 	wire spi_miso;
+	wire spi_cs;
 	//wire SPI_CS
 	
 	//uncomment only for loopback tests!
@@ -44,7 +45,8 @@ module vargen_tb;
 			.tx_uart(tx_uart),
 			.spi_clk(spi_clk),
 			.spi_mosi(spi_mosi),
-			.spi_miso(spi_miso)
+			.spi_miso(spi_miso),
+			.spi_cs(spi_cs)
 	);
 	
 

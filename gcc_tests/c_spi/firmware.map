@@ -9,14 +9,14 @@ RAM              0x0000000000000000 0x0000000000000400 xrw
 Linker script and memory map
 
 
-.text           0x0000000000010000      0x1e4
+.text           0x0000000000010000      0x218
                 0x0000000000010000                . = ALIGN (0x4)
  *(.text)
  .text          0x0000000000010000      0x17a start.o
- .text          0x000000000001017a       0x36 /tmp/ccg4jBq7.ltrans0.ltrans.o
+ .text          0x000000000001017a       0x36 /tmp/ccSeFlkk.ltrans0.ltrans.o
                 0x000000000001017a                irq
  *(.text*)
- .text.startup  0x00000000000101b0       0x34 /tmp/ccg4jBq7.ltrans0.ltrans.o
+ .text.startup  0x00000000000101b0       0x66 /tmp/ccSeFlkk.ltrans0.ltrans.o
                 0x00000000000101b0                main
  *(.rodata)
  *(.rodata*)
@@ -24,21 +24,21 @@ Linker script and memory map
  *(.srodata*)
  *(.eh_frame)
  *(.eh_frame*)
-                0x00000000000101e4                . = ALIGN (0x4)
- *fill*         0x00000000000101e4        0x0 
-                0x00000000000101e4                _etext = .
-                0x00000000000101e4                _sidata = _etext
+                0x0000000000010218                . = ALIGN (0x4)
+ *fill*         0x0000000000010216        0x2 
+                0x0000000000010218                _etext = .
+                0x0000000000010218                _sidata = _etext
 
-.rela.dyn       0x00000000000101e4        0x0
- .rela.text     0x00000000000101e4        0x0 start.o
+.rela.dyn       0x0000000000010218        0x0
+ .rela.text     0x0000000000010218        0x0 start.o
 
-.data           0x0000000000000000        0x4 load address 0x00000000000101e4
+.data           0x0000000000000000        0x4 load address 0x0000000000010218
                 0x0000000000000000                . = ALIGN (0x4)
                 0x0000000000000000                _sdata = .
                 0x0000000000000000                _ram_start = .
  *(.data)
  .data          0x0000000000000000        0x1 start.o
- .data          0x0000000000000001        0x0 /tmp/ccg4jBq7.ltrans0.ltrans.o
+ .data          0x0000000000000001        0x0 /tmp/ccSeFlkk.ltrans0.ltrans.o
  *(.data*)
  *(.sdata)
  *(.sdata*)
@@ -48,12 +48,12 @@ Linker script and memory map
  *fill*         0x0000000000000001        0x3 
                 0x0000000000000004                _edata = .
 
-.bss            0x0000000000000004        0x0 load address 0x00000000000101e8
+.bss            0x0000000000000004        0x0 load address 0x000000000001021c
                 0x0000000000000004                . = ALIGN (0x4)
                 0x0000000000000004                _sbss = .
  *(.bss)
  .bss           0x0000000000000004        0x0 start.o
- .bss           0x0000000000000004        0x0 /tmp/ccg4jBq7.ltrans0.ltrans.o
+ .bss           0x0000000000000004        0x0 /tmp/ccSeFlkk.ltrans0.ltrans.o
  *(.bss*)
  *(.sbss)
  *(.sbss*)
@@ -65,11 +65,11 @@ Linker script and memory map
                 0x0000000000000004                . = ALIGN (0x4)
                 0x0000000000000004                _heap_start = .
 LOAD start.o
-LOAD /tmp/ccg4jBq7.ltrans0.ltrans.o
+LOAD /tmp/ccSeFlkk.ltrans0.ltrans.o
 OUTPUT(spi_master.elf elf32-littleriscv)
 
 .comment        0x0000000000000000       0x11
- .comment       0x0000000000000000       0x11 /tmp/ccg4jBq7.ltrans0.ltrans.o
+ .comment       0x0000000000000000       0x11 /tmp/ccSeFlkk.ltrans0.ltrans.o
                                          0x12 (size before relaxing)
 
 Cross Reference Table
@@ -84,14 +84,18 @@ _edata                                            start.o
 _sbss                                             start.o
 _sdata                                            start.o
 _sidata                                           start.o
-irq                                               /tmp/ccg4jBq7.ltrans0.ltrans.o
+irq                                               /tmp/ccSeFlkk.ltrans0.ltrans.o
                                                   interrupt_manager.o (symbol from plugin)
                                                   start.o
-main                                              /tmp/ccg4jBq7.ltrans0.ltrans.o
+main                                              /tmp/ccSeFlkk.ltrans0.ltrans.o
                                                   main.o (symbol from plugin)
                                                   start.o
 reg_intcon_bits                                   vargen.o (symbol from plugin)
                                                   spi1.o (symbol from plugin)
 reg_intflags_bits                                 vargen.o (symbol from plugin)
+                                                  spi1.o (symbol from plugin)
+reg_porta_bits                                    vargen.o (symbol from plugin)
+reg_spi_master_conf_bits                          vargen.o (symbol from plugin)
+                                                  main.o (symbol from plugin)
                                                   spi1.o (symbol from plugin)
 reg_timer0_conf_bits                              vargen.o (symbol from plugin)

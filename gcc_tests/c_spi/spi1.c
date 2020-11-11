@@ -9,7 +9,9 @@
 
 void SPI1_Initialize(void)
 {
-	reg_spi_master_conf = CLKS_PER_HALF_BIT;
+	reg_spi_master_conf_bits->CS = 1;
+	reg_spi_master_conf_bits->CLKS_PER_HLF_BIT = CLKS_PER_HALF_BIT;
+	//reg_spi_master_conf = 0x01000 | CLKS_PER_HALF_BIT;
 	reg_intcon_bits->SPIIE = 0;
 }
 

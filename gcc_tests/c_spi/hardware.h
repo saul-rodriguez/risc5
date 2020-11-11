@@ -11,4 +11,6 @@
 #include "../common/delay.h"
 #include "interrupt_manager.h"
 
+#define CS_SetHigh		reg_porta_bits
+
 #endif

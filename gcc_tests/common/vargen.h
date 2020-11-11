@@ -19,11 +19,11 @@
 #define UART_RX   0x0010000c
 #define UART_CONF 0x00100010
 
-//input porta
+//output porta
 #define PORTA	0x00100014
 //#define PORTA_WIDTH 8
  
-//output porta
+//input portb
 #define PORTB	0x00100018
 //#define PORTB_WIDTH 8
 
@@ -50,6 +50,7 @@
 #define reg_spi_master_conf (*(volatile uint32_t*) SPI_MST_CONF)
 
 
+
 //External interrupts flags available in pircorv32 reg q0
 //q0 is passed as parameter irqs in void irq(uint32_t irqs);
 #define IRQ_5 0x00000020
@@ -65,6 +66,18 @@
 #define BRATE 9600
 
 //Registers as bit structures
+typedef struct {
+		unsigned A0		:1;
+		unsigned A1		:1;
+		unsigned A2		:1;
+		unsigned A3		:1;
+		unsigned A4		:1;
+		unsigned A5		:1;
+		unsigned A6		:1;
+		unsigned A7		:1;
+} PORTA_bits_s;
+
+extern volatile PORTA_bits_s* reg_porta_bits;
 
 typedef struct {
 		unsigned RXIF	:1;
@@ -93,7 +106,28 @@ typedef struct {
 
 extern volatile TIMER0_CONF_bits_s* reg_timer0_conf_bits;
 
+typedef struct {
+		unsigned CLKS_PER_HLF_BIT	:12;
+		//unsigned A0	:1;
+		//unsigned A1	:1;
+		//unsigned A2	:1;
+		unsigned CS	:1;
+} SPI_MST_CONF_bits_s;
 
+extern volatile SPI_MST_CONF_bits_s* reg_spi_master_conf_bits;
+
+typedef struct {
+		unsigned A0		:1;
+		unsigned A1		:1;
+		unsigned A2		:1;
+		unsigned A3		:1;
+		unsigned A4		:1;
+		unsigned A5		:1;
+		unsigned A6		:1;
+		unsigned A7		:1;
+} PORTC_bits_s;
+
+extern volatile PORTC_bits_s* reg_portc_bits;
 
 
 #endif

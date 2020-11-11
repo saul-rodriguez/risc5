@@ -81,6 +81,7 @@ assign mem_rdata = ram_ready ? ram_rdata :
 				   intcon_ready ? intcon_data32 :
 				   intflags_ready? intflags_data32 : 
 				   timer0_ready? timer0_rdata32 : 
+				   spi_master_conf_ready? spi_master_conf_data32 :
 				   spi_master_ready? spi_master_rx_data32 : 32'h0000_0000;
 
 /* Only one <name>_ready signal can be asserted at a time!   
@@ -155,6 +156,7 @@ wire porta_ready;
 wire [31:0] porta_data32;
 assign porta_data32 = {{(32 -`PORTA_WIDTH){1'b0}},porta_out};
 
+//ioport #(.ADDR(`SPI_MST_CONF),
 ioport #(.ADDR(`PORTA),
 		  .WIDTH(`PORTA_WIDTH)
 		  ) porta(
@@ -378,15 +380,23 @@ TIMER_VARGEN #(`TIMER0_CONF) tmr0(
  ***************/
  
  //SPI Master configuration register
-wire [11:0] spi_master_conf;
+ 
+wire [12:0] spi_master_conf;
 wire spi_master_conf_ready;
+wire spi_master_cs;
+
+wire [31:0] spi_master_conf_data32;
+assign spi_master_conf_data32 = {{(19){1'b0}},spi_master_conf};
+
+assign spi_master_cs = spi_master_conf[12];
+assign spi_cs = spi_master_cs; //CS output of vargen
 
 ioport #(.ADDR(`SPI_MST_CONF),
-		.WIDTH(12)
+		.WIDTH(13)
 	) spi_master_conf_reg(
 		.clk(clk),
 		.addr(mem_addr), 
-		.wdata(mem_wdata[11:0]),	
+		.wdata(mem_wdata[12:0]),	
 		.wen(mem_wstrb[0]), 
 		.resetn(resetn), 
 		.mem_valid(mem_valid),
@@ -394,6 +404,23 @@ ioport #(.ADDR(`SPI_MST_CONF),
 		.mem_port_ready(spi_master_conf_ready),
 		.odata(spi_master_conf)
 	);
+	
+	/*
+ioport #(.ADDR(`PORTA),
+		.WIDTH(`PORTA_WIDTH)
+	) porta(
+		.clk(clk),
+		.addr(mem_addr), 
+		.wdata(mem_wdata[`PORTA_WIDTH-1:0]),	
+		.wen(mem_wstrb[0]), 
+		.resetn(resetn), 
+		.mem_valid(mem_valid),
+		.mem_ready(mem_ready),
+		.mem_port_ready(porta_ready),
+		.odata(porta_out)
+	);*/
+
+
  
  //SPI Master wrapper
 wire [7:0] spi_master_rx_data;
@@ -410,7 +437,7 @@ assign spi_master_tx_int_flag_pico = intcon[3] & spi_master_tx_int_flag;
 SPI_Master_Pico #(.ADDR(`SPI_MST)) spi(
 		.rstn(resetn),
 		.clk(clk),
-		.Clks_per_half_bit(spi_master_conf),
+		.Clks_per_half_bit(spi_master_conf[11:0]),
 		.addr(mem_addr),
 		.wen(mem_wstrb[0]),
 		.wdata(mem_wdata[7:0]), //data to be transmited	
