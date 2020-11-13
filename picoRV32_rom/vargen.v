@@ -54,7 +54,7 @@ always @* begin
 		irq[6] = irq_6;
 		irq[7] = irq_7;
 		irq[8] = timer0_int_flag_pico;
-		irq[9] = spi_master_tx_int_flag_pico;
+		irq[9] = spi_master_int_flag_pico;
 end
 
 // address & data bus 
@@ -235,7 +235,7 @@ wire [7:0] interrupt_flags ;
 assign interrupt_flags[0] = uart_rx_int_flag;
 assign interrupt_flags[1] = uart_tx_int_flag;
 assign interrupt_flags[2] = timer0_int_flag;
-assign interrupt_flags[3] = spi_master_tx_int_flag;
+assign interrupt_flags[3] = spi_master_int_flag;
 assign interrupt_flags[7:4] = 0;
 
 
@@ -397,7 +397,7 @@ ioport #(.ADDR(`SPI_MST_CONF),
 		.clk(clk),
 		.addr(mem_addr), 
 		.wdata(mem_wdata[12:0]),	
-		.wen(mem_wstrb[0]), 
+		.wen(|mem_wstrb), 
 		.resetn(resetn), 
 		.mem_valid(mem_valid),
 		.mem_ready(mem_ready),
@@ -405,35 +405,32 @@ ioport #(.ADDR(`SPI_MST_CONF),
 		.odata(spi_master_conf)
 	);
 	
-	/*
-ioport #(.ADDR(`PORTA),
-		.WIDTH(`PORTA_WIDTH)
-	) porta(
-		.clk(clk),
-		.addr(mem_addr), 
-		.wdata(mem_wdata[`PORTA_WIDTH-1:0]),	
-		.wen(mem_wstrb[0]), 
-		.resetn(resetn), 
-		.mem_valid(mem_valid),
-		.mem_ready(mem_ready),
-		.mem_port_ready(porta_ready),
-		.odata(porta_out)
-	);*/
-
 
  
  //SPI Master wrapper
 wire [7:0] spi_master_rx_data;
 wire [31:0] spi_master_rx_data32;
 wire spi_master_ready;
-
 assign spi_master_rx_data32 = {{(24){1'b0}},spi_master_rx_data};
 
-wire spi_master_tx_int_flag;
-wire spi_master_tx_int_flag_pico; //This signal will connect to an irq input in the picorv32
+wire spi_master_int_flag;
+wire spi_master_int_flag_pico; //This signal will connect to an irq input in the picorv32
+assign spi_master_int_flag_pico = intcon[3] & spi_master_int_flag;
 
-assign spi_master_tx_int_flag_pico = intcon[3] & spi_master_tx_int_flag;
+SPI_master_pico #(.ADDR(`SPI_MST)) spi(
+		.clk(clk),
+		.addr(mem_addr), 
+		.wdata(mem_wdata[7:0]),	
+		.wen(mem_wstrb[0]), 
+		.resetn(resetn), 	
+		.mem_valid(mem_valid),
+		.mem_ready(mem_ready),
+		.mem_port_ready(spi_master_ready),
+		.rx_data(spi_master_rx_data),
+		.tx_ready(spi_master_int_flag) //High when idle, Low when busy
+	);
 
+/*
 SPI_Master_Pico #(.ADDR(`SPI_MST)) spi(
 		.rstn(resetn),
 		.clk(clk),
@@ -450,7 +447,7 @@ SPI_Master_Pico #(.ADDR(`SPI_MST)) spi(
 		.SPI_MISO(spi_miso),
 		.SPI_MOSI(spi_mosi) //Back to back test
 	);
- 
+ */
 
 endmodule //END module vargen
 

@@ -74,7 +74,7 @@ module vargen_tb;
 		resetn = 1;
 		
 		
-		//test_irq;		
+		test_irq;		
 		//test_serial;
 				
 		#(`END_SIM*CLK_PERIOD) $finish;
@@ -93,11 +93,11 @@ always #(CLK_PERIOD/2) clk = ~clk;
 	task test_irq; 
 		begin
 			portb_in = 8'haf;
-			#(500*CLK_PERIOD) irq_5 = 1;
+			#(1500*CLK_PERIOD) irq_5 = 1;
 			#(40*CLK_PERIOD) irq_5 = 0;
-			#(10000*CLK_PERIOD) irq_6 = 1;
-			#(10000*CLK_PERIOD) irq_6 = 0;
-			#(10000*CLK_PERIOD) irq_7 = 1;
+			#(1500*CLK_PERIOD) irq_6 = 1;
+			#(40*CLK_PERIOD) irq_6 = 0;
+			#(1500*CLK_PERIOD) irq_7 = 1;
 			#(40*CLK_PERIOD) irq_7 = 0;	
 		end
 	endtask

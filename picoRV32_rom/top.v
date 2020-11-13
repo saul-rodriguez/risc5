@@ -57,10 +57,10 @@ module top (
 	wire spi_miso;
 	wire spi_cs;
 	
-	assign spi_miso = PIN5;
-	assign spi_clk = PIN6;
-	assign spi_mosi = PIN7;
-	assign spi_cs = PIN8
+	assign spi_miso = PIN_5;
+	assign spi_clk = PIN_6;
+	assign spi_mosi = PIN_7;
+	assign spi_cs = PIN_8;
 	
 	//resetn		
 	reg resetn_meta;

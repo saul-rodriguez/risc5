@@ -1,45 +1,45 @@
 	.file	"vargen.c"
 	.option nopic
-	.section	.gnu.lto_.profile.f7c0f47724069393,"",@progbits
+	.section	.gnu.lto_.profile.3b7c51ed25f05cc2,"",@progbits
 	.string	"x\234cg```\004b\006"
 	.string	""
 	.string	"M"
 	.ascii	"\t"
 	.text
-	.section	.gnu.lto_.icf.f7c0f47724069393,"",@progbits
+	.section	.gnu.lto_.icf.3b7c51ed25f05cc2,"",@progbits
 	.string	"x\234cg``\220g@"
 	.string	"V\206\343\273\317=`c\274\372z\347\035>\246\033;V\0252\177\336\325v\235\235\245a\363\345\253L\f"
 	.ascii	"\377A\017h"
 	.text
-	.section	.gnu.lto_.jmpfuncs.f7c0f47724069393,"",@progbits
+	.section	.gnu.lto_.jmpfuncs.3b7c51ed25f05cc2,"",@progbits
 	.string	"x\234cg```b@\006"
 	.string	""
 	.string	"\254"
 	.ascii	"\n"
 	.text
-	.section	.gnu.lto_.inline.f7c0f47724069393,"",@progbits
+	.section	.gnu.lto_.inline.3b7c51ed25f05cc2,"",@progbits
 	.string	"x\234cg```b@\006"
 	.string	""
 	.string	"\254"
 	.ascii	"\n"
 	.text
-	.section	.gnu.lto_.pureconst.f7c0f47724069393,"",@progbits
+	.section	.gnu.lto_.pureconst.3b7c51ed25f05cc2,"",@progbits
 	.string	"x\234cg```\004b\006"
 	.string	""
 	.string	"M"
 	.ascii	"\t"
 	.text
-	.section	.gnu.lto_.symbol_nodes.f7c0f47724069393,"",@progbits
+	.section	.gnu.lto_.symbol_nodes.3b7c51ed25f05cc2,"",@progbits
 	.string	"x\234cg``\320\002b\006V\026\206F%\020\315\314\b\241\231\230 4#3\204f`\001\323\f"
 	.ascii	"R\303\003\216"
 	.text
-	.section	.gnu.lto_.refs.f7c0f47724069393,"",@progbits
+	.section	.gnu.lto_.refs.3b7c51ed25f05cc2,"",@progbits
 	.string	"x\234cg```\004b\006"
 	.string	""
 	.string	"M"
 	.ascii	"\t"
 	.text
-	.section	.gnu.lto_.decls.f7c0f47724069393,"",@progbits
+	.section	.gnu.lto_.decls.3b7c51ed25f05cc2,"",@progbits
 	.ascii	"x\234\215\226kL\024W\024\307\347\316\005vy\256\005>\330\2266"
 	.ascii	"4\355\022I\033Alk\343\227fKAI\025\r`\322\372ek\255Z\222\002\006"
 	.ascii	"H\323\217\263<tA@y\t\202 \370XQ\304\210\240\226 \257\365\001"
@@ -82,7 +82,7 @@
 	.ascii	"\226\360\272@^\267\314m\355\232\210(\235\350\344A\234\266\306"
 	.ascii	"\305'n\240\023\377\002E!\036\302"
 	.text
-	.section	.gnu.lto_.symtab.f7c0f47724069393,"",@progbits
+	.section	.gnu.lto_.symtab.3b7c51ed25f05cc2,"",@progbits
 	.string	"reg_spi_master_conf_bits"
 	.string	""
 	.string	""

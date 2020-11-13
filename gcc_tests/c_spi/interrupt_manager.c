@@ -19,6 +19,8 @@ void irq(uint32_t irqs)
 		reg_porta = IRQ_6;
 	} else if (irqs & IRQ_7) {
 		reg_porta = IRQ_7;
+	} else {
+		reg_porta = irqs;
 	}
 	
 	
