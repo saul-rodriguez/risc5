@@ -8,6 +8,8 @@
 #include "hardware.h"
 #include "spi1.h"
 
+#include "mcp23s17.h"
+
 
 int main()
 {
@@ -17,6 +19,8 @@ int main()
 	SPI1_Initialize();
 
 
+	//Loop back test
+	/*
 	aux = 0xa0;
 	reg_porta = aux;
 	while(1) {
@@ -35,6 +39,17 @@ int main()
 
 		reg_porta = rec;
 		aux++;
+	} */
+
+	//Configure mcp23s17
+	setAddress(0x20);
+	setTrisA(0x00);
+
+	while(1) {
+		writePortA(0xff);
+		__delay_ms(100);
+		writePortA(0x00);
+		__delay_ms(100);
 	}
 }
 

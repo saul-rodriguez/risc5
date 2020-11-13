@@ -30,7 +30,7 @@ LINK_FLAGS = -march=rv32imc -Wall -flto -nostartfiles -Wl,-Bstatic,-T,$(L_SECTIO
 NAME = spi_master
 
 #sources
-SRCS = ../common/vargen.c interrupt_manager.c spi1.c main.c   
+SRCS = ../common/vargen.c ../common/delay.c interrupt_manager.c spi1.c mcp23s17.c main.c   
 SRC_START = ../common/start.S
 L_SECTIONS = ../common/sections.lds
 

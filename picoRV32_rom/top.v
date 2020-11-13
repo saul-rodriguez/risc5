@@ -81,7 +81,11 @@ module top (
 			.porta_out(leds),
 			.portb_in(switches),
 			.rx_uart(rx_uart),
-			.tx_uart(tx_uart)
+			.tx_uart(tx_uart),
+			.spi_miso(spi_miso),
+			.spi_clk(spi_clk),
+			.spi_mosi(spi_mosi),
+			.spi_cs(spi_cs)
 	);
 		
     

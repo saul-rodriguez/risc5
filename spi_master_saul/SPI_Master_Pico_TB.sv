@@ -61,7 +61,11 @@ module SPI_Master_Pico_TB ();
   		.mem_ready(mem_ready),
   		.mem_port_ready(spi_master_ready),
   		.rx_data(rx_data),
-  		.tx_ready(spi_master_tx_int_flag) //High when idle, Low when busy
+  		.tx_ready(spi_master_tx_int_flag), //High when idle, Low when busy
+  		.Clks_per_half_bit(Clks_per_half_bit),
+  		.SPI_Clk(SPI_Clk),
+  		.SPI_MISO(SPI_MOSI),
+  		.SPI_MOSI(SPI_MOSI) //Back to back test
   		);
   
   // Clock Generator:
@@ -69,6 +73,7 @@ module SPI_Master_Pico_TB ();
 
   // Sends a single byte from master.
   task SendSingleByte(input [7:0] data);
+  	//TX byte
     @(posedge clk);
      wdata <= data;
    	 addr <= `SPI_MASTER;
@@ -81,6 +86,19 @@ module SPI_Master_Pico_TB ();
      mem_valid <= 0;
      wstrobe <= 1'b0;
     @(posedge spi_master_tx_int_flag);
+    
+    //Read RX byte
+    @(posedge clk);
+    addr <= `SPI_MASTER;
+    mem_valid <= 1;
+    wstrobe <= 0;
+    
+    @(posedge clk);
+    wdata <= 0;
+    addr <= 0;
+    mem_valid <= 0;
+    wstrobe <= 1'b0;
+    
      //repeat(100) @(posedge clk);
   endtask // SendSingleByte
 

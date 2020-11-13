@@ -417,6 +417,7 @@ wire spi_master_int_flag;
 wire spi_master_int_flag_pico; //This signal will connect to an irq input in the picorv32
 assign spi_master_int_flag_pico = intcon[3] & spi_master_int_flag;
 
+/*
 SPI_master_pico #(.ADDR(`SPI_MST)) spi(
 		.clk(clk),
 		.addr(mem_addr), 
@@ -429,25 +430,24 @@ SPI_master_pico #(.ADDR(`SPI_MST)) spi(
 		.rx_data(spi_master_rx_data),
 		.tx_ready(spi_master_int_flag) //High when idle, Low when busy
 	);
+*/
 
-/*
-SPI_Master_Pico #(.ADDR(`SPI_MST)) spi(
-		.rstn(resetn),
+SPI_master_pico #(.ADDR(`SPI_MST)) spi(
 		.clk(clk),
-		.Clks_per_half_bit(spi_master_conf[11:0]),
-		.addr(mem_addr),
-		.wen(mem_wstrb[0]),
-		.wdata(mem_wdata[7:0]), //data to be transmited	
+		.addr(mem_addr), 
+		.wdata(mem_wdata[7:0]),	
+		.wen(mem_wstrb[0]), 
+		.resetn(resetn), 	
 		.mem_valid(mem_valid),
 		.mem_ready(mem_ready),
-		.spi_master_ready(spi_master_ready), //Aknowledge that address has been read
-		.spi_master_tx_int_flag(spi_master_tx_int_flag),	
-		.rx_data(spi_master_rx_data),	
+		.mem_port_ready(spi_master_ready),
+		.rx_data(spi_master_rx_data),
+		.tx_ready(spi_master_int_flag), //High when idle, Low when busy
+		.Clks_per_half_bit(spi_master_conf[11:0]),
 		.SPI_Clk(spi_clk),
 		.SPI_MISO(spi_miso),
 		.SPI_MOSI(spi_mosi) //Back to back test
 	);
- */
 
 endmodule //END module vargen
 
