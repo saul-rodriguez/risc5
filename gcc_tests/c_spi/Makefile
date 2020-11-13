@@ -19,10 +19,10 @@ OBJCOPY = /opt/riscv32i/bin/riscv32-unknown-elf-objcopy
 VARGEN = /home/saul/projects/Qt/vargen_simulator/build-vargen-Desktop_Qt_5_12_3_GCC_64bit-Debug/vargen
 
 #compiler and linker flags
-CFLAGS = -march=rv32imc -O2 -Wall -flto
+CFLAGS = -march=rv32imc -O2 -Wall -flto -DCLK_FREQ=16000000
 
 #compiler and linker flags debug
-CFLAGS_DEB = -march=rv32imc -O2 -Wall -fverbose-asm -g
+CFLAGS_DEB = -march=rv32imc -O2 -Wall -fverbose-asm -g -DCLK_FREQ=16000000
 
 LINK_FLAGS = -march=rv32imc -Wall -flto -nostartfiles -Wl,-Bstatic,-T,$(L_SECTIONS),--strip-debug,-Map=firmware.map,--cref -ffreestanding -nostdlib
 
@@ -30,7 +30,7 @@ LINK_FLAGS = -march=rv32imc -Wall -flto -nostartfiles -Wl,-Bstatic,-T,$(L_SECTIO
 NAME = spi_master
 
 #sources
-SRCS = ../common/vargen.c ../common/delay.c interrupt_manager.c spi1.c mcp23s17.c main.c   
+SRCS = ../common/vargen.c ../common/delay.c ../common/spi1.c interrupt_manager.c  mcp23s17.c main.c   
 SRC_START = ../common/start.S
 L_SECTIONS = ../common/sections.lds
 

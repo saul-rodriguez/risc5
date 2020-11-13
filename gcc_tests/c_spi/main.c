@@ -6,7 +6,7 @@
  */
 
 #include "hardware.h"
-#include "spi1.h"
+//#include "spi1.h"
 
 #include "mcp23s17.h"
 
@@ -16,8 +16,7 @@ int main()
 	volatile unsigned char aux, rec;
 
 
-	SPI1_Initialize();
-
+	SPI1_Initialize(CLKS_PER_HALF_BIT);
 
 	//Loop back test
 	/*
@@ -41,15 +40,18 @@ int main()
 		aux++;
 	} */
 
-	//Configure mcp23s17
-	setAddress(0x20);
-	setTrisA(0x00);
 
+	//Test SPI with mcp23s17 port extender
+	MCP23S17_setAddress(0x20);
+	MCP23S17_setTrisA(0x00);
+
+	aux = 0;
 	while(1) {
-		writePortA(0xff);
-		__delay_ms(100);
-		writePortA(0x00);
-		__delay_ms(100);
+		MCP23S17_writePortA(0xff);
+	//	__delay_ms(100);
+		MCP23S17_writePortA(0x00);
+	//	reg_porta = aux++;
+	//	__delay_ms(100);
 	}
 }
 

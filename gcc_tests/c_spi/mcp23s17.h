@@ -51,9 +51,9 @@ typedef enum {
 } MCP23S17_COMMAND; 
 extern volatile MCP23S17_COMMAND mcp23s17_command;
 
-void setAddress(unsigned char add);
-void setTrisA(unsigned char tris); 
-void writePortA(unsigned char val);
+void MCP23S17_setAddress(unsigned char add);
+void MCP23S17_setTrisA(unsigned char tris);
+void MCP23S17_writePortA(unsigned char val);
 //void writePortA_nowait(void);
 
 

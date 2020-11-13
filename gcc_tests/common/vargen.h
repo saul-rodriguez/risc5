@@ -116,6 +116,7 @@ typedef struct {
 
 extern volatile SPI_MST_CONF_bits_s* reg_spi_master_conf_bits;
 
+/*
 typedef struct {
 		unsigned A0		:1;
 		unsigned A1		:1;
@@ -128,6 +129,6 @@ typedef struct {
 } PORTC_bits_s;
 
 extern volatile PORTC_bits_s* reg_portc_bits;
-
+*/
 
 #endif

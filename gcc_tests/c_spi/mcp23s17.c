@@ -10,31 +10,27 @@ volatile MCP23S17_COMMAND mcp23s17_command;
 // value to write to the spi using no_wait
 volatile unsigned char SPI_write_val;
 
-void setAddress(unsigned char add)
+void MCP23S17_setAddress(unsigned char add)
 {
     SPI_address = add << 1;
 }
 
-void setTrisA(unsigned char tris)
+void MCP23S17_setTrisA(unsigned char tris)
 {
 	reg_spi_master_conf_bits->CS = 0;
-    //SS_SetLow();
     SPI1_ExchangeByte(SPI_address);
     SPI1_ExchangeByte(MCP23017_IODIRA);
     SPI1_ExchangeByte(tris);
     reg_spi_master_conf_bits->CS = 1;
-    //SS_SetHigh();
 }
 
-void writePortA(unsigned char val)
+void MCP23S17_writePortA(unsigned char val)
 {
 	reg_spi_master_conf_bits->CS = 0;
-    //SS_SetLow();
     SPI1_ExchangeByte(SPI_address);
     SPI1_ExchangeByte(MCP23017_GPIOA);
     SPI1_ExchangeByte(val);
     reg_spi_master_conf_bits->CS = 1;
-    //SS_SetHigh();
 }
 /*
 void writePortA_nowait()
