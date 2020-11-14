@@ -131,4 +131,8 @@ typedef struct {
 extern volatile PORTC_bits_s* reg_portc_bits;
 */
 
+void disable_interrupts();
+void enable_interrupts();
+
+
 #endif

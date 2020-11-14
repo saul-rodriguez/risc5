@@ -17,20 +17,24 @@ void MCP23S17_setAddress(unsigned char add)
 
 void MCP23S17_setTrisA(unsigned char tris)
 {
+
 	reg_spi_master_conf_bits->CS = 0;
     SPI1_ExchangeByte(SPI_address);
     SPI1_ExchangeByte(MCP23017_IODIRA);
     SPI1_ExchangeByte(tris);
     reg_spi_master_conf_bits->CS = 1;
+
 }
 
 void MCP23S17_writePortA(unsigned char val)
 {
+
 	reg_spi_master_conf_bits->CS = 0;
     SPI1_ExchangeByte(SPI_address);
     SPI1_ExchangeByte(MCP23017_GPIOA);
     SPI1_ExchangeByte(val);
     reg_spi_master_conf_bits->CS = 1;
+
 }
 /*
 void writePortA_nowait()

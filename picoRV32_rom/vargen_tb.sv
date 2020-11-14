@@ -4,7 +4,7 @@
 
 `include "vargen.v"
 
-`define END_SIM 15000
+`define END_SIM 25000
 
 module vargen_tb;
 
@@ -93,12 +93,12 @@ always #(CLK_PERIOD/2) clk = ~clk;
 	task test_irq; 
 		begin
 			portb_in = 8'haf;
-			#(1500*CLK_PERIOD) irq_5 = 1;
-			#(40*CLK_PERIOD) irq_5 = 0;
-			#(1500*CLK_PERIOD) irq_6 = 1;
-			#(40*CLK_PERIOD) irq_6 = 0;
-			#(1500*CLK_PERIOD) irq_7 = 1;
-			#(40*CLK_PERIOD) irq_7 = 0;	
+			#(7500*CLK_PERIOD) irq_5 = 1;
+			#(20*CLK_PERIOD) irq_5 = 0;
+			#(2500*CLK_PERIOD) irq_6 = 1;
+			#(20*CLK_PERIOD) irq_6 = 0;
+			#(2500*CLK_PERIOD) irq_7 = 1;
+			#(20*CLK_PERIOD) irq_7 = 0;	
 		end
 	endtask
 

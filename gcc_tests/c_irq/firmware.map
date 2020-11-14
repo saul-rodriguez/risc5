@@ -1,22 +1,4 @@
 
-Discarded input sections
-
- .debug_line    0x0000000000000000      0x31e start.o
- .debug_info    0x0000000000000000       0x26 start.o
- .debug_abbrev  0x0000000000000000       0x14 start.o
- .debug_aranges
-                0x0000000000000000       0x20 start.o
- .debug_str     0x0000000000000000       0x4d start.o
- .debug_info    0x0000000000000000      0x1de test_irq.o
- .debug_abbrev  0x0000000000000000       0xdc test_irq.o
- .debug_loc     0x0000000000000000       0x21 test_irq.o
- .debug_aranges
-                0x0000000000000000       0x28 test_irq.o
- .debug_ranges  0x0000000000000000       0x18 test_irq.o
- .debug_line    0x0000000000000000      0x187 test_irq.o
- .debug_str     0x0000000000000000      0x1a4 test_irq.o
- .debug_frame   0x0000000000000000       0x30 test_irq.o
-
 Memory Configuration
 
 Name             Origin             Length             Attributes
@@ -27,36 +9,38 @@ RAM              0x0000000000000000 0x0000000000000400 xrw
 Linker script and memory map
 
 
-.text           0x0000000000010000      0x1b0
+.text           0x0000000000010000      0x1d0
                 0x0000000000010000                . = ALIGN (0x4)
  *(.text)
- .text          0x0000000000010000      0x17a start.o
- .text          0x000000000001017a       0x32 test_irq.o
-                0x000000000001017a                irq
+ .text          0x0000000000010000      0x18a start.o
+                0x00000000000100be                disable_irq
+                0x00000000000100c8                enable_irq
+ .text          0x000000000001018a       0x32 /tmp/cceASR1n.ltrans0.ltrans.o
+                0x000000000001018a                irq
  *(.text*)
- .text.startup  0x00000000000101ac        0x2 test_irq.o
-                0x00000000000101ac                main
+ .text.startup  0x00000000000101bc       0x12 /tmp/cceASR1n.ltrans0.ltrans.o
+                0x00000000000101bc                main
  *(.rodata)
  *(.rodata*)
  *(.srodata)
  *(.srodata*)
  *(.eh_frame)
  *(.eh_frame*)
-                0x00000000000101b0                . = ALIGN (0x4)
- *fill*         0x00000000000101ae        0x2 
-                0x00000000000101b0                _etext = .
-                0x00000000000101b0                _sidata = _etext
+                0x00000000000101d0                . = ALIGN (0x4)
+ *fill*         0x00000000000101ce        0x2 
+                0x00000000000101d0                _etext = .
+                0x00000000000101d0                _sidata = _etext
 
-.rela.dyn       0x00000000000101b0        0x0
- .rela.text     0x00000000000101b0        0x0 start.o
+.rela.dyn       0x00000000000101d0        0x0
+ .rela.text     0x00000000000101d0        0x0 start.o
 
-.data           0x0000000000000000        0x4 load address 0x00000000000101b0
+.data           0x0000000000000000        0x4 load address 0x00000000000101d0
                 0x0000000000000000                . = ALIGN (0x4)
                 0x0000000000000000                _sdata = .
                 0x0000000000000000                _ram_start = .
  *(.data)
  .data          0x0000000000000000        0x1 start.o
- .data          0x0000000000000001        0x0 test_irq.o
+ .data          0x0000000000000001        0x0 /tmp/cceASR1n.ltrans0.ltrans.o
  *(.data*)
  *(.sdata)
  *(.sdata*)
@@ -66,12 +50,12 @@ Linker script and memory map
  *fill*         0x0000000000000001        0x3 
                 0x0000000000000004                _edata = .
 
-.bss            0x0000000000000004        0x0 load address 0x00000000000101b4
+.bss            0x0000000000000004        0x0 load address 0x00000000000101d4
                 0x0000000000000004                . = ALIGN (0x4)
                 0x0000000000000004                _sbss = .
  *(.bss)
  .bss           0x0000000000000004        0x0 start.o
- .bss           0x0000000000000004        0x0 test_irq.o
+ .bss           0x0000000000000004        0x0 /tmp/cceASR1n.ltrans0.ltrans.o
  *(.bss*)
  *(.sbss)
  *(.sbss*)
@@ -83,11 +67,11 @@ Linker script and memory map
                 0x0000000000000004                . = ALIGN (0x4)
                 0x0000000000000004                _heap_start = .
 LOAD start.o
-LOAD test_irq.o
+LOAD /tmp/cceASR1n.ltrans0.ltrans.o
 OUTPUT(test_irq.elf elf32-littleriscv)
 
 .comment        0x0000000000000000       0x11
- .comment       0x0000000000000000       0x11 test_irq.o
+ .comment       0x0000000000000000       0x11 /tmp/cceASR1n.ltrans0.ltrans.o
                                          0x12 (size before relaxing)
 
 Cross Reference Table
@@ -98,7 +82,11 @@ _edata                                            start.o
 _sbss                                             start.o
 _sdata                                            start.o
 _sidata                                           start.o
-irq                                               test_irq.o
+disable_irq                                       start.o
+enable_irq                                        start.o
+irq                                               /tmp/cceASR1n.ltrans0.ltrans.o
+                                                  test_irq.o (symbol from plugin)
                                                   start.o
-main                                              test_irq.o
+main                                              /tmp/cceASR1n.ltrans0.ltrans.o
+                                                  test_irq.o (symbol from plugin)
                                                   start.o

@@ -11,5 +11,14 @@ volatile INTFLAGS_bits_s* reg_intflags_bits = (INTFLAGS_bits_s*)(INTFLAGS);
 volatile TIMER0_CONF_bits_s* reg_timer0_conf_bits = (TIMER0_CONF_bits_s*)(TIMER0_CONF);
 volatile SPI_MST_CONF_bits_s* reg_spi_master_conf_bits = (SPI_MST_CONF_bits_s*)(SPI_MST_CONF);
 
+void disable_interrupts()
+{
+	asm volatile("call disable_irq\n");
+}
+
+void enable_interrupts()
+{
+	asm volatile("call enable_irq\n");
+}
 
 #endif

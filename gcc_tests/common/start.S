@@ -119,6 +119,20 @@ irq_vec:
 			
 2:			picorv32_retirq_insn()
 
+
+disable_irq:
+			.globl disable_irq
+			li t0,0xffffffff
+			picorv32_maskirq_insn(zero, t0)
+			ret
+
+enable_irq:
+			.globl enable_irq
+			li t0,0x00000000
+			picorv32_maskirq_insn(zero, t0)
+			ret
+
+
 start:
 		/* zero-initialize all registers */
 			addi x1, zero, 0

@@ -7,6 +7,8 @@
 
 #include "spi1.h"
 
+//volatile unsigned char token;
+
 void SPI1_Initialize(uint16_t clks_per_half_bit)
 {
 	reg_spi_master_conf_bits->CS = 1;
@@ -16,12 +18,12 @@ void SPI1_Initialize(uint16_t clks_per_half_bit)
 
 uint8_t SPI1_ExchangeByte(uint8_t data)
 {
-	volatile unsigned char aux;
+	//volatile unsigned char aux;
 	reg_spi_master = data;
-	//while(!reg_intflags_bits->SPIIF);
-	do {
-		aux = reg_intflags_bits->SPIIF;
-	} while(aux == 0);
+	while(!reg_intflags_bits->SPIIF);
+//	do {
+//		token = reg_intflags_bits->SPIIF;
+//	} while(token == 0);
 
 	return reg_spi_master;
 }

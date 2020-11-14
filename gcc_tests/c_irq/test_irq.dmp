@@ -10,14 +10,14 @@ SYMBOL TABLE:
 00000000 l    df *ABS*	00000000 start.o
 00000000 l       .data	00000000 flag_isr
 00010000 l       .text	00000000 reset_vec
-000100be l       .text	00000000 start
+000100c8 l       .text	00000000 start
 00010010 l       .text	00000000 irq_vec
-00010156 l       .text	00000000 end_init_data
-0001014a l       .text	00000000 loop_init_data
-0001016c l       .text	00000000 end_init_bss
-00010162 l       .text	00000000 loop_init_bss
-0001016e l       .text	00000000 loop
-00000000 l    df *ABS*	00000000 test_irq.c
+000100be l       .text	00000000 disable_irq
+00010160 l       .text	00000000 end_init_data
+00010154 l       .text	00000000 loop_init_data
+00010176 l       .text	00000000 end_init_bss
+0001016c l       .text	00000000 loop_init_bss
+00010178 l       .text	00000000 loop
 000101b0 g       .text	00000000 _sidata
 000101b0 g       .text	00000000 _etext
 00000004 g       .bss	00000000 _sbss
@@ -35,7 +35,7 @@ Disassembly of section .text:
 
 00010000 <reset_vec>:
    10000:	0600600b          	0x600600b
-   10004:	a86d                	j	100be <start>
+   10004:	a0d1                	j	100c8 <start>
    10006:	00000013          	nop
    1000a:	00000013          	nop
    1000e:	0001                	nop
@@ -119,66 +119,70 @@ Disassembly of section .text:
    100b8:	6109                	addi	sp,sp,128
    100ba:	0400000b          	0x400000b
 
-000100be <start>:
-   100be:	00000093          	li	ra,0
-   100c2:	00000193          	li	gp,0
-   100c6:	00000213          	li	tp,0
-   100ca:	00000293          	li	t0,0
-   100ce:	00000313          	li	t1,0
-   100d2:	00000393          	li	t2,0
-   100d6:	00000413          	li	s0,0
-   100da:	00000493          	li	s1,0
-   100de:	00000513          	li	a0,0
-   100e2:	00000593          	li	a1,0
-   100e6:	00000613          	li	a2,0
-   100ea:	00000693          	li	a3,0
-   100ee:	00000713          	li	a4,0
-   100f2:	00000793          	li	a5,0
-   100f6:	00000813          	li	a6,0
-   100fa:	00000893          	li	a7,0
-   100fe:	00000913          	li	s2,0
-   10102:	00000993          	li	s3,0
-   10106:	00000a13          	li	s4,0
-   1010a:	00000a93          	li	s5,0
-   1010e:	00000b13          	li	s6,0
-   10112:	00000b93          	li	s7,0
-   10116:	00000c13          	li	s8,0
-   1011a:	00000c93          	li	s9,0
-   1011e:	00000d13          	li	s10,0
-   10122:	00000d93          	li	s11,0
-   10126:	00000e13          	li	t3,0
-   1012a:	00000e93          	li	t4,0
-   1012e:	00000f13          	li	t5,0
-   10132:	00000f93          	li	t6,0
-   10136:	00000517          	auipc	a0,0x0
-   1013a:	07a50513          	addi	a0,a0,122 # 101b0 <_etext>
-   1013e:	00000593          	li	a1,0
-   10142:	00400613          	li	a2,4
-   10146:	00c5d863          	bge	a1,a2,10156 <end_init_data>
+000100be <disable_irq>:
+   100be:	fff00293          	li	t0,-1
+   100c2:	0602e00b          	0x602e00b
+   100c6:	8082                	ret
 
-0001014a <loop_init_data>:
-   1014a:	4114                	lw	a3,0(a0)
-   1014c:	c194                	sw	a3,0(a1)
-   1014e:	0511                	addi	a0,a0,4
-   10150:	0591                	addi	a1,a1,4
-   10152:	fec5cce3          	blt	a1,a2,1014a <loop_init_data>
+000100c8 <start>:
+   100c8:	00000093          	li	ra,0
+   100cc:	00000193          	li	gp,0
+   100d0:	00000213          	li	tp,0
+   100d4:	00000293          	li	t0,0
+   100d8:	00000313          	li	t1,0
+   100dc:	00000393          	li	t2,0
+   100e0:	00000413          	li	s0,0
+   100e4:	00000493          	li	s1,0
+   100e8:	00000513          	li	a0,0
+   100ec:	00000593          	li	a1,0
+   100f0:	00000613          	li	a2,0
+   100f4:	00000693          	li	a3,0
+   100f8:	00000713          	li	a4,0
+   100fc:	00000793          	li	a5,0
+   10100:	00000813          	li	a6,0
+   10104:	00000893          	li	a7,0
+   10108:	00000913          	li	s2,0
+   1010c:	00000993          	li	s3,0
+   10110:	00000a13          	li	s4,0
+   10114:	00000a93          	li	s5,0
+   10118:	00000b13          	li	s6,0
+   1011c:	00000b93          	li	s7,0
+   10120:	00000c13          	li	s8,0
+   10124:	00000c93          	li	s9,0
+   10128:	00000d13          	li	s10,0
+   1012c:	00000d93          	li	s11,0
+   10130:	00000e13          	li	t3,0
+   10134:	00000e93          	li	t4,0
+   10138:	00000f13          	li	t5,0
+   1013c:	00000f93          	li	t6,0
+   10140:	00000517          	auipc	a0,0x0
+   10144:	07050513          	addi	a0,a0,112 # 101b0 <_etext>
+   10148:	00000593          	li	a1,0
+   1014c:	00400613          	li	a2,4
+   10150:	00c5d863          	bge	a1,a2,10160 <end_init_data>
 
-00010156 <end_init_data>:
-   10156:	00400513          	li	a0,4
-   1015a:	00400593          	li	a1,4
-   1015e:	00b55763          	bge	a0,a1,1016c <end_init_bss>
+00010154 <loop_init_data>:
+   10154:	4114                	lw	a3,0(a0)
+   10156:	c194                	sw	a3,0(a1)
+   10158:	0511                	addi	a0,a0,4
+   1015a:	0591                	addi	a1,a1,4
+   1015c:	fec5cce3          	blt	a1,a2,10154 <loop_init_data>
 
-00010162 <loop_init_bss>:
-   10162:	00052023          	sw	zero,0(a0)
-   10166:	0511                	addi	a0,a0,4
-   10168:	feb54de3          	blt	a0,a1,10162 <loop_init_bss>
+00010160 <end_init_data>:
+   10160:	00400513          	li	a0,4
+   10164:	00400593          	li	a1,4
+   10168:	00b55763          	bge	a0,a1,10176 <end_init_bss>
 
-0001016c <end_init_bss>:
-   1016c:	2081                	jal	101ac <main>
+0001016c <loop_init_bss>:
+   1016c:	00052023          	sw	zero,0(a0)
+   10170:	0511                	addi	a0,a0,4
+   10172:	feb54de3          	blt	a0,a1,1016c <loop_init_bss>
 
-0001016e <loop>:
-   1016e:	a001                	j	1016e <loop>
-	...
+00010176 <end_init_bss>:
+   10176:	281d                	jal	101ac <main>
+
+00010178 <loop>:
+   10178:	a001                	j	10178 <loop>
 
 0001017a <irq>:
    1017a:	02057793          	andi	a5,a0,32

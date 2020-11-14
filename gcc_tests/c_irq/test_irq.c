@@ -26,7 +26,11 @@ void irq(uint32_t irqs) // @suppress("Type cannot be resolved")
 
 void main() 
 {
+	unsigned char aux;
+
+	aux = 0;
 	while(1) {
+		reg_porta = aux++;
 	}
 }
 
