@@ -16,6 +16,7 @@ void SPI1_Initialize(uint16_t clks_per_half_bit)
 	reg_intcon_bits->SPIIE = 0;
 }
 
+
 uint8_t SPI1_ExchangeByte(uint8_t data)
 {
 	//volatile unsigned char aux;
@@ -26,5 +27,9 @@ uint8_t SPI1_ExchangeByte(uint8_t data)
 //	} while(token == 0);
 
 	return reg_spi_master;
+	//return 0;
 }
+
+
+
 

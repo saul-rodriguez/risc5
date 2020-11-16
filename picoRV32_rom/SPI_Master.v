@@ -237,39 +237,53 @@ module SPI_master_pico(
  			.o_SPI_MOSI(SPI_MOSI)
  		);
  	
+ 	
+ 	
+ 	
  	/*
- 	//Transmitter 
+ 	assign SPI_Clk = clk;
+ 	assign SPI_MOSI = 1;
+ 	 
+ 	//Test Transmitter 
  	localparam IDLE 	= 2'b00;
  	localparam TX 		= 2'b01;
  	localparam CLEAN_UP	= 2'b11;
+ 	
+ 	
+ 	reg [7:0] rx_save_buf;
+ 	reg tx_ready_s;
+ 	
+ 	assign SPI_rx_Byte = rx_save_buf;
+ 	assign tx_ready = tx_ready_s;
  	
  	reg [1:0] SPI_state;
  	
  	always @(posedge clk) begin
  		if (resetn == 1'b0) begin
- 			tx_ready <= 1;
+ 			tx_ready_s <= 1;
  			SPI_state = IDLE;
+ 			rx_save_buf = 0;
  		end else begin
  			
  			case (SPI_state)
  				IDLE:
  					begin
  						if (tx_start == 1'b1) begin
- 							tx_ready <= 0;
+ 							tx_ready_s <= 0;
  							SPI_state <= TX; 						
  						end else begin
  							SPI_state <= IDLE;
- 							tx_ready <= 1;
+ 							tx_ready_s <= 1;
  						end
  					end
  				TX:
  					begin
- 						rx_data <= tx_byte;
+ 						rx_save_buf <= tx_byte;
  						SPI_state <= CLEAN_UP;
  					end
  				CLEAN_UP:
  					begin
- 						tx_ready <= 1;
+ 						tx_ready_s <= 1;
  						SPI_state <= IDLE;
  					end
  				default:

@@ -80,6 +80,19 @@ typedef struct {
 extern volatile PORTA_bits_s* reg_porta_bits;
 
 typedef struct {
+		unsigned B0		:1;
+		unsigned B1		:1;
+		unsigned B2		:1;
+		unsigned B3		:1;
+		unsigned B4		:1;
+		unsigned B5		:1;
+		unsigned B6		:1;
+		unsigned B7		:1;
+} PORTB_bits_s;
+
+extern volatile PORTB_bits_s* reg_portb_bits;
+
+typedef struct {
 		unsigned RXIF	:1;
 		unsigned TXIF	:1;
 		unsigned TMR0IF	:1;

@@ -21,8 +21,19 @@ macros in the calling function (they should not be uncommented here!):
 #define CLKS_PER_HALF_BIT  ((CLK_FREQ/SPI_FREQ)/2)
 
 */
+
+/*
+#define SPI1_ExchangeByte(a) ({\
+			reg_spi_master = a;\
+			while(!reg_intflags_bits->SPIIF);\
+			reg_spi_master;\
+		})
+*/
+
 void SPI1_Initialize(uint16_t clks_per_half_bit);
 uint8_t SPI1_ExchangeByte(uint8_t data);
+
+
 
 
 #endif /* SPI1_H_ */

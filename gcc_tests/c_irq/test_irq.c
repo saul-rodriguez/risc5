@@ -19,18 +19,24 @@ void irq(uint32_t irqs) // @suppress("Type cannot be resolved")
 
 	if (irqs & IRQ_7) {
 		reg_porta = IRQ_7;
-	}		
+	} else {
+		reg_porta = irqs;
+	}
 	
 }
 
 
-void main() 
+int main()
 {
 	unsigned char aux;
 
-	aux = 0;
+	aux = 0xa0;
 	while(1) {
-		reg_porta = aux++;
+
+		while(!reg_intflags_bits->SPIIF);
+		aux++;
+		reg_porta = aux;
+
 	}
 }
 

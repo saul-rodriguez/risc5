@@ -30,7 +30,7 @@ CFLAGS_DEB = -march=rv32imc -O3 -Wall -fverbose-asm -g
 NAME = test_irq
 
 #sources
-SRCS = test_irq.c  
+SRCS = test_irq.c ../common/vargen.c
 SRC_START = ../common/start.S
 L_SECTIONS = ../common/sections.lds
 

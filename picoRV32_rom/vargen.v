@@ -1,6 +1,10 @@
 `ifndef VARGEN_V
 `define VARGEN_V
 
+	//VERIL exposes the memory interface so that Verilator and a C++ program
+	//can externally connect a ROM. The internal ROM and its signals are disabled.	
+//`define VERIL
+	
 `ifdef PICORV32_V
 `error "vargen.v must be read before picorv32.v!"
 `endif
@@ -16,7 +20,19 @@
 `include "timer.v"
 `include "SPI_Master.v"
 
+
 module vargen (
+		`ifdef VERIL
+			output v_mem_valid,
+			output v_mem_instr,
+			input  v_mem_ready,
+
+			output [31:0] v_mem_addr,
+			output [31:0] v_mem_wdata,
+			output [ 3:0] v_mem_wstrb,
+			input  [31:0] v_mem_rdata,
+		`endif
+		
 	input clk,
 	input resetn,
 	input  irq_5,
@@ -66,11 +82,26 @@ wire [31:0] mem_wdata;
 wire [3:0] mem_wstrb;
 wire [31:0] mem_rdata;
 
+`ifdef VERIL
+	assign v_mem_valid = mem_valid;
+	assign v_mem_instr = mem_instr;
+	assign v_mem_addr = mem_addr;
+	assign v_mem_wdata = mem_wdata;
+	assign v_mem_wstrb = mem_wstrb;
+`endif
+
+
 //mem_ready is asserted when a peer that is connected to the address bus (for read/write) has completed reading the address. 
 assign mem_ready = ram_ready || rom_ready || porta_ready || portb_ready || 
 				   uart_conf_ready || uart_tx_ready || uart_rx_ready ||
-				   intcon_ready || intflags_ready || timer0_ready || timer0_value_ready ||
-				   spi_master_conf_ready || spi_master_ready;
+				   intcon_ready || intflags_ready || timer0_ready || timer0_value_ready 
+				   || spi_master_conf_ready || spi_master_ready
+				   `ifdef VERIL
+				   		|| v_mem_ready;
+				   `else
+						;
+				   `endif
+				   
 
 //mem_rdata is the read data bus and it is implemented as a mux: 
 assign mem_rdata = ram_ready ? ram_rdata :
@@ -82,7 +113,12 @@ assign mem_rdata = ram_ready ? ram_rdata :
 				   intflags_ready? intflags_data32 : 
 				   timer0_ready? timer0_rdata32 : 
 				   spi_master_conf_ready? spi_master_conf_data32 :
-				   spi_master_ready? spi_master_rx_data32 : 32'h0000_0000;
+				   spi_master_ready? spi_master_rx_data32 : 
+				   `ifdef VERIL
+				   	v_mem_ready? v_mem_rdata :
+				   `endif
+				   32'h0000_0000;
+				   
 
 /* Only one <name>_ready signal can be asserted at a time!   
 *  Note: ram_ready and rom_ready are left here exactly as they were in the original PicoSoc example
@@ -90,7 +126,11 @@ assign mem_rdata = ram_ready ? ram_rdata :
 */
 always @(posedge clk) begin	
 	ram_ready <= mem_valid && !mem_ready && mem_addr < 4*MEM_WORDS; //Only asserted if address is below 4*MEMWORDS = 1kbyte	
-	rom_ready <= mem_valid && !mem_ready && mem_addr >= 4*MEM_WORDS && mem_addr < 32'h0010_0000; //Only asserted if memory is above RAM and under 1M
+	`ifdef VERIL
+		rom_ready <= 0;
+	`else		
+		rom_ready <= mem_valid && !mem_ready && mem_addr >= 4*MEM_WORDS && mem_addr < 32'h0010_0000; //Only asserted if memory is above RAM and under 1M
+	`endif
 	//porta_ready <= mem_valid && !mem_ready && mem_addr == `PORTA; //Example for local creation of a <name>_ready signal (not recommended, read above)
 end
 
@@ -140,13 +180,21 @@ picosoc_mem #(.WORDS(MEM_WORDS)) memory (
 wire [31:0] rom_rdata;
 reg rom_ready; 
 
-rom512 pico_rom(
-			   .clk(clk),
-			   .wen(1'b0),
-			   .addr(mem_addr[10:2]), //address is always aligned to 4 bytes
-			   .wdata(32'h0000_0000),
-			   .rdata(rom_rdata)
-	);
+
+`ifdef VERIL
+
+	assign rom_rdata = 0;
+	
+`else
+	rom512 pico_rom(
+			.clk(clk),
+			.wen(1'b0),
+			.addr(mem_addr[10:2]), //address is always aligned to 4 bytes
+			.wdata(32'h0000_0000),
+			.rdata(rom_rdata)
+		);
+	
+`endif
 
 /************/
 /* PORTA (W)*/
@@ -245,7 +293,8 @@ ioport #(.ADDR(`INTFLAGS),
 			.clk(clk),
 			.addr(mem_addr), 
 			.wdata(interrupt_flags),	
-			.wen(1'b1), // it would also work  .wen(!mem_wstrb[0])
+			//.wen(1'b1), // it would also work  .wen(!mem_wstrb[0])
+			.wen(!mem_wstrb[0]), // it would also work  .wen(!mem_wstrb[0])
 			.resetn(resetn), 
 			.mem_valid(mem_valid),
 			.mem_ready(mem_ready),
@@ -417,21 +466,6 @@ wire spi_master_int_flag;
 wire spi_master_int_flag_pico; //This signal will connect to an irq input in the picorv32
 assign spi_master_int_flag_pico = intcon[3] & spi_master_int_flag;
 
-/*
-SPI_master_pico #(.ADDR(`SPI_MST)) spi(
-		.clk(clk),
-		.addr(mem_addr), 
-		.wdata(mem_wdata[7:0]),	
-		.wen(mem_wstrb[0]), 
-		.resetn(resetn), 	
-		.mem_valid(mem_valid),
-		.mem_ready(mem_ready),
-		.mem_port_ready(spi_master_ready),
-		.rx_data(spi_master_rx_data),
-		.tx_ready(spi_master_int_flag) //High when idle, Low when busy
-	);
-*/
-
 SPI_master_pico #(.ADDR(`SPI_MST)) spi(
 		.clk(clk),
 		.addr(mem_addr), 
@@ -448,6 +482,7 @@ SPI_master_pico #(.ADDR(`SPI_MST)) spi(
 		.SPI_MISO(spi_miso),
 		.SPI_MOSI(spi_mosi) //Back to back test
 	);
+
 
 endmodule //END module vargen
 

@@ -16,38 +16,38 @@ RAM              0x0000000000000000 0x0000000000000400 xrw
 Linker script and memory map
 
 
-.text           0x0000000000010000      0x2c8
+.text           0x0000000000010000      0x280
                 0x0000000000010000                . = ALIGN (0x4)
  *(.text)
  .text          0x0000000000010000      0x18a start.o
                 0x00000000000100be                disable_irq
                 0x00000000000100c8                enable_irq
- .text          0x000000000001018a       0x98 /tmp/ccX7EuOs.ltrans0.ltrans.o
-                0x00000000000101e4                irq
+ .text          0x000000000001018a       0x58 /tmp/ccX6o3b1.ltrans0.ltrans.o
+                0x00000000000101a4                irq
  *(.text*)
- .text.startup  0x0000000000010222       0xa6 /tmp/ccX7EuOs.ltrans0.ltrans.o
-                0x0000000000010222                main
+ .text.startup  0x00000000000101e2       0x9c /tmp/ccX6o3b1.ltrans0.ltrans.o
+                0x00000000000101e2                main
  *(.rodata)
  *(.rodata*)
  *(.srodata)
  *(.srodata*)
  *(.eh_frame)
  *(.eh_frame*)
-                0x00000000000102c8                . = ALIGN (0x4)
- *fill*         0x00000000000102c8        0x0 
-                0x00000000000102c8                _etext = .
-                0x00000000000102c8                _sidata = _etext
+                0x0000000000010280                . = ALIGN (0x4)
+ *fill*         0x000000000001027e        0x2 
+                0x0000000000010280                _etext = .
+                0x0000000000010280                _sidata = _etext
 
-.rela.dyn       0x00000000000102c8        0x0
- .rela.text     0x00000000000102c8        0x0 start.o
+.rela.dyn       0x0000000000010280        0x0
+ .rela.text     0x0000000000010280        0x0 start.o
 
-.data           0x0000000000000000        0x4 load address 0x00000000000102c8
+.data           0x0000000000000000        0x4 load address 0x0000000000010280
                 0x0000000000000000                . = ALIGN (0x4)
                 0x0000000000000000                _sdata = .
                 0x0000000000000000                _ram_start = .
  *(.data)
  .data          0x0000000000000000        0x1 start.o
- .data          0x0000000000000001        0x0 /tmp/ccX7EuOs.ltrans0.ltrans.o
+ .data          0x0000000000000001        0x0 /tmp/ccX6o3b1.ltrans0.ltrans.o
  *(.data*)
  *(.sdata)
  *(.sdata*)
@@ -57,15 +57,15 @@ Linker script and memory map
  *fill*         0x0000000000000001        0x3 
                 0x0000000000000004                _edata = .
 
-.bss            0x0000000000000004        0x8 load address 0x00000000000102cc
+.bss            0x0000000000000004        0x8 load address 0x0000000000010284
                 0x0000000000000004                . = ALIGN (0x4)
                 0x0000000000000004                _sbss = .
  *(.bss)
  .bss           0x0000000000000004        0x0 start.o
- .bss           0x0000000000000004        0x0 /tmp/ccX7EuOs.ltrans0.ltrans.o
+ .bss           0x0000000000000004        0x0 /tmp/ccX6o3b1.ltrans0.ltrans.o
  *(.bss*)
  *(.sbss)
- .sbss          0x0000000000000004        0x6 /tmp/ccX7EuOs.ltrans0.ltrans.o
+ .sbss          0x0000000000000004        0x6 /tmp/ccX6o3b1.ltrans0.ltrans.o
  *(.sbss*)
  *(COMMON)
                 0x000000000000000c                . = ALIGN (0x4)
@@ -76,11 +76,11 @@ Linker script and memory map
                 0x000000000000000c                . = ALIGN (0x4)
                 0x000000000000000c                _heap_start = .
 LOAD start.o
-LOAD /tmp/ccX7EuOs.ltrans0.ltrans.o
+LOAD /tmp/ccX6o3b1.ltrans0.ltrans.o
 OUTPUT(spi_master.elf elf32-littleriscv)
 
 .comment        0x0000000000000000       0x11
- .comment       0x0000000000000000       0x11 /tmp/ccX7EuOs.ltrans0.ltrans.o
+ .comment       0x0000000000000000       0x11 /tmp/ccX6o3b1.ltrans0.ltrans.o
                                          0x12 (size before relaxing)
 
 Cross Reference Table
@@ -89,7 +89,6 @@ Symbol                                            File
 MCP23S17_setAddress                               mcp23s17.o (symbol from plugin)
                                                   main.o (symbol from plugin)
 MCP23S17_setTrisA                                 mcp23s17.o (symbol from plugin)
-                                                  main.o (symbol from plugin)
 MCP23S17_writePortA                               mcp23s17.o (symbol from plugin)
                                                   main.o (symbol from plugin)
 SPI1_ExchangeByte                                 spi1.o (symbol from plugin)
@@ -108,15 +107,15 @@ delay_cycles_11                                   delay.o (symbol from plugin)
 disable_interrupts                                vargen.o (symbol from plugin)
                                                   main.o (symbol from plugin)
 disable_irq                                       start.o
-                                                  /tmp/ccX7EuOs.ltrans0.ltrans.o
+                                                  /tmp/ccX6o3b1.ltrans0.ltrans.o
 enable_interrupts                                 vargen.o (symbol from plugin)
                                                   main.o (symbol from plugin)
 enable_irq                                        start.o
-                                                  /tmp/ccX7EuOs.ltrans0.ltrans.o
-irq                                               /tmp/ccX7EuOs.ltrans0.ltrans.o
+                                                  /tmp/ccX6o3b1.ltrans0.ltrans.o
+irq                                               /tmp/ccX6o3b1.ltrans0.ltrans.o
                                                   interrupt_manager.o (symbol from plugin)
                                                   start.o
-main                                              /tmp/ccX7EuOs.ltrans0.ltrans.o
+main                                              /tmp/ccX6o3b1.ltrans0.ltrans.o
                                                   main.o (symbol from plugin)
                                                   start.o
 mcp23s17_command                                  mcp23s17.o (symbol from plugin)
@@ -125,6 +124,8 @@ reg_intcon_bits                                   vargen.o (symbol from plugin)
 reg_intflags_bits                                 vargen.o (symbol from plugin)
                                                   spi1.o (symbol from plugin)
 reg_porta_bits                                    vargen.o (symbol from plugin)
+reg_portb_bits                                    vargen.o (symbol from plugin)
+                                                  main.o (symbol from plugin)
 reg_spi_master_conf_bits                          vargen.o (symbol from plugin)
                                                   mcp23s17.o (symbol from plugin)
                                                   spi1.o (symbol from plugin)
