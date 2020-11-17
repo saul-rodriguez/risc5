@@ -95,9 +95,9 @@ always #(CLK_PERIOD/2) clk = ~clk;
 			portb_in = 8'haf;
 			#(7500*CLK_PERIOD) irq_5 = 1;
 			#(20*CLK_PERIOD) irq_5 = 0;
-			#(2500*CLK_PERIOD) irq_6 = 1;
+			//#(2500*CLK_PERIOD) irq_6 = 1;
 			#(20*CLK_PERIOD) irq_6 = 0;
-			#(2500*CLK_PERIOD) irq_7 = 1;
+			//#(2500*CLK_PERIOD) irq_7 = 1;
 			#(20*CLK_PERIOD) irq_7 = 0;	
 		end
 	endtask

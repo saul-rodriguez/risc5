@@ -21,8 +21,12 @@ reset_vec:
 			.balign 16
 			
 irq_vec:	
-			/* check status of flag_isr */
-		
+	/*
+			// check status of flag_isr
+
+	//		picorv32_setq_insn(q2, t0)	// q2 = ra
+	//		picorv32_setq_insn(q3, a0)	// q3 = sp
+
 			la t0, flag_isr
 			lw a0,0(t0)
 			beq a0,zero,1f   //if (flag_isr == 0) { jump 1: } else {
@@ -33,10 +37,11 @@ irq_vec:
 			sw a0,0(t0)
 			j 2f
 
-1:			/* set flag_isr */
+1:			// set flag_isr
 			li a0, 1
 			la t0, flag_isr
 			sw a0,0(t0)
+			*/
 
 			/*Save registers*/
 			
@@ -117,19 +122,30 @@ irq_vec:
 									
 			addi sp, sp, 128
 			
+	//		picorv32_getq_insn(t0,q2)	// q2 = ra
+	//		picorv32_getq_insn(a0,q3)	// q3 = sp
+
 2:			picorv32_retirq_insn()
 
 
 disable_irq:
 			.globl disable_irq
+			addi sp, sp, -16
+			sw t0, 12(sp)
 			li t0,0xffffffff
 			picorv32_maskirq_insn(zero, t0)
+			lw t0, 12(sp)
+			addi sp, sp, 16
 			ret
 
 enable_irq:
 			.globl enable_irq
+			addi sp, sp, -16
+			sw t0, 12(sp)
 			li t0,0x00000000
 			picorv32_maskirq_insn(zero, t0)
+			lw t0, 12(sp)
+			addi sp, sp, 16
 			ret
 
 

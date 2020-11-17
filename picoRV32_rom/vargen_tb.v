@@ -88,9 +88,9 @@ always #(tck/2) clk = ~clk;
 			portb_in = 8'haf;
 			#(500*tck) irq_5 = 1;
 			#(40*tck) irq_5 = 0;
-			#(10000*tck) irq_6 = 1;
+			//#(10000*tck) irq_6 = 1;
 			#(10000*tck) irq_6 = 0;
-			#(10000*tck) irq_7 = 1;
+			//#(10000*tck) irq_7 = 1;
 			#(40*tck) irq_7 = 0;	
 		end
 	endtask

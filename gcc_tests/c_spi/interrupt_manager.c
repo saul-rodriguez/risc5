@@ -12,8 +12,9 @@ void irq(uint32_t irqs)
     	EUSART1_RxDefaultInterruptHandler();
         //    EUSART1_RxDataHandler();
     } else */
-
-    if (irqs & IRQ_5) {
+	if(reg_intcon_bits->SPIIE == 1 && reg_intflags_bits->SPIIF == 1) {
+		SPI1_Transmit_ISR();
+	} else if (irqs & IRQ_5) {
 		reg_porta = IRQ_5;
 	} else if (irqs & IRQ_6) {
 		reg_porta = IRQ_6;

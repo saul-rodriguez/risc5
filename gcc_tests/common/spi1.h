@@ -30,8 +30,27 @@ macros in the calling function (they should not be uncommented here!):
 		})
 */
 
+/*
+ * Polling based SPI
+ * NOTE: IRQ must be disabled during communications
+*/
+
 void SPI1_Initialize(uint16_t clks_per_half_bit);
 uint8_t SPI1_ExchangeByte(uint8_t data);
+
+
+/*
+ * Interrupt based SPI
+*/
+extern volatile uint8_t spi1TxBufferRemaining;
+//extern volatile uint8_t spi1RxCount;
+
+void SPI1_Initialize_ISR(uint16_t clks_per_half_bit);
+bool SPI1_is_tx_ready(void);
+void SPI1_Write(uint8_t txData);
+void SPI1_Transmit_ISR(void);
+void SPI1_SetTxInterruptHandler(void (* interruptHandler)(void));
+
 
 
 

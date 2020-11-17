@@ -10,11 +10,15 @@
 
 #include "mcp23s17.h"
 
+//#define SPI_IRQ
 
 int main()
 {
-	unsigned char aux, rec;
 
+
+#ifndef SPI_IRQ
+	unsigned char aux, rec;
+	volatile unsigned char irq_en;
 
 	SPI1_Initialize(CLKS_PER_HALF_BIT);
 
@@ -47,17 +51,53 @@ int main()
 
 	// Test port expander
 	aux = 0xff;
+
+	irq_en = 1;
+
 	while(1) {
 		if (reg_portb_bits->B0) {
-			disable_interrupts();
-			MCP23S17_writePortA(aux);
-			enable_interrupts();
-			reg_porta = aux;
-			aux++;
-			__delay_ms(50);
+			if (irq_en) {
+				disable_interrupts();
+				irq_en = 0;
+			}
+
+			for (rec = 0; rec < 10; rec++) {
+				MCP23S17_writePortA(aux);
+				reg_porta = aux;
+				aux++;
+			}
+
+		} else {
+			if (!irq_en) {
+				enable_interrupts();
+				irq_en = 1;
+				//__delay_ms(1);
+			}
+
 		}
 
 	}
+#else
+
+	volatile unsigned char data[5],i;
+
+	SPI1_Initialize_ISR(CLKS_PER_HALF_BIT);
+
+
+	for (i = 0; i < 5; i++) {
+			data[i] = 0xa0 + i;
+	}
+
+
+	for (i = 0; i < 5; i++) {
+		SPI1_Write(data[i]);
+	}
+
+	while(1) {
+	}
+
+#endif
+
 
 }
 
