@@ -14,12 +14,12 @@ void irq(uint32_t irqs)
     } else */
 	if(reg_intcon_bits->SPIIE == 1 && reg_intflags_bits->SPIIF == 1) {
 		SPI1_Transmit_ISR();
-	} else if (irqs & IRQ_5) {
-		reg_porta = IRQ_5;
-	} else if (irqs & IRQ_6) {
-		reg_porta = IRQ_6;
-	} else if (irqs & IRQ_7) {
-		reg_porta = IRQ_7;
+	} else if (reg_intcon_bits->IRQ5IE == 1 && reg_intflags_bits->IRQ5IF == 1) {
+		reg_porta = 1;
+	} else if (reg_intcon_bits->IRQ6IE == 1 && reg_intflags_bits->IRQ6IF == 1) {
+		reg_porta = 2;
+	} else if (reg_intcon_bits->IRQ7IE == 1 && reg_intflags_bits->IRQ7IF == 1) {
+		reg_porta = 3;
 	} else {
 		reg_porta = irqs;
 	}

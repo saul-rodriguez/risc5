@@ -22,7 +22,7 @@ int main()
 
 	SPI1_Initialize(CLKS_PER_HALF_BIT);
 
-	MCP23S17_setAddress(0x20);
+	//MCP23S17_setAddress(0x20);
 	//MCP23S17_setTrisA(0x00);
 
 /*
@@ -52,28 +52,24 @@ int main()
 	// Test port expander
 	aux = 0xff;
 
+
 	irq_en = 1;
+
+	reg_intcon_bits->IRQ5IE = 1;
+	reg_intcon_bits->IRQ6IE = 1;
+	reg_intcon_bits->IRQ7IE = 1;
+	reg_intcon_bits->GIE = 1;
 
 	while(1) {
 		if (reg_portb_bits->B0) {
-			if (irq_en) {
-				disable_interrupts();
-				irq_en = 0;
-			}
 
+			reg_intcon_bits->GIE = 0;
 			for (rec = 0; rec < 10; rec++) {
 				MCP23S17_writePortA(aux);
 				reg_porta = aux;
 				aux++;
 			}
-
-		} else {
-			if (!irq_en) {
-				enable_interrupts();
-				irq_en = 1;
-				//__delay_ms(1);
-			}
-
+			reg_intcon_bits->GIE = 1;
 		}
 
 	}

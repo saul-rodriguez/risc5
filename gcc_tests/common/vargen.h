@@ -97,6 +97,9 @@ typedef struct {
 		unsigned TXIF	:1;
 		unsigned TMR0IF	:1;
 		unsigned SPIIF	:1;
+		unsigned IRQ5IF	:1;
+		unsigned IRQ6IF	:1;
+		unsigned IRQ7IF	:1;
 } INTFLAGS_bits_s;	
 
 extern volatile INTFLAGS_bits_s* reg_intflags_bits;
@@ -106,6 +109,10 @@ typedef struct {
 		unsigned TXIE	:1;
 		unsigned TMR0IE	:1;
 		unsigned SPIIE	:1;
+		unsigned IRQ5IE	:1;
+		unsigned IRQ6IE	:1;
+		unsigned IRQ7IE	:1;
+		unsigned GIE	:1;
 } INTCON_bits_s;	
 
 extern volatile INTCON_bits_s* reg_intcon_bits;

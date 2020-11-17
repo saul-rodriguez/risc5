@@ -64,13 +64,14 @@ wire irq_uart = 0;
 
 always @* begin
 		irq = 0;
-		irq[3] = uart_tx_int_flag_pico;
-		irq[4] = uart_rx_int_flag_pico;
-		irq[5] = irq_5;
-		irq[6] = irq_6;
-		irq[7] = irq_7;
-		irq[8] = timer0_int_flag_pico;
-		irq[9] = spi_master_int_flag_pico;
+		irq[3] = vargen_int_flag;
+	//	irq[3] = uart_tx_int_flag_pico;
+	//	irq[4] = uart_rx_int_flag_pico;
+	//	irq[5] = irq_5;
+	//	irq[6] = irq_6;
+	//	irq[7] = irq_7;
+	//	irq[8] = timer0_int_flag_pico;
+	//	irq[9] = spi_master_int_flag_pico;
 end
 
 // address & data bus 
@@ -248,7 +249,7 @@ ioport #(.ADDR(`PORTB),
 
 //          Interrupt bits order in INTCON and INTFLAG
 //  B7      B6      B5      B4       B3      B2      B1      B0
-//  -      -         -       -   SPI_MASTER TMR0   TX_UART RX_UART 
+//  GIE    IRQ7    IRQ6    IRQ5  SPI_MASTER  TMR0  TX_UART RX_UART 
 
 wire intcon_ready;
 wire [7:0] intcon;
@@ -278,14 +279,21 @@ wire intflags_ready;
 wire [31:0] intflags_data32;
 assign intflags_data32 = {{(24){1'b0}},intflags};
 
-wire [7:0] interrupt_flags ;
+wire [7:0] interrupt_flags;
 
 assign interrupt_flags[0] = uart_rx_int_flag;
 assign interrupt_flags[1] = uart_tx_int_flag;
 assign interrupt_flags[2] = timer0_int_flag;
 assign interrupt_flags[3] = spi_master_int_flag;
-assign interrupt_flags[7:4] = 0;
+assign interrupt_flags[4] = irq_5;
+assign interrupt_flags[5] = irq_6;
+assign interrupt_flags[6] = irq_7;
+assign interrupt_flags[7] = 0;
 
+
+wire vargen_int_flag;
+
+assign vargen_int_flag = intcon[7] & ( | (intcon[6:0] & interrupt_flags[6:0]));
 
 ioport #(.ADDR(`INTFLAGS),
 		  .WIDTH(8)
@@ -293,8 +301,8 @@ ioport #(.ADDR(`INTFLAGS),
 			.clk(clk),
 			.addr(mem_addr), 
 			.wdata(interrupt_flags),	
-			//.wen(1'b1), // it would also work  .wen(!mem_wstrb[0])
-			.wen(!mem_wstrb[0]), // it would also work  .wen(!mem_wstrb[0])
+			.wen(1'b1), // it would also work  .wen(!mem_wstrb[0])
+			//.wen(!mem_wstrb[0]), // it would also work  .wen(!mem_wstrb[0])
 			.resetn(resetn), 
 			.mem_valid(mem_valid),
 			.mem_ready(mem_ready),
