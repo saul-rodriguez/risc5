@@ -75,7 +75,8 @@ uint8_t EUSART1_Read(void)
     //eusart1RxLastError = eusart1RxStatusBuffer[eusart1RxTail];
 
     readValue = eusart1RxBuffer[eusart1RxTail++];
-    if(sizeof(eusart1RxBuffer) <= eusart1RxTail)
+    //if(sizeof(eusart1RxBuffer) <= eusart1RxTail)
+    if(EUSART1_RX_BUFFER_SIZE <= eusart1RxTail)
     {
         eusart1RxTail = 0;
     }
@@ -167,7 +168,8 @@ void EUSART1_Receive_ISR(void)
 void EUSART1_RxDataHandler(void){
     // use this default receive interrupt handler code
     eusart1RxBuffer[eusart1RxHead++] = reg_uart_rx;
-    if(sizeof(eusart1RxBuffer) <= eusart1RxHead)
+   // if(sizeof(eusart1RxBuffer) <= eusart1RxHead)
+    if(EUSART1_RX_BUFFER_SIZE <= eusart1RxHead)
     {
         eusart1RxHead = 0;
     }

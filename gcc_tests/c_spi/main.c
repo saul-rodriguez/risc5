@@ -8,7 +8,7 @@
 #include "hardware.h"
 #include "mcp23s17.h"
 
-//#define SPI_IRQ
+#define SPI_IRQ
 
 int main()
 {
@@ -73,18 +73,19 @@ int main()
 	volatile unsigned char data[5],i;
 
 	SPI1_Initialize_ISR(CLKS_PER_HALF_BIT);
-
+	reg_intcon_bits->IRQ5IE = 1;
+	reg_intcon_bits->IRQ6IE = 1;
+	reg_intcon_bits->IRQ7IE = 1;
+	reg_intcon_bits->GIE = 1;
 
 	for (i = 0; i < 5; i++) {
 			data[i] = 0xa0 + i;
 	}
 
-
-	for (i = 0; i < 5; i++) {
-		SPI1_Write(data[i]);
-	}
-
 	while(1) {
+		for (i = 0; i < 5; i++) {
+			SPI1_Write(data[i]);
+		}
 	}
 
 #endif

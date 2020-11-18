@@ -2,49 +2,9 @@
 Allocating common symbols
 Common symbol       size              file
 
-tmr_flag            0x1               test_timer.o
+tmr_flag            0x1               test_timer.o (symbol from plugin)
 TMR0_InterruptHandler
-                    0x4               timer0.o
-
-Discarded input sections
-
- .debug_line    0x0000000000000000      0x31e start.o
- .debug_info    0x0000000000000000       0x26 start.o
- .debug_abbrev  0x0000000000000000       0x14 start.o
- .debug_aranges
-                0x0000000000000000       0x20 start.o
- .debug_str     0x0000000000000000       0x4f start.o
- .debug_info    0x0000000000000000      0x1b3 vargen.o
- .debug_abbrev  0x0000000000000000       0xa4 vargen.o
- .debug_aranges
-                0x0000000000000000       0x18 vargen.o
- .debug_line    0x0000000000000000       0x3f vargen.o
- .debug_str     0x0000000000000000      0x190 vargen.o
- .debug_info    0x0000000000000000      0x2f2 timer0.o
- .debug_abbrev  0x0000000000000000      0x193 timer0.o
- .debug_loc     0x0000000000000000       0x42 timer0.o
- .debug_aranges
-                0x0000000000000000       0x20 timer0.o
- .debug_line    0x0000000000000000      0x250 timer0.o
- .debug_str     0x0000000000000000      0x294 timer0.o
- .debug_frame   0x0000000000000000      0x138 timer0.o
- .debug_info    0x0000000000000000      0x31f test_timer.o
- .debug_abbrev  0x0000000000000000      0x150 test_timer.o
- .debug_loc     0x0000000000000000       0x2a test_timer.o
- .debug_aranges
-                0x0000000000000000       0x28 test_timer.o
- .debug_ranges  0x0000000000000000       0x18 test_timer.o
- .debug_line    0x0000000000000000      0x247 test_timer.o
- .debug_str     0x0000000000000000      0x2b1 test_timer.o
- .debug_frame   0x0000000000000000       0x44 test_timer.o
- .debug_info    0x0000000000000000      0x256 interrupt_manager.o
- .debug_abbrev  0x0000000000000000       0xee interrupt_manager.o
- .debug_loc     0x0000000000000000       0x21 interrupt_manager.o
- .debug_aranges
-                0x0000000000000000       0x20 interrupt_manager.o
- .debug_line    0x0000000000000000      0x144 interrupt_manager.o
- .debug_str     0x0000000000000000      0x250 interrupt_manager.o
- .debug_frame   0x0000000000000000       0x20 interrupt_manager.o
+                    0x4               timer0.o (symbol from plugin)
 
 Memory Configuration
 
@@ -56,139 +16,116 @@ RAM              0x0000000000000000 0x0000000000000400 xrw
 Linker script and memory map
 
 
-.text           0x0000000000010000      0x328
+.text           0x0000000000010000      0x31c
                 0x0000000000010000                . = ALIGN (0x4)
  *(.text)
- .text          0x0000000000010000      0x17a start.o
- .text          0x000000000001017a        0x0 vargen.o
- .text          0x000000000001017a      0x11e timer0.o
-                0x000000000001017a                TMR0_Initialize
-                0x00000000000101a8                TMR0_StartTimer
-                0x00000000000101c6                TMR0_StopTimer
-                0x00000000000101f0                TMR0_ISR
-                0x000000000001021c                TMR0_WriteTimer
-                0x000000000001023a                TMR0_clear_int_flag
-                0x0000000000010256                TMR0_is_done
-                0x0000000000010270                TMR0_SetInterruptHandler
-                0x000000000001028a                TMR0_DefaultInterruptHandler
- .text          0x0000000000010298        0x8 test_timer.o
-                0x0000000000010298                myTMR0_handler
- .text          0x00000000000102a0       0x1e interrupt_manager.o
-                0x00000000000102a0                irq
+ .text          0x0000000000010000      0x176 start.o
+                0x000000000001009c                disable_irq
+                0x00000000000100ae                enable_irq
+ .text          0x0000000000010176      0x13c /tmp/ccHEFSme.ltrans0.ltrans.o
+                0x0000000000010298                irq
  *(.text*)
- .text.startup  0x00000000000102be       0x68 test_timer.o
-                0x00000000000102be                main
+ .text.startup  0x00000000000102b2       0x66 /tmp/ccHEFSme.ltrans0.ltrans.o
+                0x00000000000102b2                main
  *(.rodata)
  *(.rodata*)
  *(.srodata)
+ *fill*         0x0000000000010318        0x0 
+ .srodata       0x0000000000010318        0x4 /tmp/ccHEFSme.ltrans0.ltrans.o
  *(.srodata*)
  *(.eh_frame)
  *(.eh_frame*)
-                0x0000000000010328                . = ALIGN (0x4)
- *fill*         0x0000000000010326        0x2 
-                0x0000000000010328                _etext = .
-                0x0000000000010328                _sidata = _etext
+                0x000000000001031c                . = ALIGN (0x4)
+                0x000000000001031c                _etext = .
+                0x000000000001031c                _sidata = _etext
 
-.rela.dyn       0x0000000000010328        0x0
- .rela.text     0x0000000000010328        0x0 start.o
- .rela.text.startup
-                0x0000000000010328        0x0 start.o
+.rela.dyn       0x000000000001031c        0x0
+ .rela.text     0x000000000001031c        0x0 start.o
 
-.data           0x0000000000000000       0x10 load address 0x0000000000010328
+.data           0x0000000000000000        0x4 load address 0x000000000001031c
                 0x0000000000000000                . = ALIGN (0x4)
                 0x0000000000000000                _sdata = .
                 0x0000000000000000                _ram_start = .
  *(.data)
  .data          0x0000000000000000        0x1 start.o
- .data          0x0000000000000001        0x0 vargen.o
- .data          0x0000000000000001        0x0 timer0.o
- .data          0x0000000000000001        0x0 test_timer.o
- .data          0x0000000000000001        0x0 interrupt_manager.o
+ .data          0x0000000000000001        0x0 /tmp/ccHEFSme.ltrans0.ltrans.o
  *(.data*)
  *(.sdata)
- *fill*         0x0000000000000001        0x3 
- .sdata         0x0000000000000004        0xc vargen.o
-                0x0000000000000004                reg_timer0_conf_bits
-                0x0000000000000008                reg_intflags_bits
-                0x000000000000000c                reg_intcon_bits
  *(.sdata*)
  *(.init_array)
  *(.init_array*)
-                0x0000000000000010                . = ALIGN (0x4)
-                0x0000000000000010                _edata = .
+                0x0000000000000004                . = ALIGN (0x4)
+ *fill*         0x0000000000000001        0x3 
+                0x0000000000000004                _edata = .
 
-.bss            0x0000000000000010        0x8 load address 0x0000000000010338
-                0x0000000000000010                . = ALIGN (0x4)
-                0x0000000000000010                _sbss = .
+.bss            0x0000000000000004        0x8 load address 0x0000000000010320
+                0x0000000000000004                . = ALIGN (0x4)
+                0x0000000000000004                _sbss = .
  *(.bss)
- .bss           0x0000000000000010        0x0 start.o
- .bss           0x0000000000000010        0x0 vargen.o
- .bss           0x0000000000000010        0x0 timer0.o
- .bss           0x0000000000000010        0x0 test_timer.o
- .bss           0x0000000000000010        0x0 interrupt_manager.o
+ .bss           0x0000000000000004        0x0 start.o
+ .bss           0x0000000000000004        0x0 /tmp/ccHEFSme.ltrans0.ltrans.o
  *(.bss*)
  *(.sbss)
+ .sbss          0x0000000000000004        0x5 /tmp/ccHEFSme.ltrans0.ltrans.o
  *(.sbss*)
  *(COMMON)
- COMMON         0x0000000000000010        0x4 timer0.o
-                0x0000000000000010                TMR0_InterruptHandler
- COMMON         0x0000000000000014        0x1 test_timer.o
-                0x0000000000000014                tmr_flag
-                0x0000000000000018                . = ALIGN (0x4)
- *fill*         0x0000000000000015        0x3 
-                0x0000000000000018                _ebss = .
+                0x000000000000000c                . = ALIGN (0x4)
+ *fill*         0x0000000000000009        0x3 
+                0x000000000000000c                _ebss = .
 
-.heap           0x0000000000000018        0x0
-                0x0000000000000018                . = ALIGN (0x4)
-                0x0000000000000018                _heap_start = .
+.heap           0x000000000000000c        0x0
+                0x000000000000000c                . = ALIGN (0x4)
+                0x000000000000000c                _heap_start = .
 LOAD start.o
-LOAD vargen.o
-LOAD timer0.o
-LOAD test_timer.o
-LOAD interrupt_manager.o
+LOAD /tmp/ccHEFSme.ltrans0.ltrans.o
 OUTPUT(test_timer.elf elf32-littleriscv)
 
 .comment        0x0000000000000000       0x11
- .comment       0x0000000000000000       0x11 vargen.o
+ .comment       0x0000000000000000       0x11 /tmp/ccHEFSme.ltrans0.ltrans.o
                                          0x12 (size before relaxing)
- .comment       0x0000000000000011       0x12 timer0.o
- .comment       0x0000000000000011       0x12 test_timer.o
- .comment       0x0000000000000011       0x12 interrupt_manager.o
 
 Cross Reference Table
 
 Symbol                                            File
-TMR0_DefaultInterruptHandler                      timer0.o
-TMR0_ISR                                          timer0.o
-                                                  interrupt_manager.o
-TMR0_Initialize                                   timer0.o
-                                                  test_timer.o
-TMR0_InterruptHandler                             timer0.o
-TMR0_SetInterruptHandler                          timer0.o
-                                                  test_timer.o
-TMR0_StartTimer                                   timer0.o
-                                                  test_timer.o
-TMR0_StopTimer                                    timer0.o
-                                                  test_timer.o
-TMR0_WriteTimer                                   timer0.o
-                                                  test_timer.o
-TMR0_clear_int_flag                               timer0.o
-TMR0_is_done                                      timer0.o
+TMR0_DefaultInterruptHandler                      timer0.o (symbol from plugin)
+TMR0_ISR                                          timer0.o (symbol from plugin)
+                                                  interrupt_manager.o (symbol from plugin)
+TMR0_Initialize                                   timer0.o (symbol from plugin)
+                                                  test_timer.o (symbol from plugin)
+TMR0_InterruptHandler                             timer0.o (symbol from plugin)
+TMR0_SetInterruptHandler                          timer0.o (symbol from plugin)
+                                                  test_timer.o (symbol from plugin)
+TMR0_StartTimer                                   timer0.o (symbol from plugin)
+                                                  test_timer.o (symbol from plugin)
+TMR0_StopTimer                                    timer0.o (symbol from plugin)
+TMR0_WriteTimer                                   timer0.o (symbol from plugin)
+                                                  test_timer.o (symbol from plugin)
+TMR0_clear_int_flag                               timer0.o (symbol from plugin)
+TMR0_is_done                                      timer0.o (symbol from plugin)
 _ebss                                             start.o
 _edata                                            start.o
 _sbss                                             start.o
 _sdata                                            start.o
 _sidata                                           start.o
-irq                                               interrupt_manager.o
+disable_interrupts                                vargen.o (symbol from plugin)
+disable_irq                                       start.o
+enable_interrupts                                 vargen.o (symbol from plugin)
+enable_irq                                        start.o
+irq                                               /tmp/ccHEFSme.ltrans0.ltrans.o
+                                                  interrupt_manager.o (symbol from plugin)
                                                   start.o
-main                                              test_timer.o
+main                                              /tmp/ccHEFSme.ltrans0.ltrans.o
+                                                  test_timer.o (symbol from plugin)
                                                   start.o
-myTMR0_handler                                    test_timer.o
-reg_intcon_bits                                   vargen.o
-                                                  interrupt_manager.o
-                                                  test_timer.o
-reg_intflags_bits                                 vargen.o
-                                                  interrupt_manager.o
-reg_timer0_conf_bits                              vargen.o
-                                                  timer0.o
-tmr_flag                                          test_timer.o
+myTMR0_handler                                    test_timer.o (symbol from plugin)
+reg_intcon_bits                                   vargen.o (symbol from plugin)
+                                                  interrupt_manager.o (symbol from plugin)
+                                                  test_timer.o (symbol from plugin)
+reg_intflags_bits                                 vargen.o (symbol from plugin)
+                                                  interrupt_manager.o (symbol from plugin)
+reg_porta_bits                                    vargen.o (symbol from plugin)
+reg_portb_bits                                    vargen.o (symbol from plugin)
+reg_spi_master_conf_bits                          vargen.o (symbol from plugin)
+reg_timer0_conf_bits                              vargen.o (symbol from plugin)
+                                                  timer0.o (symbol from plugin)
+tmr_flag                                          test_timer.o (symbol from plugin)

@@ -1,1331 +1,390 @@
 	.file	"timer0.c"
 	.option nopic
-# GNU C17 (GCC) version 8.2.0 (riscv32-unknown-elf)
-#	compiled by GNU C version 7.5.0, GMP version 6.1.2, MPFR version 4.0.1, MPC version 1.1.0, isl version none
-# GGC heuristics: --param ggc-min-expand=30 --param ggc-min-heapsize=4096
-# options passed:  ../common/timer0.c -march=rv32imc -mabi=ilp32 -g -O3
-# -Wall -fverbose-asm
-# options enabled:  -faggressive-loop-optimizations -falign-functions
-# -falign-jumps -falign-labels -falign-loops -fauto-inc-dec
-# -fbranch-count-reg -fcaller-saves -fchkp-check-incomplete-type
-# -fchkp-check-read -fchkp-check-write -fchkp-instrument-calls
-# -fchkp-narrow-bounds -fchkp-optimize -fchkp-store-bounds
-# -fchkp-use-static-bounds -fchkp-use-static-const-bounds
-# -fchkp-use-wrappers -fcode-hoisting -fcombine-stack-adjustments -fcommon
-# -fcompare-elim -fcprop-registers -fcrossjumping -fcse-follow-jumps
-# -fdefer-pop -fdelete-null-pointer-checks -fdevirtualize
-# -fdevirtualize-speculatively -fdwarf2-cfi-asm -fearly-inlining
-# -feliminate-unused-debug-types -fexpensive-optimizations
-# -fforward-propagate -ffp-int-builtin-inexact -ffunction-cse -fgcse
-# -fgcse-after-reload -fgcse-lm -fgnu-runtime -fgnu-unique
-# -fguess-branch-probability -fhoist-adjacent-loads -fident -fif-conversion
-# -fif-conversion2 -findirect-inlining -finline -finline-atomics
-# -finline-functions -finline-functions-called-once
-# -finline-small-functions -fipa-bit-cp -fipa-cp -fipa-cp-clone -fipa-icf
-# -fipa-icf-functions -fipa-icf-variables -fipa-profile -fipa-pure-const
-# -fipa-ra -fipa-reference -fipa-sra -fipa-vrp -fira-hoist-pressure
-# -fira-share-save-slots -fira-share-spill-slots
-# -fisolate-erroneous-paths-dereference -fivopts -fkeep-static-consts
-# -fleading-underscore -flifetime-dse -floop-interchange
-# -floop-unroll-and-jam -flra-remat -flto-odr-type-merging -fmath-errno
-# -fmerge-constants -fmerge-debug-strings -fmove-loop-invariants
-# -fomit-frame-pointer -foptimize-sibling-calls -foptimize-strlen
-# -fpartial-inlining -fpeel-loops -fpeephole -fpeephole2 -fplt
-# -fpredictive-commoning -fprefetch-loop-arrays -free -freg-struct-return
-# -freorder-blocks -freorder-functions -frerun-cse-after-loop
-# -fsched-critical-path-heuristic -fsched-dep-count-heuristic
-# -fsched-group-heuristic -fsched-interblock -fsched-last-insn-heuristic
-# -fsched-rank-heuristic -fsched-spec -fsched-spec-insn-heuristic
-# -fsched-stalled-insns-dep -fschedule-fusion -fschedule-insns
-# -fschedule-insns2 -fsection-anchors -fsemantic-interposition
-# -fshow-column -fshrink-wrap -fshrink-wrap-separate -fsigned-zeros
-# -fsplit-ivs-in-unroller -fsplit-loops -fsplit-paths -fsplit-wide-types
-# -fssa-backprop -fssa-phiopt -fstdarg-opt -fstore-merging
-# -fstrict-aliasing -fstrict-volatile-bitfields -fsync-libcalls
-# -fthread-jumps -ftoplevel-reorder -ftrapping-math -ftree-bit-ccp
-# -ftree-builtin-call-dce -ftree-ccp -ftree-ch -ftree-coalesce-vars
-# -ftree-copy-prop -ftree-dce -ftree-dominator-opts -ftree-dse
-# -ftree-forwprop -ftree-fre -ftree-loop-distribute-patterns
-# -ftree-loop-distribution -ftree-loop-if-convert -ftree-loop-im
-# -ftree-loop-ivcanon -ftree-loop-optimize -ftree-loop-vectorize
-# -ftree-parallelize-loops= -ftree-partial-pre -ftree-phiprop -ftree-pre
-# -ftree-pta -ftree-reassoc -ftree-scev-cprop -ftree-sink
-# -ftree-slp-vectorize -ftree-slsr -ftree-sra -ftree-switch-conversion
-# -ftree-tail-merge -ftree-ter -ftree-vrp -funit-at-a-time -funswitch-loops
-# -fvar-tracking -fvar-tracking-assignments -fverbose-asm
-# -fzero-initialized-in-bss -mdiv -mexplicit-relocs -mplt -mstrict-align
-
+	.section	.gnu.lto_.profile.3f7090b637a4b036,"",@progbits
+	.string	"x\234cg```\004b\006"
+	.string	""
+	.string	"M"
+	.ascii	"\t"
 	.text
-.Ltext0:
-	.cfi_sections	.debug_frame
-	.comm	TMR0_InterruptHandler,4,4
-	.align	1
-	.globl	TMR0_Initialize
-	.type	TMR0_Initialize, @function
-TMR0_Initialize:
-.LFB0:
-	.file 1 "../common/timer0.c"
-	.loc 1 9 1
-	.cfi_startproc
-.LVL0:
-	addi	sp,sp,-32	#,,
-	.cfi_def_cfa_offset 32
-	sw	ra,28(sp)	#,
-	sw	s0,24(sp)	#,
-	.cfi_offset 1, -4
-	.cfi_offset 8, -8
-	addi	s0,sp,32	#,,
-	.cfi_def_cfa 8, 0
-	sw	a0,-20(s0)	# conf, conf
-	.loc 1 11 2
-	li	a5,1048576		# tmp73,
-	addi	a5,a5,32	#, _1, tmp73
-# ../common/timer0.c:11: 	reg_timer0_conf = conf;
-	.loc 1 11 18 is_stmt 0
-	lw	a4,-20(s0)		# tmp74, conf
-	sw	a4,0(a5)	# tmp74, *_1
-	.loc 1 18 2 is_stmt 1
-	lui	a5,%hi(TMR0_DefaultInterruptHandler)	# tmp75,
-	addi	a0,a5,%lo(TMR0_DefaultInterruptHandler)	#, tmp75,
-.LVL1:
-	call	TMR0_SetInterruptHandler		#
-.LVL2:
-# ../common/timer0.c:20: }
-	.loc 1 20 1 is_stmt 0
-	nop	
-	lw	ra,28(sp)		#,
-	.cfi_restore 1
-	lw	s0,24(sp)		#,
-	.cfi_restore 8
-.LVL3:
-	addi	sp,sp,32	#,,
-	.cfi_def_cfa_register 2
-.LVL4:
-	jr	ra		#
-	.cfi_endproc
-.LFE0:
-	.size	TMR0_Initialize, .-TMR0_Initialize
-	.align	1
-	.globl	TMR0_StartTimer
-	.type	TMR0_StartTimer, @function
-TMR0_StartTimer:
-.LFB1:
-	.loc 1 23 1 is_stmt 1
-	.cfi_startproc
-	addi	sp,sp,-16	#,,
-	.cfi_def_cfa_offset 16
-	sw	s0,12(sp)	#,
-	.cfi_offset 8, -4
-	addi	s0,sp,16	#,,
-	.cfi_def_cfa 8, 0
-	.loc 1 24 2
-# ../common/timer0.c:24: 	reg_timer0_conf_bits->GO = 1;
-	.loc 1 24 22 is_stmt 0
-	lui	a5,%hi(reg_timer0_conf_bits)	# tmp73,
-	lw	a5,%lo(reg_timer0_conf_bits)(a5)		# reg_timer0_conf_bits.0_1, reg_timer0_conf_bits
-# ../common/timer0.c:24: 	reg_timer0_conf_bits->GO = 1;
-	.loc 1 24 27
-	lbu	a4,0(a5)	# tmp75, reg_timer0_conf_bits.0_1->GO
-	ori	a4,a4,2	#, tmp76, tmp75
-	sb	a4,0(a5)	# tmp77, reg_timer0_conf_bits.0_1->GO
-# ../common/timer0.c:25: }
-	.loc 1 25 1
-	nop	
-	lw	s0,12(sp)		#,
-	.cfi_restore 8
-	addi	sp,sp,16	#,,
-	.cfi_def_cfa_register 2
-	jr	ra		#
-	.cfi_endproc
-.LFE1:
-	.size	TMR0_StartTimer, .-TMR0_StartTimer
-	.align	1
-	.globl	TMR0_StopTimer
-	.type	TMR0_StopTimer, @function
-TMR0_StopTimer:
-.LFB2:
-	.loc 1 31 1 is_stmt 1
-	.cfi_startproc
-	addi	sp,sp,-16	#,,
-	.cfi_def_cfa_offset 16
-	sw	s0,12(sp)	#,
-	.cfi_offset 8, -4
-	addi	s0,sp,16	#,,
-	.cfi_def_cfa 8, 0
-	.loc 1 32 2
-# ../common/timer0.c:32: 	reg_timer0_conf_bits->EN = 0;
-	.loc 1 32 22 is_stmt 0
-	lui	a5,%hi(reg_timer0_conf_bits)	# tmp74,
-	lw	a5,%lo(reg_timer0_conf_bits)(a5)		# reg_timer0_conf_bits.1_1, reg_timer0_conf_bits
-# ../common/timer0.c:32: 	reg_timer0_conf_bits->EN = 0;
-	.loc 1 32 27
-	lbu	a4,0(a5)	# tmp76, reg_timer0_conf_bits.1_1->EN
-	andi	a4,a4,-5	#, tmp77, tmp76
-	sb	a4,0(a5)	# tmp78, reg_timer0_conf_bits.1_1->EN
-	.loc 1 33 2 is_stmt 1
-# ../common/timer0.c:33: 	reg_timer0_conf_bits->GO = 0;
-	.loc 1 33 22 is_stmt 0
-	lui	a5,%hi(reg_timer0_conf_bits)	# tmp79,
-	lw	a5,%lo(reg_timer0_conf_bits)(a5)		# reg_timer0_conf_bits.2_2, reg_timer0_conf_bits
-# ../common/timer0.c:33: 	reg_timer0_conf_bits->GO = 0;
-	.loc 1 33 27
-	lbu	a4,0(a5)	# tmp81, reg_timer0_conf_bits.2_2->GO
-	andi	a4,a4,-3	#, tmp82, tmp81
-	sb	a4,0(a5)	# tmp83, reg_timer0_conf_bits.2_2->GO
-# ../common/timer0.c:34: }
-	.loc 1 34 1
-	nop	
-	lw	s0,12(sp)		#,
-	.cfi_restore 8
-	addi	sp,sp,16	#,,
-	.cfi_def_cfa_register 2
-	jr	ra		#
-	.cfi_endproc
-.LFE2:
-	.size	TMR0_StopTimer, .-TMR0_StopTimer
-	.align	1
-	.globl	TMR0_ISR
-	.type	TMR0_ISR, @function
-TMR0_ISR:
-.LFB3:
-	.loc 1 39 1 is_stmt 1
-	.cfi_startproc
-	addi	sp,sp,-16	#,,
-	.cfi_def_cfa_offset 16
-	sw	ra,12(sp)	#,
-	sw	s0,8(sp)	#,
-	.cfi_offset 1, -4
-	.cfi_offset 8, -8
-	addi	s0,sp,16	#,,
-	.cfi_def_cfa 8, 0
-	.loc 1 40 2
-# ../common/timer0.c:40: 	reg_timer0_conf_bits->INT_TMR = 0;
-	.loc 1 40 22 is_stmt 0
-	lui	a5,%hi(reg_timer0_conf_bits)	# tmp75,
-	lw	a5,%lo(reg_timer0_conf_bits)(a5)		# reg_timer0_conf_bits.3_1, reg_timer0_conf_bits
-# ../common/timer0.c:40: 	reg_timer0_conf_bits->INT_TMR = 0;
-	.loc 1 40 32
-	lbu	a4,0(a5)	# tmp77, reg_timer0_conf_bits.3_1->INT_TMR
-	andi	a4,a4,-2	#, tmp78, tmp77
-	sb	a4,0(a5)	# tmp79, reg_timer0_conf_bits.3_1->INT_TMR
-	.loc 1 42 2 is_stmt 1
-# ../common/timer0.c:42: 	if(TMR0_InterruptHandler) {
-	.loc 1 42 5 is_stmt 0
-	lui	a5,%hi(TMR0_InterruptHandler)	# tmp80,
-	lw	a5,%lo(TMR0_InterruptHandler)(a5)		# TMR0_InterruptHandler.4_2, TMR0_InterruptHandler
-# ../common/timer0.c:42: 	if(TMR0_InterruptHandler) {
-	.loc 1 42 4
-	beqz	a5,.L6	#, TMR0_InterruptHandler.4_2,
-	.loc 1 43 3 is_stmt 1
-	lui	a5,%hi(TMR0_InterruptHandler)	# tmp81,
-	lw	a5,%lo(TMR0_InterruptHandler)(a5)		# TMR0_InterruptHandler.5_3, TMR0_InterruptHandler
-	jalr	a5		# TMR0_InterruptHandler.5_3
-.LVL5:
-.L6:
-# ../common/timer0.c:45: }
-	.loc 1 45 1 is_stmt 0
-	nop	
-	lw	ra,12(sp)		#,
-	.cfi_restore 1
-	lw	s0,8(sp)		#,
-	.cfi_restore 8
-	addi	sp,sp,16	#,,
-	.cfi_def_cfa_register 2
-	jr	ra		#
-	.cfi_endproc
-.LFE3:
-	.size	TMR0_ISR, .-TMR0_ISR
-	.align	1
-	.globl	TMR0_WriteTimer
-	.type	TMR0_WriteTimer, @function
-TMR0_WriteTimer:
-.LFB4:
-	.loc 1 48 1 is_stmt 1
-	.cfi_startproc
-.LVL6:
-	addi	sp,sp,-32	#,,
-	.cfi_def_cfa_offset 32
-	sw	s0,28(sp)	#,
-	.cfi_offset 8, -4
-	addi	s0,sp,32	#,,
-	.cfi_def_cfa 8, 0
-	sw	a0,-20(s0)	# timerVal, timerVal
-	.loc 1 49 2
-	li	a5,1048576		# tmp73,
-	addi	a5,a5,28	#, _1, tmp73
-# ../common/timer0.c:49: 	reg_timer0 = timerVal;
-	.loc 1 49 13 is_stmt 0
-	lw	a4,-20(s0)		# tmp74, timerVal
-	sw	a4,0(a5)	# tmp74, *_1
-# ../common/timer0.c:50: }
-	.loc 1 50 1
-	nop	
-	lw	s0,28(sp)		#,
-	.cfi_restore 8
-	addi	sp,sp,32	#,,
-	.cfi_def_cfa_register 2
-	jr	ra		#
-	.cfi_endproc
-.LFE4:
-	.size	TMR0_WriteTimer, .-TMR0_WriteTimer
-	.align	1
-	.globl	TMR0_clear_int_flag
-	.type	TMR0_clear_int_flag, @function
-TMR0_clear_int_flag:
-.LFB5:
-	.loc 1 54 1 is_stmt 1
-	.cfi_startproc
-	addi	sp,sp,-16	#,,
-	.cfi_def_cfa_offset 16
-	sw	s0,12(sp)	#,
-	.cfi_offset 8, -4
-	addi	s0,sp,16	#,,
-	.cfi_def_cfa 8, 0
-	.loc 1 55 2
-# ../common/timer0.c:55: 	reg_timer0_conf_bits->INT_TMR = 0;
-	.loc 1 55 22 is_stmt 0
-	lui	a5,%hi(reg_timer0_conf_bits)	# tmp73,
-	lw	a5,%lo(reg_timer0_conf_bits)(a5)		# reg_timer0_conf_bits.6_1, reg_timer0_conf_bits
-# ../common/timer0.c:55: 	reg_timer0_conf_bits->INT_TMR = 0;
-	.loc 1 55 32
-	lbu	a4,0(a5)	# tmp75, reg_timer0_conf_bits.6_1->INT_TMR
-	andi	a4,a4,-2	#, tmp76, tmp75
-	sb	a4,0(a5)	# tmp77, reg_timer0_conf_bits.6_1->INT_TMR
-# ../common/timer0.c:56: }
-	.loc 1 56 1
-	nop	
-	lw	s0,12(sp)		#,
-	.cfi_restore 8
-	addi	sp,sp,16	#,,
-	.cfi_def_cfa_register 2
-	jr	ra		#
-	.cfi_endproc
-.LFE5:
-	.size	TMR0_clear_int_flag, .-TMR0_clear_int_flag
-	.align	1
-	.globl	TMR0_is_done
-	.type	TMR0_is_done, @function
-TMR0_is_done:
-.LFB6:
-	.loc 1 59 1 is_stmt 1
-	.cfi_startproc
-	addi	sp,sp,-16	#,,
-	.cfi_def_cfa_offset 16
-	sw	s0,12(sp)	#,
-	.cfi_offset 8, -4
-	addi	s0,sp,16	#,,
-	.cfi_def_cfa 8, 0
-	.loc 1 60 2
-# ../common/timer0.c:60: 	return (reg_timer0_conf_bits->INT_TMR ? true : false);
-	.loc 1 60 30 is_stmt 0
-	lui	a5,%hi(reg_timer0_conf_bits)	# tmp76,
-	lw	a5,%lo(reg_timer0_conf_bits)(a5)		# reg_timer0_conf_bits.7_1, reg_timer0_conf_bits
-	lw	a5,0(a5)		# tmp79, *reg_timer0_conf_bits.7_1
-	andi	a5,a5,1	#, tmp80, tmp78
-	andi	a5,a5,0xff	# _2, tmp80
-# ../common/timer0.c:61: }
-	.loc 1 61 1
-	mv	a0,a5	#, <retval>
-	lw	s0,12(sp)		#,
-	.cfi_restore 8
-	addi	sp,sp,16	#,,
-	.cfi_def_cfa_register 2
-	jr	ra		#
-	.cfi_endproc
-.LFE6:
-	.size	TMR0_is_done, .-TMR0_is_done
-	.align	1
-	.globl	TMR0_SetInterruptHandler
-	.type	TMR0_SetInterruptHandler, @function
-TMR0_SetInterruptHandler:
-.LFB7:
-	.loc 1 63 63 is_stmt 1
-	.cfi_startproc
-.LVL7:
-	addi	sp,sp,-32	#,,
-	.cfi_def_cfa_offset 32
-	sw	s0,28(sp)	#,
-	.cfi_offset 8, -4
-	addi	s0,sp,32	#,,
-	.cfi_def_cfa 8, 0
-	sw	a0,-20(s0)	# InterruptHandler, InterruptHandler
-	.loc 1 64 5
-# ../common/timer0.c:64:     TMR0_InterruptHandler = InterruptHandler;
-	.loc 1 64 27 is_stmt 0
-	lui	a5,%hi(TMR0_InterruptHandler)	# tmp72,
-	lw	a4,-20(s0)		# tmp73, InterruptHandler
-	sw	a4,%lo(TMR0_InterruptHandler)(a5)	# tmp73, TMR0_InterruptHandler
-# ../common/timer0.c:65: }
-	.loc 1 65 1
-	nop	
-	lw	s0,28(sp)		#,
-	.cfi_restore 8
-	addi	sp,sp,32	#,,
-	.cfi_def_cfa_register 2
-	jr	ra		#
-	.cfi_endproc
-.LFE7:
-	.size	TMR0_SetInterruptHandler, .-TMR0_SetInterruptHandler
-	.align	1
-	.globl	TMR0_DefaultInterruptHandler
-	.type	TMR0_DefaultInterruptHandler, @function
-TMR0_DefaultInterruptHandler:
-.LFB8:
-	.loc 1 67 40 is_stmt 1
-	.cfi_startproc
-	addi	sp,sp,-16	#,,
-	.cfi_def_cfa_offset 16
-	sw	s0,12(sp)	#,
-	.cfi_offset 8, -4
-	addi	s0,sp,16	#,,
-	.cfi_def_cfa 8, 0
-	.loc 1 70 1
-	nop	
-	lw	s0,12(sp)		#,
-	.cfi_restore 8
-	addi	sp,sp,16	#,,
-	.cfi_def_cfa_register 2
-	jr	ra		#
-	.cfi_endproc
-.LFE8:
-	.size	TMR0_DefaultInterruptHandler, .-TMR0_DefaultInterruptHandler
-.Letext0:
-	.file 2 "/opt/riscv32i/riscv32-unknown-elf/include/machine/_default_types.h"
-	.file 3 "/opt/riscv32i/riscv32-unknown-elf/include/sys/_stdint.h"
-	.file 4 "../common/vargen.h"
-	.file 5 "../common/timer0.h"
-	.section	.debug_info,"",@progbits
-.Ldebug_info0:
-	.4byte	0x2ee
-	.2byte	0x4
-	.4byte	.Ldebug_abbrev0
-	.byte	0x4
-	.byte	0x1
-	.4byte	.LASF39
-	.byte	0xc
-	.4byte	.LASF40
-	.4byte	.LASF41
-	.4byte	.Ltext0
-	.4byte	.Letext0-.Ltext0
-	.4byte	.Ldebug_line0
-	.byte	0x2
-	.byte	0x1
-	.byte	0x6
-	.4byte	.LASF0
-	.byte	0x2
-	.byte	0x1
-	.byte	0x8
-	.4byte	.LASF1
-	.byte	0x2
-	.byte	0x2
-	.byte	0x5
-	.4byte	.LASF2
-	.byte	0x2
-	.byte	0x2
-	.byte	0x7
-	.4byte	.LASF3
-	.byte	0x2
-	.byte	0x4
-	.byte	0x5
-	.4byte	.LASF4
-	.byte	0x3
-	.4byte	.LASF9
-	.byte	0x2
-	.byte	0x4f
-	.byte	0x19
-	.4byte	0x54
-	.byte	0x2
-	.byte	0x4
-	.byte	0x7
-	.4byte	.LASF5
-	.byte	0x2
-	.byte	0x8
-	.byte	0x5
-	.4byte	.LASF6
-	.byte	0x2
-	.byte	0x8
-	.byte	0x7
-	.4byte	.LASF7
-	.byte	0x4
-	.byte	0x4
-	.byte	0x5
-	.string	"int"
-	.byte	0x2
-	.byte	0x4
-	.byte	0x7
-	.4byte	.LASF8
-	.byte	0x3
-	.4byte	.LASF10
-	.byte	0x3
-	.byte	0x30
-	.byte	0x14
-	.4byte	0x48
-	.byte	0x5
-	.byte	0x4
-	.byte	0x4
-	.byte	0x3c
-	.byte	0x9
-	.4byte	0xbd
-	.byte	0x6
-	.4byte	.LASF11
-	.byte	0x4
-	.byte	0x3d
-	.byte	0xc
-	.4byte	0x70
-	.byte	0x4
-	.byte	0x1
-	.byte	0x1f
-	.byte	0
-	.byte	0x6
-	.4byte	.LASF12
-	.byte	0x4
-	.byte	0x3e
-	.byte	0xc
-	.4byte	0x70
-	.byte	0x4
-	.byte	0x1
-	.byte	0x1e
-	.byte	0
-	.byte	0x6
-	.4byte	.LASF13
-	.byte	0x4
-	.byte	0x3f
-	.byte	0xc
-	.4byte	0x70
-	.byte	0x4
-	.byte	0x1
-	.byte	0x1d
-	.byte	0
-	.byte	0
-	.byte	0x3
-	.4byte	.LASF14
-	.byte	0x4
-	.byte	0x40
-	.byte	0x3
-	.4byte	0x83
-	.byte	0x7
-	.4byte	0xbd
-	.byte	0x8
-	.4byte	.LASF19
-	.byte	0x4
-	.byte	0x42
-	.byte	0x22
-	.4byte	0xda
-	.byte	0x9
-	.byte	0x4
-	.4byte	0xc9
-	.byte	0x5
-	.byte	0x4
-	.byte	0x4
-	.byte	0x44
-	.byte	0x9
-	.4byte	0x11a
-	.byte	0x6
-	.4byte	.LASF15
-	.byte	0x4
-	.byte	0x45
-	.byte	0xc
-	.4byte	0x70
-	.byte	0x4
-	.byte	0x1
-	.byte	0x1f
-	.byte	0
-	.byte	0x6
-	.4byte	.LASF16
-	.byte	0x4
-	.byte	0x46
-	.byte	0xc
-	.4byte	0x70
-	.byte	0x4
-	.byte	0x1
-	.byte	0x1e
-	.byte	0
-	.byte	0x6
-	.4byte	.LASF17
-	.byte	0x4
-	.byte	0x47
-	.byte	0xc
-	.4byte	0x70
-	.byte	0x4
-	.byte	0x1
-	.byte	0x1d
-	.byte	0
-	.byte	0
-	.byte	0x3
-	.4byte	.LASF18
-	.byte	0x4
-	.byte	0x48
-	.byte	0x3
-	.4byte	0xe0
-	.byte	0x7
-	.4byte	0x11a
-	.byte	0x8
-	.4byte	.LASF20
-	.byte	0x4
-	.byte	0x4a
-	.byte	0x20
-	.4byte	0x137
-	.byte	0x9
-	.byte	0x4
-	.4byte	0x126
-	.byte	0x5
-	.byte	0x4
-	.byte	0x4
-	.byte	0x4c
-	.byte	0x9
-	.4byte	0x185
-	.byte	0x6
-	.4byte	.LASF21
-	.byte	0x4
-	.byte	0x4d
-	.byte	0xc
-	.4byte	0x70
-	.byte	0x4
-	.byte	0x1
-	.byte	0x1f
-	.byte	0
-	.byte	0xa
-	.string	"GO"
-	.byte	0x4
-	.byte	0x4e
-	.byte	0xc
-	.4byte	0x70
-	.byte	0x4
-	.byte	0x1
-	.byte	0x1e
-	.byte	0
-	.byte	0xa
-	.string	"EN"
-	.byte	0x4
-	.byte	0x4f
-	.byte	0xc
-	.4byte	0x70
-	.byte	0x4
-	.byte	0x1
-	.byte	0x1d
-	.byte	0
-	.byte	0x6
-	.4byte	.LASF22
-	.byte	0x4
-	.byte	0x50
-	.byte	0xc
-	.4byte	0x70
-	.byte	0x4
-	.byte	0x1
-	.byte	0x1c
-	.byte	0
-	.byte	0
-	.byte	0x3
-	.4byte	.LASF23
-	.byte	0x4
-	.byte	0x51
-	.byte	0x3
-	.4byte	0x13d
-	.byte	0x7
-	.4byte	0x185
-	.byte	0x8
-	.4byte	.LASF24
-	.byte	0x4
-	.byte	0x53
-	.byte	0x25
-	.4byte	0x1a2
-	.byte	0x9
-	.byte	0x4
-	.4byte	0x191
-	.byte	0xb
-	.byte	0x7
-	.byte	0x4
-	.4byte	0x70
-	.byte	0x5
-	.byte	0x6
-	.byte	0xe
-	.4byte	0x1cd
-	.byte	0xc
-	.4byte	.LASF21
-	.byte	0x1
-	.byte	0xd
-	.string	"GO"
-	.byte	0x2
-	.byte	0xd
-	.string	"EN"
-	.byte	0x4
-	.byte	0xc
-	.4byte	.LASF25
-	.byte	0x8
-	.byte	0
-	.byte	0x3
-	.4byte	.LASF26
-	.byte	0x5
-	.byte	0xb
-	.byte	0x3
-	.4byte	0x1a8
-	.byte	0xe
-	.byte	0x8
-	.4byte	.LASF27
-	.byte	0x5
-	.byte	0xd
-	.byte	0xf
-	.4byte	0x1e6
-	.byte	0x9
-	.byte	0x4
-	.4byte	0x1d9
-	.byte	0xf
-	.4byte	0x1da
-	.byte	0x1
-	.byte	0x6
-	.byte	0x8
-	.byte	0x5
-	.byte	0x3
-	.4byte	TMR0_InterruptHandler
-	.byte	0x10
-	.4byte	.LASF29
-	.byte	0x1
-	.byte	0x43
-	.byte	0x6
-	.4byte	.LFB8
-	.4byte	.LFE8-.LFB8
-	.byte	0x1
-	.byte	0x9c
-	.byte	0x11
-	.4byte	.LASF31
-	.byte	0x1
-	.byte	0x3f
-	.byte	0x6
-	.4byte	.LFB7
-	.4byte	.LFE7-.LFB7
-	.byte	0x1
-	.byte	0x9c
-	.4byte	0x231
-	.byte	0x12
-	.4byte	.LASF33
-	.byte	0x1
-	.byte	0x3f
-	.byte	0x27
-	.4byte	0x1e6
-	.byte	0x1
-	.byte	0x5a
-	.byte	0
-	.byte	0x13
-	.4byte	.LASF42
-	.byte	0x1
-	.byte	0x3a
-	.byte	0x6
-	.4byte	0x247
-	.4byte	.LFB6
-	.4byte	.LFE6-.LFB6
-	.byte	0x1
-	.byte	0x9c
-	.byte	0x2
-	.byte	0x1
-	.byte	0x2
-	.4byte	.LASF28
-	.byte	0x10
-	.4byte	.LASF30
-	.byte	0x1
-	.byte	0x35
-	.byte	0x6
-	.4byte	.LFB5
-	.4byte	.LFE5-.LFB5
-	.byte	0x1
-	.byte	0x9c
-	.byte	0x11
-	.4byte	.LASF32
-	.byte	0x1
-	.byte	0x2f
-	.byte	0x6
-	.4byte	.LFB4
-	.4byte	.LFE4-.LFB4
-	.byte	0x1
-	.byte	0x9c
-	.4byte	0x285
-	.byte	0x12
-	.4byte	.LASF34
-	.byte	0x1
-	.byte	0x2f
-	.byte	0x1f
-	.4byte	0x77
-	.byte	0x1
-	.byte	0x5a
-	.byte	0
-	.byte	0x14
-	.4byte	.LASF35
-	.byte	0x1
-	.byte	0x26
-	.byte	0x6
-	.4byte	.LFB3
-	.4byte	.LFE3-.LFB3
-	.byte	0x1
-	.byte	0x9c
-	.byte	0x10
-	.4byte	.LASF36
-	.byte	0x1
-	.byte	0x1e
-	.byte	0x6
-	.4byte	.LFB2
-	.4byte	.LFE2-.LFB2
-	.byte	0x1
-	.byte	0x9c
-	.byte	0x10
-	.4byte	.LASF37
-	.byte	0x1
-	.byte	0x16
-	.byte	0x6
-	.4byte	.LFB1
-	.4byte	.LFE1-.LFB1
-	.byte	0x1
-	.byte	0x9c
-	.byte	0x15
-	.4byte	.LASF43
-	.byte	0x1
-	.byte	0x8
-	.byte	0x6
-	.4byte	.LFB0
-	.4byte	.LFE0-.LFB0
-	.byte	0x1
-	.byte	0x9c
-	.byte	0x16
-	.4byte	.LASF38
-	.byte	0x1
-	.byte	0x8
-	.byte	0x22
-	.4byte	0x1cd
-	.4byte	.LLST0
-	.byte	0x17
-	.4byte	.LVL2
-	.4byte	0x20c
-	.byte	0x18
-	.byte	0x1
-	.byte	0x5a
-	.byte	0x5
-	.byte	0x3
-	.4byte	TMR0_DefaultInterruptHandler
-	.byte	0
-	.byte	0
-	.byte	0
-	.section	.debug_abbrev,"",@progbits
-.Ldebug_abbrev0:
-	.byte	0x1
-	.byte	0x11
-	.byte	0x1
-	.byte	0x25
-	.byte	0xe
-	.byte	0x13
-	.byte	0xb
-	.byte	0x3
-	.byte	0xe
-	.byte	0x1b
-	.byte	0xe
-	.byte	0x11
-	.byte	0x1
-	.byte	0x12
-	.byte	0x6
-	.byte	0x10
-	.byte	0x17
-	.byte	0
-	.byte	0
-	.byte	0x2
-	.byte	0x24
-	.byte	0
-	.byte	0xb
-	.byte	0xb
-	.byte	0x3e
-	.byte	0xb
-	.byte	0x3
-	.byte	0xe
-	.byte	0
-	.byte	0
-	.byte	0x3
-	.byte	0x16
-	.byte	0
-	.byte	0x3
-	.byte	0xe
-	.byte	0x3a
-	.byte	0xb
-	.byte	0x3b
-	.byte	0xb
-	.byte	0x39
-	.byte	0xb
-	.byte	0x49
-	.byte	0x13
-	.byte	0
-	.byte	0
-	.byte	0x4
-	.byte	0x24
-	.byte	0
-	.byte	0xb
-	.byte	0xb
-	.byte	0x3e
-	.byte	0xb
-	.byte	0x3
-	.byte	0x8
-	.byte	0
-	.byte	0
-	.byte	0x5
-	.byte	0x13
-	.byte	0x1
-	.byte	0xb
-	.byte	0xb
-	.byte	0x3a
-	.byte	0xb
-	.byte	0x3b
-	.byte	0xb
-	.byte	0x39
-	.byte	0xb
-	.byte	0x1
-	.byte	0x13
-	.byte	0
-	.byte	0
-	.byte	0x6
-	.byte	0xd
-	.byte	0
-	.byte	0x3
-	.byte	0xe
-	.byte	0x3a
-	.byte	0xb
-	.byte	0x3b
-	.byte	0xb
-	.byte	0x39
-	.byte	0xb
-	.byte	0x49
-	.byte	0x13
-	.byte	0xb
-	.byte	0xb
-	.byte	0xd
-	.byte	0xb
-	.byte	0xc
-	.byte	0xb
-	.byte	0x38
-	.byte	0xb
-	.byte	0
-	.byte	0
-	.byte	0x7
-	.byte	0x35
-	.byte	0
-	.byte	0x49
-	.byte	0x13
-	.byte	0
-	.byte	0
-	.byte	0x8
-	.byte	0x34
-	.byte	0
-	.byte	0x3
-	.byte	0xe
-	.byte	0x3a
-	.byte	0xb
-	.byte	0x3b
-	.byte	0xb
-	.byte	0x39
-	.byte	0xb
-	.byte	0x49
-	.byte	0x13
-	.byte	0x3f
-	.byte	0x19
-	.byte	0x3c
-	.byte	0x19
-	.byte	0
-	.byte	0
-	.byte	0x9
-	.byte	0xf
-	.byte	0
-	.byte	0xb
-	.byte	0xb
-	.byte	0x49
-	.byte	0x13
-	.byte	0
-	.byte	0
-	.byte	0xa
-	.byte	0xd
-	.byte	0
-	.byte	0x3
-	.byte	0x8
-	.byte	0x3a
-	.byte	0xb
-	.byte	0x3b
-	.byte	0xb
-	.byte	0x39
-	.byte	0xb
-	.byte	0x49
-	.byte	0x13
-	.byte	0xb
-	.byte	0xb
-	.byte	0xd
-	.byte	0xb
-	.byte	0xc
-	.byte	0xb
-	.byte	0x38
-	.byte	0xb
-	.byte	0
-	.byte	0
-	.byte	0xb
-	.byte	0x4
-	.byte	0x1
-	.byte	0x3e
-	.byte	0xb
-	.byte	0xb
-	.byte	0xb
-	.byte	0x49
-	.byte	0x13
-	.byte	0x3a
-	.byte	0xb
-	.byte	0x3b
-	.byte	0xb
-	.byte	0x39
-	.byte	0xb
-	.byte	0x1
-	.byte	0x13
-	.byte	0
-	.byte	0
-	.byte	0xc
-	.byte	0x28
-	.byte	0
-	.byte	0x3
-	.byte	0xe
-	.byte	0x1c
-	.byte	0xb
-	.byte	0
-	.byte	0
-	.byte	0xd
-	.byte	0x28
-	.byte	0
-	.byte	0x3
-	.byte	0x8
-	.byte	0x1c
-	.byte	0xb
-	.byte	0
-	.byte	0
-	.byte	0xe
-	.byte	0x15
-	.byte	0
-	.byte	0x27
-	.byte	0x19
-	.byte	0
-	.byte	0
-	.byte	0xf
-	.byte	0x34
-	.byte	0
-	.byte	0x47
-	.byte	0x13
-	.byte	0x3a
-	.byte	0xb
-	.byte	0x3b
-	.byte	0xb
-	.byte	0x39
-	.byte	0xb
-	.byte	0x2
-	.byte	0x18
-	.byte	0
-	.byte	0
-	.byte	0x10
-	.byte	0x2e
-	.byte	0
-	.byte	0x3f
-	.byte	0x19
-	.byte	0x3
-	.byte	0xe
-	.byte	0x3a
-	.byte	0xb
-	.byte	0x3b
-	.byte	0xb
-	.byte	0x39
-	.byte	0xb
-	.byte	0x27
-	.byte	0x19
-	.byte	0x11
-	.byte	0x1
-	.byte	0x12
-	.byte	0x6
-	.byte	0x40
-	.byte	0x18
-	.byte	0x97,0x42
-	.byte	0x19
-	.byte	0
-	.byte	0
-	.byte	0x11
-	.byte	0x2e
-	.byte	0x1
-	.byte	0x3f
-	.byte	0x19
-	.byte	0x3
-	.byte	0xe
-	.byte	0x3a
-	.byte	0xb
-	.byte	0x3b
-	.byte	0xb
-	.byte	0x39
-	.byte	0xb
-	.byte	0x27
-	.byte	0x19
-	.byte	0x11
-	.byte	0x1
-	.byte	0x12
-	.byte	0x6
-	.byte	0x40
-	.byte	0x18
-	.byte	0x97,0x42
-	.byte	0x19
-	.byte	0x1
-	.byte	0x13
-	.byte	0
-	.byte	0
-	.byte	0x12
-	.byte	0x5
-	.byte	0
-	.byte	0x3
-	.byte	0xe
-	.byte	0x3a
-	.byte	0xb
-	.byte	0x3b
-	.byte	0xb
-	.byte	0x39
-	.byte	0xb
-	.byte	0x49
-	.byte	0x13
-	.byte	0x2
-	.byte	0x18
-	.byte	0
-	.byte	0
-	.byte	0x13
-	.byte	0x2e
-	.byte	0
-	.byte	0x3f
-	.byte	0x19
-	.byte	0x3
-	.byte	0xe
-	.byte	0x3a
-	.byte	0xb
-	.byte	0x3b
-	.byte	0xb
-	.byte	0x39
-	.byte	0xb
-	.byte	0x27
-	.byte	0x19
-	.byte	0x49
-	.byte	0x13
-	.byte	0x11
-	.byte	0x1
-	.byte	0x12
-	.byte	0x6
-	.byte	0x40
-	.byte	0x18
-	.byte	0x97,0x42
-	.byte	0x19
-	.byte	0
-	.byte	0
-	.byte	0x14
-	.byte	0x2e
-	.byte	0
-	.byte	0x3f
-	.byte	0x19
-	.byte	0x3
-	.byte	0xe
-	.byte	0x3a
-	.byte	0xb
-	.byte	0x3b
-	.byte	0xb
-	.byte	0x39
-	.byte	0xb
-	.byte	0x27
-	.byte	0x19
-	.byte	0x11
-	.byte	0x1
-	.byte	0x12
-	.byte	0x6
-	.byte	0x40
-	.byte	0x18
-	.byte	0x96,0x42
-	.byte	0x19
-	.byte	0
-	.byte	0
-	.byte	0x15
-	.byte	0x2e
-	.byte	0x1
-	.byte	0x3f
-	.byte	0x19
-	.byte	0x3
-	.byte	0xe
-	.byte	0x3a
-	.byte	0xb
-	.byte	0x3b
-	.byte	0xb
-	.byte	0x39
-	.byte	0xb
-	.byte	0x27
-	.byte	0x19
-	.byte	0x11
-	.byte	0x1
-	.byte	0x12
-	.byte	0x6
-	.byte	0x40
-	.byte	0x18
-	.byte	0x97,0x42
-	.byte	0x19
-	.byte	0
-	.byte	0
-	.byte	0x16
-	.byte	0x5
-	.byte	0
-	.byte	0x3
-	.byte	0xe
-	.byte	0x3a
-	.byte	0xb
-	.byte	0x3b
-	.byte	0xb
-	.byte	0x39
-	.byte	0xb
-	.byte	0x49
-	.byte	0x13
-	.byte	0x2
-	.byte	0x17
-	.byte	0
-	.byte	0
-	.byte	0x17
-	.byte	0x89,0x82,0x1
-	.byte	0x1
-	.byte	0x11
-	.byte	0x1
-	.byte	0x31
-	.byte	0x13
-	.byte	0
-	.byte	0
-	.byte	0x18
-	.byte	0x8a,0x82,0x1
-	.byte	0
-	.byte	0x2
-	.byte	0x18
-	.byte	0x91,0x42
-	.byte	0x18
-	.byte	0
-	.byte	0
-	.byte	0
-	.section	.debug_loc,"",@progbits
-.Ldebug_loc0:
-.LLST0:
-	.4byte	.LVL0-.Ltext0
-	.4byte	.LVL1-.Ltext0
-	.2byte	0x1
-	.byte	0x5a
-	.4byte	.LVL1-.Ltext0
-	.4byte	.LVL2-1-.Ltext0
-	.2byte	0x1
-	.byte	0x5e
-	.4byte	.LVL2-1-.Ltext0
-	.4byte	.LVL3-.Ltext0
-	.2byte	0x2
-	.byte	0x78
-	.byte	0x6c
-	.4byte	.LVL3-.Ltext0
-	.4byte	.LVL4-.Ltext0
-	.2byte	0x2
-	.byte	0x72
-	.byte	0xc
-	.4byte	.LVL4-.Ltext0
-	.4byte	.LFE0-.Ltext0
-	.2byte	0x2
-	.byte	0x72
-	.byte	0x6c
-	.4byte	0
-	.4byte	0
-	.section	.debug_aranges,"",@progbits
-	.4byte	0x1c
-	.2byte	0x2
-	.4byte	.Ldebug_info0
-	.byte	0x4
-	.byte	0
-	.2byte	0
-	.2byte	0
-	.4byte	.Ltext0
-	.4byte	.Letext0-.Ltext0
-	.4byte	0
-	.4byte	0
-	.section	.debug_line,"",@progbits
-.Ldebug_line0:
-	.section	.debug_str,"MS",@progbits,1
-.LASF34:
-	.string	"timerVal"
-.LASF35:
-	.string	"TMR0_ISR"
-.LASF24:
-	.string	"reg_timer0_conf_bits"
-.LASF28:
-	.string	"_Bool"
-.LASF19:
-	.string	"reg_intflags_bits"
-.LASF31:
-	.string	"TMR0_SetInterruptHandler"
-.LASF39:
-	.string	"GNU C17 8.2.0 -march=rv32imc -mabi=ilp32 -g -O3"
-.LASF42:
-	.string	"TMR0_is_done"
-.LASF1:
-	.string	"unsigned char"
-.LASF27:
-	.string	"TMR0_InterruptHandler"
-.LASF5:
-	.string	"long unsigned int"
-.LASF3:
-	.string	"short unsigned int"
-.LASF36:
-	.string	"TMR0_StopTimer"
-.LASF21:
-	.string	"INT_TMR"
-.LASF37:
-	.string	"TMR0_StartTimer"
-.LASF14:
-	.string	"INTFLAGS_bits_s"
-.LASF15:
-	.string	"RXIE"
-.LASF11:
-	.string	"RXIF"
-.LASF9:
-	.string	"__uint32_t"
-.LASF30:
-	.string	"TMR0_clear_int_flag"
-.LASF8:
-	.string	"unsigned int"
-.LASF38:
-	.string	"conf"
-.LASF7:
-	.string	"long long unsigned int"
-.LASF33:
-	.string	"InterruptHandler"
-.LASF32:
-	.string	"TMR0_WriteTimer"
-.LASF17:
-	.string	"TMR0IE"
-.LASF13:
-	.string	"TMR0IF"
-.LASF20:
-	.string	"reg_intcon_bits"
-.LASF6:
-	.string	"long long int"
-.LASF43:
-	.string	"TMR0_Initialize"
-.LASF29:
+	.section	.gnu.lto_.icf.3f7090b637a4b036,"",@progbits
+	.string	"x\234cg``\260e@"
+	.string	".\206\323\367\033\21711>y}\371\007#\363\351\357\327\346r\260\334\335\326y\213\233u\357\303w\355\254lO\276\255\371\316\306~\347\311\301\337|\034W\0366\237d\343<t\350z\037/W\323\361\3051\f"
+	.ascii	"\360\237\037\272"
+	.text
+	.section	.gnu.lto_.jmpfuncs.3f7090b637a4b036,"",@progbits
+	.string	"x\234cg``Pd@"
+	.string	"N fd``f``\001\262\352\025\330\030\030\330\031\0308\300\022\\ \005"
+	.ascii	"\026\214\001\001"
+	.text
+	.section	.gnu.lto_.inline.3f7090b637a4b036,"",@progbits
+	.ascii	"x\234\205\220a\n\200 \fF\277\246\271\254\250{u\215\262cD\335"
+	.ascii	"\264\243\264\r\f$\302\375\220'{~\0332\200\245\301[\021p\247\224"
+	.ascii	"_\001\242L\036\227\320A u\032\264\326\330D\t\231J\305\201\265"
+	.ascii	"\021T\3513\225\212\307(\267\273\335E\231,%}Rf=\003\274%\350F"
+	.ascii	"/\225\"\3277\352\352J\254\017\352ao9\375+4\330\027\341\001P\316"
+	.ascii	"C\247"
+	.text
+	.section	.gnu.lto_.pureconst.3f7090b637a4b036,"",@progbits
+	.string	"x\234cg```\004b\006"
+	.string	""
+	.string	"M"
+	.ascii	"\t"
+	.text
+	.section	.gnu.lto_TMR0_DefaultInterruptHandler.3f7090b637a4b036,"",@progbits
+	.string	"x\234cg``\230"
+	.string	"\304\242@,\003\304\f\314\f\214L\377\377\377\257gi\344`bd\004\263\030\030\031\352\231\030\353\031;\231'23~\371>\373)\257\326\212\006 80}\032[[C\253\304Lf\006\206\311\314\fP\300\270\233Q\213\201\001\250\362\321\306\177Sy\331X\240R\214{\030\331\200\00610\254\277\304z\240\341\337\377\366\206\003G\2262\316ucb`hef\370\017\005\362\214\fm\314L\b\036\363\033\306&\005\260V\020hefDH\0015\n\353\351\351'\347\347\346\346\347\351\227d\346\246\026\031\350%3"
+	.string	""
+	.ascii	"\270\236F\363"
+	.text
+	.section	.gnu.lto_TMR0_StartTimer.3f7090b637a4b036,"",@progbits
+	.string	"x\234MOMK\002Q\024\275g\356d*XP\004-\202Z\273\030s\335\337h\331*q\321\302\204h\357\2148}\254\372\242l0\301\020A\204\220\210 \372\234\f\242E\253\326\255\202H\301vF\233p\272o\032\260\003\217\367\336\275\347\236s\3170\021\315\203hB\356)9\304\004\315\363\274\234n\2055\300\177\021(\247!\207M\336a\364\276K\357\261x\335\024\270\305\327I\263\356\302a\242=\246"
+	.string	"\270B\234H\230o\247\375\375XH\017Z\270FH\204\210\232/C\256\331\367\326M\267?\326\030\321A\016K\331f\362\002L\203\326X\033\374\270\215\374a\347bA)\024\031\242lmm\237\214n\260\303\032\224Q\271\376\354E\n\310[a\251\224\225\233\024\177\032\347G\321\032\252\262\035p\213\002p\003\t\210;\324@m\264zOsJ\360\277\032|\265\263n\347X8U\253`\231\225K\265\036\213+\\5-\355\222]>\210&\233\246tg\034\326q/\334\335\277\204-$\205\360\371\370\265\250\324t"
+	.ascii	"\0172\324E\276\362\021\361\343+\330\214A4\215h\3340\022\251l"
+	.ascii	"&\223]N\254.e\322+\263F\212~\001@\024\204\023"
+	.text
+	.section	.gnu.lto_TMR0_StopTimer.3f7090b637a4b036,"",@progbits
+	.string	"x\234\215\221KKBQ\020\307\347\177\306\314\004\t\222\240EPk\027\232\353>A\337\241\235\264haB\264\367^\321\036\253^\224\211\t\206\bV\204D\264\351y\263\227D\253>B\020(\271\024\332\210\2679WA\241\202\006\316sf\376\363\233s\006\211\350\023D\243\262\216\313 &(\333\266\343.\323\243"
+	.ascii	"gG\240\270B\034k\274\311h~e?|\201\222!f\245[cF\311B\206\211\266"
+	.ascii	"\231\272\206K\004\210$\362\375\264\275\343s\273\272.\\\301-B"
+	.ascii	"D\345\267\001\313h\333+\206\325\366\277\214\270A\031\206\322"
+	.ascii	"\023Q\212\311\356\332\004h\231U\357\3045$\366\352\325Y-\223f"
+	.ascii	"\210\274\271\276q2\274\312\031V\320\325r\245W{(\211\204\351\221"
+	.ascii	"\233\234.)\227\255\243\363}o\021\005A\004n\220\004\256!]\342"
+	.ascii	"\026EP\r\225fuZ\013\366\253\301Q;k\324\017$\246`&M#\177\241\031"
+	.ascii	"Y\252\302\322\331\342\316\246r\273\336p\331\020\357d\206]\270"
+	.ascii	"\223\330\255N\233\025\204\373\345\\ \334K\226\306?\234\351\320"
+	.ascii	"\253\177\341>\364p\037\177\340\376\312\247\376\344{r\370\364"
+	.ascii	"\353\343\031a\007\250\201D\376\330\353\374\212\266\024\243\367"
+	.ascii	"\330\212\310\037\f\206\"\261h4\266\020Z\232\217\316-N\005#\364"
+	.ascii	"\r\236\310\261\365"
+	.text
+	.section	.gnu.lto_TMR0_ISR.3f7090b637a4b036,"",@progbits
+	.string	"x\234\215\221\273K\003A\020\306\347\333\271\2341(\026*\"\bZX\245\210\332\372\027\370G\330\211\205E\024\304>w1\211Z\371\302G\320\200\022\002A\020\021\261\361y\276\025\254\254D;E\210b)\330H\316\331M A-\034\270\335\275\235\231\357\373\355n\r\021\365)\242f\231{\345\243"
+	.string	"A\371\276\037\263\334\240RlVN\310*\315u\f\253\234\263"
+	.string	"\263\"PL\261\205\030\246x\226\361\361\271\362R\037\316;\022\336\322j\253\223\367\220f\242y\246r`\037a\"\251|\332..\324\333V9\205\003\330\"E\264u\027\360\234\242?\341x\305\246\215\226 (\315P2(\326\003Q\222\311/G;(\305\252\362\307\005\304\227_\357\373\265\326\022C<\334\351\231\315\206IN3C[f\362\267~m\002q7(;\031\355+\233_\033\273\253\241\034\262\302\t\034!\001\034\242M\200\216\221\003\025p\372q\335\247\005\253\325`\324v\336_\327\245&\353&\\gmO\203Z\342\nOwKz%\231Y\f\365l9\222\355Hs"
+	.string	"'R;W:\353)z\252\345\002 \234I\227\301\177\b\225\360Uu\205\375\013\337\316\310\221~\340+\\h\374s\203\177\251\361\237\221(\234u\376!\250\304\362J\327I\244\230\177\336\341\243]\352\341\177\271^W\\o\264\353\033\306;\314{\212\200\334J\215\361\260\252<\336\021_\3734\3474"
+	.string	"IF%)O\334\030\211t\r\214D\243#\303]cC\321\301\321\356\310"
+	.ascii	"}\003\335\356\3359"
+	.text
+	.section	.gnu.lto_TMR0_WriteTimer.3f7090b637a4b036,"",@progbits
+	.ascii	"x\234E\216\315KBQ\020\305\347\274y\226\024\326\"\020\n\373X\264"
+	.ascii	"\020\027\317\376\210\376\206h\033\322\"\310\204h\357}\222}.*"
+	.ascii	"*D\222R\242\020\"\"ZV\3662\bj\331\307\242\226Q\241\340&\020\""
+	.ascii	"\b_s_\202\007.w\316"
+	.string	"0s\346\327ND\343 \032\220?$\217\230`\270\256\2334m\277\001x\025\201\222\006\222X\346\rF\375{\347#\020)*\221\223)\365\252\242\203,\023m25\205sDd\356k/\375\303K\234e\300\024\373\272\353>\006\26450$\366\375yu\224\203 )k+\237V\370P\251\224r~cj8\313\214\022X\362p\211\020. T\322\223\334+\204I/\274\2356\266\003mf\363$\034\264\t \321\311\203\317Q\rwQ9\267\301\373>\037d\313\224\343\336V\232\311mj\020\264\300F\313q\005\251z\245j\352\234\fC\362_\236\266\n]\032\325DN9\204kA\250\240\234\273\353\32732`\257\255\037w\377\017h\236\263Z\265\200\003\354\333\363\266\312wd\331'1(kn\334H?#\3605\244\362G\235\036\252V\232\321\0020\210z,+\032K\304\343\211\231\350\334T|rv\304\212\221\337\253\306&\246\377"
+	.ascii	"F\332\210\354"
+	.text
+	.section	.gnu.lto_TMR0_clear_int_flag.3f7090b637a4b036,"",@progbits
+	.ascii	"x\234M\217;K\003Q\020\205\347\354\2541F\202\205(\b\242\326)6"
+	.ascii	"\346_\370\007\354\354\202\205E\f\210}vC\342\253\361\205\306%"
+	.ascii	".$\204\300\"H\020\261\361\271\306\306\302\312\322R\021\022\b"
+	.ascii	"\330\004m$\353\334u!9p\271\367\316\343\2339\303D\264\b\242\t"
+	.ascii	"\271\247\345\020\0234\337\367s\272\025\325\200\340E\240\234\206"
+	.ascii	"\034\266y\237\321\375)\177\306\023\256)\362JoS\246\353\301f\242"
+	.ascii	"C\246P\270A\202H*\337/zG\361\210\036\246p\213\210\200\210\032"
+	.ascii	"\257C\236\331\3637M\357{rgF\007\331,\341\"\223\037j\026\264\301"
+	.ascii	"Z\377\307-\344O\332_K\212Pb\b\331\332\335;\037\333b\2335\250"
+	.ascii	"A\216\373\342\217\024\220\267\242\022q\3244\t\376\236]\235\306"
+	.ascii	"\352\250\311v\300=\n\300\035\304 \036P\007\265\320\354>/(\340"
+	.ascii	" \r\001\355\262\323\256JM\315*Xf\345Z\255\3072\025\236\352\226"
+	.ascii	"t\271\350\034\307R\rS\262s6\353x\224\332\203\177\207M\244\006"
+	.ascii	"qb\rO\322\325A\276\3621\032\370W*2\372\3364\242q\303H\246\263"
+	.ascii	"\231Lv5\271\276\222Y^\2337\322\364\007\245\225\203\222"
+	.text
+	.section	.gnu.lto_TMR0_is_done.3f7090b637a4b036,"",@progbits
+	.ascii	"x\234e\220\315K\002a\020\306\347\331Y\315\222\350\020\021\201"
+	.ascii	"`'\003\017j\364\317t\227\016\035,\210\216\201\357.f\037\227\276"
+	.ascii	"5)\017}\030\"DDt\252l\263C\227N\235:y\b\022\205N\021\204 n\363"
+	.ascii	"\252P\320\013\373\356\354<\317\374ff\373\210\350\fD#\362\236"
+	.ascii	"\220\207L\202\341\272n\322\264|\006\270\0271\320\211\b\2244\030"
+	.ascii	"I\254\361\026\243\376\364\376\351\017\027\225\262\225\223\375"
+	.ascii	"\032K\025\035\344\230h\207\tS\001\304\002\032G\270A\230H\334"
+	.ascii	"o\227\355\275A\257\251e\235\276\205Wh\004Q^\233\307\323\241S"
+	.ascii	"\2452\312\251}\373\005c\215\377\347\020\356\020\272x\3618\252"
+	.ascii	"\355\256(\247:Z\nz@9\206!\227a\222\256\240e&\267w\202\2404\033"
+	.ascii	"\277_\\\207\275\337h-\351\306Y\326m\255\215\315\363\241U\316"
+	.ascii	"1C\317\227/>\273\375)\330\226O2yM\223d\253t}8P\300\211,\006\334"
+	.ascii	"#\005\224!\363\300A\001TG\245\334\337\345\031\177y\350\360\256"
+	.ascii	">\032G\342:\261R\226\222}Li\212\007],\332\301r>30y\241\272\222"
+	.ascii	"\007\0251nw\377\313#&\005lW\327\233\376.Z\n\r\021\322\314\177"
+	.ascii	"\226\251I\217]\231\373\003\366x\317F\235\375\361k\222\252\341"
+	.ascii	"H$\032\237O$\346\347\242\213\263\211\231\205X$N?\245\324\240"
+	.ascii	"\326"
+	.text
+	.section	.gnu.lto_TMR0_SetInterruptHandler.3f7090b637a4b036,"",@progbits
+	.ascii	"x\234E\216OKBQ\020\305\347\274y\251\005V\020\004\201P\213\bq"
+	.ascii	"\241}\n\251\217\021\352\"H\215\207\255}>\264\f\202\n\013\221"
+	.ascii	"\264\2020\245\210h\321\252\177\257\202V\255j\027\256\222\240"
+	.ascii	"\240\026A\020\201\370\232+\202\007\206;g\270s\346\347&\2420\210"
+	.ascii	"\246\344\365I\021\0234\307q\322z\306\243\001\235\216@i\ri\254"
+	.ascii	"\362&\343\347w\347\315\033\250\233\"\273\330\0363\3536JLT`\352"
+	.ascii	"\n\027\b\310\277\357\275\334\037\347\271\304\200.\366e\327y\366"
+	.ascii	"*\253aBl\363\341\253\341\346Q\220\364\307\215\374\226\333\177"
+	.ascii	"h\232\226i\267\242\346d\211\031\327`I\304\025|\270\204p\311L"
+	.ascii	"\222o\340'\265\361z\326\336\366\272\364\356Q\330p\t\"\321\351"
+	.ascii	"S\237m\266\235\025\211\251\241\020\326\205\277\263\221cr\272"
+	.ascii	"\032\007-\263\326s\374\016\253\374\221o\016\252\020I\316\254"
+	.ascii	"o\234\f)L\275\203V\251?:\375YX\031\217L*\352\232\f[G\347\345"
+	.ascii	"\201*\016\240@\357\220\005n\025\"\356QE\2215\372\204\265_[C\007"
+	.ascii	"K)\307\350\035\324\210F\202\301P$\031\217'\023\241\324|<fL\007"
+	.ascii	"#4<\233H\305\fci153\227\210.\304\214\177)\352\206\244"
+	.text
+	.section	.gnu.lto_TMR0_Initialize.3f7090b637a4b036,"",@progbits
+	.ascii	"x\234U\220\317K\002Q\020\307\347\273\263\251\375\220\210@\"\202"
+	.ascii	":t\020\017\326\377d\t\035T\210\356\276\025-\353R!%K\2776\243"
+	.ascii	"\260CT\b]\314\332\354\007\004\021\364\343\3241\b,\272\004A\324"
+	.ascii	"\241mv\023\242\201\307\233\2317\363\235\317<?\021\225@\324+w"
+	.ascii	"\237\034b\202\3468NZ7\002\032\340y\004JkHc\232\347\031\357\037"
+	.ascii	"KO\301HY\211\331\305\275\036U\266a2Q\201\251i\250\"\"uok\271"
+	.ascii	"O\316\263\311\200.\341\303\252s\027tC\r\003\022\036\224\252!"
+	.ascii	"\016\201\304=_\254}u\204\267\224\312(\373~D\r\232\3148\002\213"
+	.ascii	" j\350\303!\004Kr\"|\2140\271\035\217\373\337\013A\237\336\234"
+	.ascii	"\t\033>!$\332\275m\261\325\2673\245\354\353\256\231v\037\244"
+	.ascii	"K\227\351^W\216\311iZ?h\222\265\277\210\033\310\2747\226tW\247"
+	.ascii	"\310\020\375\233\325\213\270\213\252\303R6\341D\b\032\250/_F"
+	.ascii	"\334\022y7f\347v:\177\013\\\234\312\353\363:6\261ad\re\265\231"
+	.ascii	"\334\"*\250\273\3308\225|Q\330_\220\265\266\341\221J\303J\371"
+	.ascii	"\312i\315\"c\004L\366\025X\330q\206,\376=\345\225\0320\331_\220"
+	.ascii	"\377\362\366;\227\002\223\003\364\212\214Ui\365r\256\345\030"
+	.ascii	"\177\233hD\335\321\350P,\225H\244\222C\023c\211\321\361\341h"
+	.ascii	"\214\364X*\031\377\001Ia\234\314"
+	.text
+	.section	.gnu.lto_.symbol_nodes.3f7090b637a4b036,"",@progbits
+	.string	"x\234cg``\220`\004\022L\234\365\f\377\241@\236q\3029\006\206z\006\206}\013\035\2012L\365\214\2302\215@\031V.\006\005\220V\346z&\354\n\230X\352\231qhe`lW\002\351e\255g\301\241\227\255\236\025\207\f{=\033\016\031\216zv\0342\214\365\034\330eX\220\354?\314\310\300\314\305\211\340'3"
+	.string	""
+	.ascii	"?\352~\213"
+	.text
+	.section	.gnu.lto_.refs.3f7090b637a4b036,"",@progbits
+	.string	"x\234\025\206\307\021"
+	.string	" \f\303\\\360\005\330\205\375\327#y\250\024\200\327\220\020\345\026d\257i\214\204\325\313=:\fy\005\343\003\022<"
+	.ascii	"\233"
+	.text
+	.section	.gnu.lto_.decls.3f7090b637a4b036,"",@progbits
+	.ascii	"x\234\215WkPTW\022\276}\317\300\f\303\340X\300n\250\354T\205"
+	.ascii	"R4!\311*\352\217\255\312\257dc6\241j\243U\t\331\255\370gBpD\252"
+	.ascii	"\020\334q\314\217\375\263\027\004D\026\001\211\341\245\002\362"
+	.ascii	"\020H\326]uc0\030\005\037DQ\221\267\"A@D!\030y\250(\240\206\355"
+	.ascii	"\363\230\231{\201q\271Ug.\335\247\373\373\272\373\3649\347\242"
+	.ascii	"\227$i\304O\222v\200$\355\227%i\006\037#\352Z$\367\343\203\243"
+	.ascii	"\031G;\216N\034\3358\356\342\030\306\361\020\3074\016\177\364"
+	.ascii	"Gw)\004\337\313A\322<\007Q\246\252\315B\006\2017\373\251\302"
+	.ascii	"\t/a\267\024\377~\025\307\022\034\257\t\177\213x\267\013\214"
+	.ascii	"\220Y"
+	.string	"<G_\340Oc\373\035\2701:=`|\217\262A\205\361D\322\342\204\342h\022\276/\013,Z\017O\2717\242\354-\360\374q\004\342\270\215\343\r\324\277\016\356z\334\235\247\036\035\377\247\036N\376a\017\271\f\n\3561\341\377\322\0130\036\252rxs\026\316\204*\016g\016\264.\241\252\370\247\305{v\376\313d\336?j_3\270\363\377\275\250\361\224\260'\022\357%\2127_\217\354!p\266\244\373*\364\302M\312\004\364\341\314\352\207\3123\316\207\316s\003\031\234\223\334j\266\033\235\223\201\333\313*(\215\201\033W\205\006<\020\026\214\344v\346\006\"@pF\240\212\f4\370\332I\221\031\314\033\250$8\260\036G\316\344N\231\t\"\343\337\r\235\373\016\231S\t\370\033AFq\274(y\212pQ\207bW\341L\233\037\212\201F\bF\261\271\255\342\244\316\230\252\340\323\247(\376\037P\263Z\260\300i\260 g\035\3409"
+	.string	"+-p\nE\264>p\355i\212\037\307\"(V\366\035~\356\305\261\202P\354\230<5m\"\257\320 Hm]K\262\037\030-\200X\200\360\211J]\261\342\035$\301\032\013\204Y$8\007\004\3163\364\037\321\242\036\341\013\0244\033\373\007\323\026(\006\366F\320\212\353\275\343&\377,\032 \375\301\202\340\004\234E\2473,\304\013\340\357\f\224\232W\345\227\327\310KB\212\225\274`6\205\252\363\023\035\007\r:,\025\\\204%\314\250F\251\271h&\257\261j\235K\317\371\326\204\263p\t#j"
+	.string	"\0353\270ta\240\311DV1\203\216_\322\207H\330\277\025\376\030\322\211\004W\200\270[\261\265s\360\261\201\027a1\212\307\272.d\032\203r\250m\263\242\004\313\260\371\267p\025x\005%h\202 \374\375B\307]K\223\273o{-=\250\364\325)u\243\371o\346]I\240>\312\333\314\016~\300\200\032!\f\355/cXT\244\355q\022\333\036_\315\260\224\222\245~7\246#\2210\177\232\232\324ZEj\373\016M\327\230\220\263\0309\037|\256\354E\276\305\214\256\305E\327F\351Z4t\355\214\256\241\267\272\307L\376\266\020\272k\202\356\342\265\322J\275\223.JE\327\341\242\273N\351:4t\235\214\256\365X\365\036\023\301%_"
+	.string	"_\227\340\353*\271w\334\350\344\333\250\342\273\341\342\373\211\362\335\320\360u3\276\374\003\375\307|\311\256\005\361\365\b\276\321\372\221\377\352q\365_5\002\335\260fTe%\364\3366q\025\353\310\262=%\336$\237\243\356\254\254\270c2\262\375\300\266\233\344\332l\320\017\314\205\306\b\267P\331\307\267\\e\346\351\277\2600nc\333c\343\240\352\360\245\252Zo\217-v\207\265\330"
+	.string	"\210\036\273[\226R\350+\n2m\023\005A\033<;\235\005\351\245\005\271\251)\310]V\220\313\267\nZ\214\244dA\005\031\022\005\2719\264\277\331O\360\roR-\300\240\213\357g\3127\250\341\033f|\345)G[\215\344\273\005\361\375\"\370\032\353\333\362\364\344\034\363!I\311C\231\354\304\361\301\301\016\224\3050\006>\322Nv"
+	.string	")\305\301\340:\200F\020\203NI0\216\016\243\354"
+	.ascii	"20\r\202\236\311\354(\323\253+\214zU\211\037hv\361q%\361)\021"
+	.ascii	"\031\267F\213\214\321\004\356\2712\276O3\276\247\311\370!\257"
+	.ascii	"pFn\205\2314,(\343\t\221\361\221\354\373\215~\2464W\017\261\352"
+	.ascii	"\272\317\354'`\022'S\315\325\347?\310\f\017u\242w\272\223&[\r"
+	.ascii	"\036{g\212%6\351\354\235\3755m\211fq>M;3C\033x\344\312\3541\315"
+	.ascii	"\354\221&\263i\226YA\306\211\3732\351_Pf\317fm\246O\347n\246"
+	.ascii	"O\371f*>\275;\207^f\033\214`@q`\242\276\326\217<\340$\243\325"
+	.ascii	"\235\303^\0242A&\240\310\026\006\351\274\3756\360\333/\255?\275"
+	.ascii	"K&\317\304f\034=\221\343C\035\222\320a\207l\201DY\247\276@7\360"
+	.ascii	"\0134\341\360W\325\0062\303}\036\027f\264\373R\237\235\350\223"
+	.ascii	"\202>\311\334'o\357\361\243\213H\"\277\201\033K\373\306\031\360"
+	.ascii	".4z\303\002\251\314F\236\270\364<\027\300\020\2322\317\366\227"
+	.ascii	"\340\237\262\201\326\024\322\345PH\223u0\2033\277\342L\005]\253"
+	.ascii	"\272\353\rA\205\264\372h%\361\322\273.\240\354\274\226':R\310"
+	.ascii	"\250\345+)\271\307\364\020j\340^=\253\360\306\202LD\336-\023"
+	.ascii	"\247\033\303\220\244\371\242\200\f$\367\024\bR\265_\251o\324"
+	.ascii	"\263u\244\230\274\243\366}9\230"
+	.string	"\346\271\243\366\310\264\243\262d\321Q\317\322oT/\022{e4?\370V\272\242$\243\243\216\332\301SWW=\247]\365T\323U\3312\355\252S\311\225\331z\3625/\263\363k$\220\177\2158\227-\220-\033y\224\370`\2677=\013\214\356\263 W6J\251s\316\002\211\351%\310\303\345\314\221\371A@5\210\231\234\361,\333Lj\031\237\276\360\347\246I\002\313\350\023\032P\312`f:C\212Nd)\225C@=\330z\027\313\001\260Z\340\342\227\0236n\241\274\fV\241(q\237\256W\222\224\264\267\230}\222G\373\257d\267C\253\333a\247G\207\325n\373~\267}\276G\373\275N\002l\223\221\"9II}\013,F\211Y\257qY\343\017\213\234\267\323\217E\376\t\364\023\fm\264MHg?\323t3\205\241MT\204MT\200t\373q\354\303q@^&\332\266\351\373\351\f\037\362\023_\312o\307\022\016\221"
+	.ascii	"\304I\320\340\300A\021?\273\025\347\307\331q\376\326c\037\365"
+	.ascii	"qX\202\366\356@Je\347q89p\265\307{y\231R\214%\372\265\350\345"
+	.ascii	"\001\245\370\342\333t\032\276\344{C\345\204\032\332ze\362r\364"
+	.ascii	"\373\317\365N\274\300Gx\240\371\005Y\273\374(\310Y\332\300Ay"
+	.ascii	"\330\300\273\f\354|-\237\203R\316Q\0161\224\342\361\275\355:"
+	.ascii	"u\230\224\331m[\301\303\244o\332\312=c\0352\375L\330\361\342"
+	.ascii	"N\205J\331\210\346\3037\256\315\350\325\3304\0367v\225\300\256"
+	.ascii	"b\330\203\273g\006|9\366\002?AN\036\271\323oP\303\177-\253\377"
+	.ascii	"I\370F\300\177\303\340\353/\367+\020R\302\373\352%%\325\200\347"
+	.ascii	"\001\273\355\234\377\337\374K\016A\263\304\362\316;\262\032s"
+	.ascii	"Js\211\035\026\230\364m\211\370\360\2430\353Z\333\246\310\355"
+	.ascii	"\261\216\3608\207\315n\337\276\325\361Ad\334\306X\233]\027\265"
+	.ascii	"9\322N\326\207I\206\370\255\216\230-1\177\267\371\257X\2612*"
+	.ascii	"~\313\226\370\270\225\250\260\331\303VD\031\336_\367I\360\273"
+	.ascii	"\253\376 \005\314\235\223\314\f\376cG\244\335\021Au\213\204\034"
+	.ascii	"\277\225\211\006&\206\177\374\021\267\373\253=\306a\343\023\333"
+	.ascii	"c\342\034kV[\035\001l\"*"
+	.ascii	"\326\026i\267\242\312\272)62\332\304t1\333\254\033\343\343l^"
+	.ascii	"\326?\306\307\307\006q\\\333\234\0248px\\\214#&2\026\023\360"
+	.ascii	"y\347\223\210\365\326?\257\177g\255\374\336:\371\375\365\372"
+	.ascii	"\360u\021V\264\231\033\374f\311\227\371\276\033\037\267)&:\320"
+	.ascii	"n\213\266\362\031k\024j\254\237\3078\266\3519\330Z\225\363\027"
+	.ascii	"\221\366h[\034:\373G\204\177\370\036u_\277\356O\314\330\272\355"
+	.ascii	"7\"\026m\204\377\003\240-rY"
+	.text
+	.section	.gnu.lto_.symtab.3f7090b637a4b036,"",@progbits
 	.string	"TMR0_DefaultInterruptHandler"
-.LASF23:
-	.string	"TIMER0_CONF_bits_s"
-.LASF18:
-	.string	"INTCON_bits_s"
-.LASF2:
-	.string	"short int"
-.LASF25:
-	.string	"AUTO_LOAD"
-.LASF16:
-	.string	"TXIE"
-.LASF12:
-	.string	"TXIF"
-.LASF10:
-	.string	"uint32_t"
-.LASF4:
-	.string	"long int"
-.LASF0:
-	.string	"signed char"
-.LASF22:
-	.string	"AUTO_LD"
-.LASF41:
-	.string	"/home/saul/projects/tinyfpga/gcc_tests/c_timer"
-.LASF40:
-	.string	"../common/timer0.c"
-.LASF26:
-	.string	"TMR0_Config"
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	"\320"
+	.string	""
+	.string	""
+	.string	"TMR0_StartTimer"
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	"\324"
+	.string	""
+	.string	""
+	.string	"TMR0_StopTimer"
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	"\330"
+	.string	""
+	.string	""
+	.string	"TMR0_ISR"
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	"\334"
+	.string	""
+	.string	""
+	.string	"TMR0_InterruptHandler"
+	.string	""
+	.ascii	"\004"
+	.string	""
+	.string	"\004"
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	"&\001"
+	.string	""
+	.string	"TMR0_WriteTimer"
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	"\346"
+	.string	""
+	.string	""
+	.string	"TMR0_clear_int_flag"
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	"\352"
+	.string	""
+	.string	""
+	.string	"TMR0_is_done"
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	"\363"
+	.string	""
+	.string	""
+	.string	"TMR0_SetInterruptHandler"
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	"\372"
+	.string	""
+	.string	""
+	.string	"TMR0_Initialize"
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	"\022\001"
+	.string	""
+	.string	"reg_timer0_conf_bits"
+	.string	""
+	.ascii	"\002"
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	""
+	.string	"$\001"
+	.string	""
+	.text
+	.section	.gnu.lto_.opts,"",@progbits
+	.string	"'-fno-openmp' '-fno-openacc' '-march=rv32imc' '-mabi=ilp32' '-O3' '-flto'"
+	.text
+	.comm	__gnu_lto_v1,1,1
+	.comm	__gnu_lto_slim,1,1
 	.ident	"GCC: (GNU) 8.2.0"

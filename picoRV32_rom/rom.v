@@ -9,9 +9,9 @@
 //`define FIRMWARE "/home/saul/projects/risc5/gcc_tests/c_serial/test_serial.hex4"
 //`define FIRMWARE "/home/saul/projects/risc5/gcc_tests/assembler_delay/delay.hex4"
 //`define FIRMWARE "/home/saul/projects/risc5/gcc_tests/c_delay/c_delay.hex4"
-//`define FIRMWARE "/home/saul/projects/risc5/gcc_tests/c_timer/test_timer.hex4"
+`define FIRMWARE "/home/saul/projects/risc5/gcc_tests/c_timer/test_timer.hex4"
 //`define FIRMWARE "/home/saul/projects/risc5/gcc_tests/c_func_pointer/test_pointer.hex4"
-`define FIRMWARE "/home/saul/projects/risc5/gcc_tests/c_spi/spi_master.hex4"
+//`define FIRMWARE "/home/saul/projects/risc5/gcc_tests/c_spi/spi_master.hex4"
 
 module rom256(input clk,
 			input wen,
