@@ -4,10 +4,15 @@
 	//VERIL exposes the memory interface so that Verilator and a C++ program
 	//can externally connect a ROM. The internal ROM and its signals are disabled.	
 //`define VERIL
+
+	//SYNQ_IRQ synchronizes IRQ5,6,7. This is required if they are external inputs
+`define SYNQ_IRQ
 	
 `ifdef PICORV32_V
 `error "vargen.v must be read before picorv32.v!"
 `endif
+	
+
 
 `define PICORV32_REGS picosoc_regs
 
@@ -61,6 +66,39 @@ parameter [31:0] PROGADDR_IRQ = 32'h 0001_0010; //
 reg [31:0] irq;
 wire irq_stall = 0;
 wire irq_uart = 0;
+
+//Syncrhonize external interrupts if needed
+wire irq_5_sync;
+wire irq_6_sync;
+wire irq_7_sync;
+
+`ifdef SYNQ_IRQ
+	reg irq_5_meta;
+	reg irq_6_meta;
+	reg irq_7_meta;
+	
+	reg irq_5_stab;
+	reg irq_6_stab;
+	reg irq_7_stab;
+	
+	always @(posedge clk) begin
+		irq_5_meta <= irq_5;
+		irq_6_meta <= irq_6;
+		irq_7_meta <= irq_7;
+		irq_5_stab <= irq_5_meta;
+		irq_6_stab <= irq_6_meta;
+		irq_7_stab <= irq_7_meta;
+	end
+	
+	assign irq_5_sync = irq_5_stab;
+	assign irq_6_sync = irq_6_stab;
+	assign irq_7_sync = irq_7_stab;
+	
+`else
+	assign irq_5_sync = irq_5;
+	assign irq_6_sync = irq_6;
+	assign irq_7_sync = irq_7;	
+`endif
 
 always @* begin
 		irq = 0;
@@ -285,9 +323,9 @@ assign interrupt_flags[0] = uart_rx_int_flag;
 assign interrupt_flags[1] = uart_tx_int_flag;
 assign interrupt_flags[2] = timer0_int_flag;
 assign interrupt_flags[3] = spi_master_int_flag;
-assign interrupt_flags[4] = irq_5;
-assign interrupt_flags[5] = irq_6;
-assign interrupt_flags[6] = irq_7;
+assign interrupt_flags[4] = irq_5_sync;
+assign interrupt_flags[5] = irq_6_sync;
+assign interrupt_flags[6] = irq_7_sync;
 assign interrupt_flags[7] = 0;
 
 

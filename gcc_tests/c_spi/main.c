@@ -6,8 +6,6 @@
  */
 
 #include "hardware.h"
-//#include "spi1.h"
-
 #include "mcp23s17.h"
 
 //#define SPI_IRQ
@@ -18,12 +16,11 @@ int main()
 
 #ifndef SPI_IRQ
 	unsigned char aux, rec;
-	volatile unsigned char irq_en;
 
 	SPI1_Initialize(CLKS_PER_HALF_BIT);
 
-	//MCP23S17_setAddress(0x20);
-	//MCP23S17_setTrisA(0x00);
+	MCP23S17_setAddress(0x20);
+	MCP23S17_setTrisA(0x00);
 
 /*
 	//Test exchange byte in loop back test
@@ -52,9 +49,6 @@ int main()
 	// Test port expander
 	aux = 0xff;
 
-
-	irq_en = 1;
-
 	reg_intcon_bits->IRQ5IE = 1;
 	reg_intcon_bits->IRQ6IE = 1;
 	reg_intcon_bits->IRQ7IE = 1;
@@ -70,6 +64,7 @@ int main()
 				aux++;
 			}
 			reg_intcon_bits->GIE = 1;
+			__delay_ms(50);
 		}
 
 	}
